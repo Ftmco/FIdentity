@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Fri2Ends.Identity.Services.Srevices
 {
+    /// <summary>
+    /// Account Services 
+    /// </summary>
     public class AccountManager : IAccountManager
     {
         #region --Dependency--

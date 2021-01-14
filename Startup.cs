@@ -39,12 +39,7 @@ namespace Fri2Ends.Identity
 
             #region Dependensies
 
-            services.AddTransient<UserServices>();
-            services.AddScoped<LoginServices>();
-            services.AddScoped<SessionServices>();
-            services.AddScoped<RoleServices>();
-            services.AddScoped<SelectedRoleServices>();
-            services.AddScoped<AccountServices>();
+           
 
             #endregion
 
