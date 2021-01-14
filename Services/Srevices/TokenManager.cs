@@ -1,91 +1,43 @@
-﻿using Fri2Ends.Identity.Services.Repository;
+﻿using Fri2Ends.Identity.Context;
+using Fri2Ends.Identity.Services.Repository;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Fri2Ends.Identity.Services.Srevices
 {
-    public class TokenManager : ITokenManager, ICrudManager<Tokens> , IDisposable
+    public class TokenManager : ITokenManager, IDisposable
     {
-        public Task<bool> DeleteAsync(Tokens token)
+        #region ::Dependency::
+
+        private readonly FIdentityContext _db;
+
+        public TokenManager(FIdentityContext db)
         {
-            throw new NotImplementedException();
+            _db = db;
         }
 
-        public Task<bool> DeleteAsync(string tokenValue)
+        #endregion
+
+        public async void Dispose()
         {
-            throw new NotImplementedException();
+            await _db.DisposeAsync();
         }
 
-        public Task<bool> DeleteAsync(int tokenId)
+        public async Task<Tokens> GetTokenByValueAsync(string tokenValue)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () => await _db.Tokens.FirstOrDefaultAsync(t => t.TokenValue == tokenValue));
         }
 
-        public Task<bool> DeleteAsync(object id)
+        public async Task<Tokens> GetTokenFromCookiesAsync(IRequestCookieCollection cookie)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () => await GetTokenByValueAsync(cookie["Token"]));
         }
 
-        public void Dispose()
+        public async Task<Tokens> GetTokenFromHeaderAsync(IHeaderDictionary header)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Tokens>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Tokens>> GetAllAsync(Expression<Func<Tokens, bool>> where)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Tokens>> GetAllTokensAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Tokens>> GetAllTokensAsync(Expression<Func<Tokens, bool>> where)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Tokens> GetbyIdAsync(object id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Tokens> GetTokenByIdAsync(int tokenId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Tokens> GetTokenByValueAsync(string tokenValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> InsertAsync(Tokens token)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Save()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> SaveAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> UpdateAsync(Tokens token)
-        {
-            throw new NotImplementedException();
+            return await Task.Run(async () => await GetTokenByValueAsync(header["Token"]));
         }
     }
 }
