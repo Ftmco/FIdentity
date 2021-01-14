@@ -32,7 +32,7 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
             {
                 if (_userRepository == null)
                 {
-                    _userRepository = new GenericRepository<Users>(_db);
+                    _userRepository = new GenericServices<Users>(_db);
                 }
                 return _userRepository;
             }

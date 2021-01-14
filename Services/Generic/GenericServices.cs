@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fri2Ends.Identity.Services.Generic
 {
-    public class GenericRepository<TModel> : IGenericRepository<TModel> where TModel : class
+    public class GenericServices<TModel> : IGenericRepository<TModel> where TModel : class
     {
 
         #region ::Dependency::
@@ -22,7 +22,7 @@ namespace Fri2Ends.Identity.Services.Generic
         /// </summary>
         private readonly DbSet<TModel> _dbSet;
 
-        public GenericRepository(DbContext db)
+        public GenericServices(DbContext db)
         {
             _db = db;
             _dbSet = _db.Set<TModel>();
