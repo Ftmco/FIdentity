@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Fri2Ends.Identity.Context
 {
@@ -38,5 +33,10 @@ namespace Fri2Ends.Identity.Context
         /// Login Logs
         /// </summary>
         public DbSet<LoginLogs> LoginLogs { get; set; }
+
+        /// <summary>
+        /// Apps
+        /// </summary>
+        public DbSet<Apps> Apps { get; set; }
     }
 }
