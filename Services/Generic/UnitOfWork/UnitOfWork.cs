@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
@@ -35,6 +33,82 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
                     _userRepository = new GenericServices<Users>(_db);
                 }
                 return _userRepository;
+            }
+            init => throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region ::Roles Repository::
+
+        private IGenericRepository<Roles> _roleRepository;
+
+        public IGenericRepository<Roles> RolesRepository
+        {
+            get
+            {
+                if (_roleRepository == null)
+                {
+                    _roleRepository = new GenericServices<Roles>(_db);
+                }
+                return _roleRepository;
+            }
+            init => throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region ::Selected Role Repository::
+
+        private IGenericRepository<SelectedRoles> _selectedRoleRepository;
+
+        public IGenericRepository<SelectedRoles> SelectedRolesRepository
+        {
+            get
+            {
+                if (_selectedRoleRepository == null)
+                {
+                    _selectedRoleRepository = new GenericServices<SelectedRoles>(_db);
+                }
+                return _selectedRoleRepository;
+            }
+            init => throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region ::Token Repository::
+
+        private IGenericRepository<Tokens> _tokenRepository;
+
+        public IGenericRepository<Tokens> TokensRepository
+        {
+            get
+            {
+                if (_tokenRepository == null)
+                {
+                    _tokenRepository = new GenericServices<Tokens>(_db);
+                }
+                return _tokenRepository;
+            }
+            init => throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region ::Login Logs Repository::
+
+        private IGenericRepository<LoginLogs> _loginLogsRepository;
+
+        public IGenericRepository<LoginLogs> LoginLogsRepository
+        {
+            get
+            {
+                if (_loginLogsRepository == null)
+                {
+                    _loginLogsRepository = new GenericServices<LoginLogs>(_db);
+                }
+                return _loginLogsRepository;
             }
             init => throw new NotImplementedException();
         }
