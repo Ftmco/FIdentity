@@ -4,6 +4,11 @@ using System.Threading.Tasks;
 
 namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
 {
+    /// <summary>
+    /// Unit Of Work 
+    /// Controlle Repository
+    /// </summary>
+    /// <typeparam name="TContext">Data Base Context</typeparam>
     public interface IUnitOfWork<TContext> : IDisposable where TContext : DbContext
     {
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using Fri2Ends.Identity.Context;
+using Fri2Ends.Identity.Services.Generic.UnitOfWork;
 using Fri2Ends.Identity.Services.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,14 +10,23 @@ using System.Threading.Tasks;
 
 namespace Fri2Ends.Identity.Services.Srevices
 {
-    public class UserManager : IUserManager, ICrudManager<Users>, IDisposable
+    public class UserManager : IUserManager, IDisposable
     {
         #region ::Dependency::
 
+        /// <summary>
+        /// Data Base Context
+        /// </summary>
         private readonly FIdentityContext _db;
+
+        /// <summary>
+        /// Unit Of Work Repository
+        /// </summary>
+        private readonly IUnitOfWork<FIdentityContext> _repository;
 
         public UserManager(FIdentityContext db)
         {
+            _repository = new UnitOfWork<FIdentityContext>();
             _db = db;
         }
 
@@ -40,45 +50,9 @@ namespace Fri2Ends.Identity.Services.Srevices
             });
         }
 
-        public async Task<bool> DeleteAsync(Users model)
-        {
-            return await Task.Run(() =>
-            {
-                try
-                {
-                    _db.Users.Remove(model);
-                    return true;
-                }
-                catch
-                {
-                    return false;
-                }
-            });
-        }
-
-        public async Task<bool> DeleteAsync(object id)
-        {
-            return await Task.Run(async () => await DeleteAsync(await GetbyIdAsync(id)));
-        }
-
         public async void Dispose()
         {
             await _db.DisposeAsync();
-        }
-
-        public async Task<IEnumerable<Users>> GetAllAsync()
-        {
-            return await Task.Run(async () => await _db.Users.ToListAsync());
-        }
-
-        public async Task<IEnumerable<Users>> GetAllAsync(Expression<Func<Users, bool>> where)
-        {
-            return await Task.Run(async () => await _db.Users.Where(where).ToListAsync());
-        }
-
-        public async Task<Users> GetbyIdAsync(object id)
-        {
-            return await Task.Run(async () => await _db.Users.FindAsync(id));
         }
 
         public Task<Users> GetUserByEmailAsync(string email)
@@ -93,25 +67,9 @@ namespace Fri2Ends.Identity.Services.Srevices
 
         public async Task<IEnumerable<Users>> GetUsersBySearchAsync(string q)
         {
-            return await Task.Run(async () => await GetAllAsync(u => u.UserName.Contains(q) ||
+            return await Task.Run(async () => await _repository.UserRepository.GetAllAsync(u => u.UserName.Contains(q) ||
             u.Email.Contains(q) ||
             u.PhoneNumber.Contains(q)));
-        }
-
-        public async Task<bool> InsertAsync(Users model)
-        {
-            return await Task.Run(async () =>
-            {
-                try
-                {
-                    await _db.Users.AddAsync(model);
-                    return true;
-                }
-                catch
-                {
-                    return false;
-                }
-            });
         }
 
         public async Task<bool> IsExistAsync(Guid userId)
@@ -130,36 +88,5 @@ namespace Fri2Ends.Identity.Services.Srevices
             u.UserName == user.UserName));
         }
 
-        public async Task<bool> SaveAsync()
-        {
-            return await Task.Run(async () =>
-            {
-                try
-                {
-                    await _db.SaveChangesAsync();
-                    return true;
-                }
-                catch
-                {
-                    return false;
-                }
-            });
-        }
-
-        public async Task<bool> UpdateAsync(Users model)
-        {
-            return await Task.Run(() =>
-           {
-               try
-               {
-                   _db.Users.Update(model);
-                   return true;
-               }
-               catch
-               {
-                   return false;
-               }
-           });
-        }
     }
 }

@@ -9,9 +9,9 @@ namespace Fri2Ends.Identity.Context
 {
     public class FIdentityContext : DbContext
     {
-        public FIdentityContext(DbContextOptions<FIdentityContext> options) : base(options)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
+            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=FIdentity;Integrated Security=True;MultipleActiveResultSets=True;");
         }
 
         /// <summary>

@@ -25,13 +25,7 @@ namespace Fri2Ends.Identity
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
-            services.AddDbContext<IdentityContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"));
-            });
-            
-
+                       
             #region --ApiCors--
 
             services.AddCors(options =>
