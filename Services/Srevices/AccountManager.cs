@@ -1,4 +1,6 @@
-﻿using Fri2Ends.Identity.Services.Repository;
+﻿using Fri2Ends.Identity.Context;
+using Fri2Ends.Identity.Services.Generic.UnitOfWork;
+using Fri2Ends.Identity.Services.Repository;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Threading.Tasks;
@@ -20,19 +22,9 @@ namespace Fri2Ends.Identity.Services.Srevices
         private readonly ITokenManager _token;
 
         /// <summary>
-        /// Crud Services For Tokens
+        /// Unit Of Work Controlle Repository
         /// </summary>
-        private readonly ICrudManager<Tokens> _tokenCrud;
-
-        /// <summary>
-        /// Crud Services For Users
-        /// </summary>
-        private readonly ICrudManager<Users> _userCrud;
-
-        /// <summary>
-        /// Log Services For Login Logs
-        /// </summary>
-        private readonly ICrudManager<LoginLogs> _logCrud;
+        private readonly IUnitOfWork<FIdentityContext> _repository;
 
         /// <summary>
         /// Role Services
@@ -48,11 +40,9 @@ namespace Fri2Ends.Identity.Services.Srevices
         {
             _selectedRole = selectedRole;
             _role = role;
-            _logCrud = logs;
             _token = token;
-            _userCrud = user;
             _user = user;
-            _tokenCrud = token;
+            _repository = new UnitOfWork<FIdentityContext>();
         }
 
         #endregion
@@ -116,10 +106,10 @@ namespace Fri2Ends.Identity.Services.Srevices
                     if (await CheckPasswordAsync(user, login.Password))
                     {
                         Tokens token = await CreateTokenAsync(user, expireDays);
-                        if (await _tokenCrud.InsertAsync(token) && await _tokenCrud.SaveAsync())
+                        if (await _repository.TokensRepository.InsertAsync(token) && await _repository.SaveAsync())
                         {
                             LoginLogs log = await CreateLogAsync(token, context);
-                            await _logCrud.InsertAsync(log); await _logCrud.SaveAsync();
+                            await _repository.LoginLogsRepository.InsertAsync(log); await _repository.SaveAsync();
 
                             //Create Success Type 
                             if (rememmeberMe)
@@ -154,7 +144,7 @@ namespace Fri2Ends.Identity.Services.Srevices
             return await Task.Run(async () =>
             {
                 var token = cookies["Token"];
-                return await _tokenCrud.DeleteAsync(token) && await _tokenCrud.SaveAsync();
+                return await _repository.TokensRepository.DeleteAsync(token) && await _repository.SaveAsync();
             });
         }
 
@@ -163,7 +153,7 @@ namespace Fri2Ends.Identity.Services.Srevices
             return await Task.Run(async () =>
             {
                 var token = headers["Token"];
-                return await _tokenCrud.DeleteAsync(token) && await _tokenCrud.SaveAsync();
+                return await _repository.TokensRepository.DeleteAsync(token) && await _repository.SaveAsync();
             });
         }
 
@@ -174,7 +164,7 @@ namespace Fri2Ends.Identity.Services.Srevices
                 var user = await _user.CreateUserAsync(signUp);
                 if (!await _user.IsExistAsync(user.UserName))
                 {
-                    if (await _userCrud.InsertAsync(user) && await _userCrud.SaveAsync())
+                    if (await _repository.UserRepository.InsertAsync(user) && await _repository.SaveAsync())
                     {
                         return SignUpResponse.Success;
                     }
