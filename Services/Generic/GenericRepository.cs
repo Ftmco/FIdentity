@@ -1,4 +1,4 @@
-﻿using Fri2Ends.Identity.Context;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,48 +15,87 @@ namespace Fri2Ends.Identity.Services.Generic
         /// <summary>
         /// Data Base Context
         /// </summary>
-        private readonly FIdentityContext _db;
+        private readonly DbContext _db;
 
-        public GenericRepository(FIdentityContext db)
+        /// <summary>
+        /// TModel Data Table
+        /// </summary>
+        private readonly DbSet<TModel> _dbSet;
+
+        public GenericRepository(DbContext db)
         {
             _db = db;
+            _dbSet = _db.Set<TModel>();
         }
 
         #endregion
 
-        public Task<bool> DeleteAsync(TModel model)
+        public async Task<bool> DeleteAsync(TModel model)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    _dbSet.Remove(model);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            });
         }
 
-        public Task<bool> DeleteAsync(object id)
+        public async Task<bool> DeleteAsync(object id)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () => await DeleteAsync(await FindByIdAsync(id)));
         }
 
-        public Task<TModel> FindByIdAsync(object id)
+        public async Task<TModel> FindByIdAsync(object id)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () => await _dbSet.FindAsync(id));
         }
 
-        public Task<IEnumerable<TModel>> GetAllAsync()
+        public async Task<IEnumerable<TModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () => await _dbSet.ToListAsync());
         }
 
-        public Task<IEnumerable<TModel>> GetAllAsync(Expression<Func<TModel, bool>> where)
+        public async Task<IEnumerable<TModel>> GetAllAsync(Expression<Func<TModel, bool>> where)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () => await _dbSet.Where(where).ToListAsync());
         }
 
-        public Task<bool> InsertAsync(TModel model)
+        public async Task<bool> InsertAsync(TModel model)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () =>
+            {
+                try
+                {
+                    await _dbSet.AddAsync(model);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            });
         }
 
-        public Task<bool> UpdateAsync(TModel model)
+        public async Task<bool> UpdateAsync(TModel model)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    _dbSet.Update(model);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            });
         }
     }
 }
