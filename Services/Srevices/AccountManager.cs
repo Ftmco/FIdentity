@@ -47,9 +47,44 @@ namespace Fri2Ends.Identity.Services.Srevices
 
         #endregion
 
-        public Task<ActivationResponse> ActiveUserAsync(ActivationViewModel activation)
+        public async Task<ActivationResponse> ActiveUserAsync(ActivationViewModel activation)
         {
-            throw new NotImplementedException();
+            ActivationResponse response = new();
+
+            return await Task.Run(async () =>
+            {
+                var user = await _user.GetUserByEmailAsync(activation.Email);
+                if (user != null)
+                {
+                    if (user.ActiveCode == activation.ActiveCode)
+                    {
+                        user.ActiveCode = Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6);
+                        user.ActiveDate = DateTime.Now;
+                        if (await _repository.UserRepository.UpdateAsync(user) && await _repository.SaveAsync())
+                        {
+                            Tokens token = await CreateTokenAsync(user, 20);
+
+                            response.Success = new Success
+                            {
+                                IsSucces = true,
+                                Key = token.TokenKey,
+                                Value = token.TokenValue
+                            };
+
+                            await _repository.TokensRepository.InsertAsync(token); await _repository.SaveAsync();
+
+                            response.Status = ActivationResponseEn.Success;
+                            return response;
+                        }
+                        response.Status = ActivationResponseEn.Exception;
+                        return response;
+                    }
+                    response.Status = ActivationResponseEn.WrongActiveCode;
+                    return response;
+                }
+                response.Status = ActivationResponseEn.UserNotFound;
+                return response;
+            });
         }
 
         public async Task<bool> CheckPasswordAsync(Users user, string currentPassword)
@@ -85,13 +120,18 @@ namespace Fri2Ends.Identity.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                return true;
+                Users user = await GetUserFromCookieAsync(cookies);
+                return await IsInRoleAsync(user, roleName);
             });
         }
 
-        public Task<bool> IsInRoleAsync(IHeaderDictionary headers, string roleName)
+        public async Task<bool> IsInRoleAsync(IHeaderDictionary headers, string roleName)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () =>
+            {
+                Users user = await GetUserFromHeaderAsync(headers);
+                return await IsInRoleAsync(user, roleName);
+            });
         }
 
         public async Task<LoginResponse> LoginAsync(LoginViewModel login, bool rememmeberMe, int expireDays = 20, HttpContext context = null)
@@ -202,6 +242,24 @@ namespace Fri2Ends.Identity.Services.Srevices
                     SetDate = DateTime.Now,
                     TokenId = token.TokenId
                 };
+            });
+        }
+
+        private async Task<Users> GetUserFromHeaderAsync(IHeaderDictionary header)
+        {
+            return await Task.Run(async () =>
+            {
+                Tokens token = await _token.GetTokenFromHeaderAsync(header);
+                return (token != null) ? await _repository.UserRepository.FindByIdAsync(token.UserId) : null;
+            });
+        }
+
+        private async Task<Users> GetUserFromCookieAsync(IRequestCookieCollection cookie)
+        {
+            return await Task.Run(async () =>
+            {
+                Tokens token = await _token.GetTokenFromCookiesAsync(cookie);
+                return (token != null) ? await _repository.UserRepository.FindByIdAsync(token.UserId) : null;
             });
         }
     }

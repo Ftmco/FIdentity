@@ -3,12 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Fri2Ends.Identity.Context;
-using Fri2Ends.Identity.DomainClass;
-using Fri2Ends.Identity.Services.Repository;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Fri2Ends.Identity.Services.Srevices;
 
 namespace Fri2Ends.Identity
 {

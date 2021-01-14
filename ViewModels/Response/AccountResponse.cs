@@ -47,7 +47,14 @@ public enum LoginStatus
     UserNotFound = -4
 }
 
-public enum ActivationResponse
+public record ActivationResponse
+{
+    public ActivationResponseEn Status { get; set; }
+
+    public Success Success { get; set; }
+}
+
+public enum ActivationResponseEn
 {
     /// <summary>
     /// Actived User 
@@ -55,9 +62,14 @@ public enum ActivationResponse
     Success = 0,
 
     /// <summary>
+    /// Not Found Any User
+    /// </summary>
+    UserNotFound = -1,
+
+    /// <summary>
     /// Wrong Active Code 
     /// </summary>
-    WrongActiveCode = -1,
+    WrongActiveCode = -3,
 
     /// <summary>
     /// System Exceptions

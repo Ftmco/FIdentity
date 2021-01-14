@@ -38,7 +38,7 @@ namespace Fri2Ends.Identity.Services.Srevices
             {
                 return new Users()
                 {
-                    ActiveCode = Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(4, 4),
+                    ActiveCode = Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6),
                     ActiveDate = DateTime.Now,
                     Email = signp.Email,
                     IsConfirm = false,
