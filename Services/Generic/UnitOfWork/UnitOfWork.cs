@@ -22,6 +22,9 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
 
         #region ::User Repository::
 
+        /// <summary>
+        /// Users Repository
+        /// </summary>
         private IGenericRepository<Users> _userRepository;
 
         public IGenericRepository<Users> UserRepository
@@ -41,6 +44,9 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
 
         #region ::Roles Repository::
 
+        /// <summary>
+        /// Roles Repository
+        /// </summary>
         private IGenericRepository<Roles> _roleRepository;
 
         public IGenericRepository<Roles> RolesRepository
@@ -60,6 +66,9 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
 
         #region ::Selected Role Repository::
 
+        /// <summary>
+        /// Selected Roles Repository
+        /// </summary>
         private IGenericRepository<SelectedRoles> _selectedRoleRepository;
 
         public IGenericRepository<SelectedRoles> SelectedRolesRepository
@@ -79,6 +88,9 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
 
         #region ::Token Repository::
 
+        /// <summary>
+        /// Token Repository
+        /// </summary>
         private IGenericRepository<Tokens> _tokenRepository;
 
         public IGenericRepository<Tokens> TokensRepository
@@ -98,6 +110,9 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
 
         #region ::Login Logs Repository::
 
+        /// <summary>
+        /// Login Logs Repository
+        /// </summary>
         private IGenericRepository<LoginLogs> _loginLogsRepository;
 
         public IGenericRepository<LoginLogs> LoginLogsRepository
@@ -109,6 +124,28 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
                     _loginLogsRepository = new GenericServices<LoginLogs>(_db);
                 }
                 return _loginLogsRepository;
+            }
+            init => throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region ::Apps Repository::
+
+        /// <summary>
+        /// Apps Repository
+        /// </summary>
+        private IGenericRepository<Apps> _appsRepository;
+
+        public IGenericRepository<Apps> AppsRepository
+        {
+            get
+            {
+                if (_appsRepository == null)
+                {
+                    _appsRepository = new GenericServices<Apps>(_db);
+                }
+                return _appsRepository;
             }
             init => throw new NotImplementedException();
         }

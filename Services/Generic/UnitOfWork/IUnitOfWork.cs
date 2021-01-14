@@ -36,6 +36,11 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
         /// </summary>
         IGenericRepository<LoginLogs> LoginLogsRepository { get; init; }
 
+        /// <summary>
+        /// Apps Repository
+        /// </summary>
+        IGenericRepository<Apps> AppsRepository { get; init; }
+
 
         /// <summary>
         /// Save All Changes Async
