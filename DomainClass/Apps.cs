@@ -21,8 +21,31 @@ public record Apps
     /// </summary>
     public DateTime CreateDate { get; set; }
 
+    public int TokenType { get; set; }
+
     /// <summary>
     /// Relationships Users
     /// </summary>
     public virtual List<Users> Users { get; set; }
+}
+
+/// <summary>
+/// App Token Type
+/// </summary>
+public enum AppTokenType
+{
+    /// <summary>
+    /// Global Access
+    /// </summary>
+    Global = 0,
+
+    /// <summary>
+    /// Private Access
+    /// </summary>
+    Private = 1,
+
+    /// <summary>
+    /// Public Access
+    /// </summary>
+    Public = 2,
 }
