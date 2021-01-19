@@ -13,9 +13,9 @@ namespace Fri2Ends.Identity.Controllers.Api
 
         private readonly IAccountManager _account;
 
-        public AccountApiController(AccountManager account)
+        public AccountApiController()
         {
-            _account = account;
+            _account = new AccountManager();
         }
 
         #endregion

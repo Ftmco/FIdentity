@@ -39,12 +39,12 @@ namespace Fri2Ends.Identity.Services.Srevices
         /// </summary>
         private readonly ISelectedRoleManager _selectedRole;
 
-        public AccountManager(UserManager user, TokenManager token, RoleManager role, SelectedRoleManager selectedRole)
+        public AccountManager()
         {
-            _selectedRole = selectedRole;
-            _role = role;
-            _token = token;
-            _user = user;
+            _selectedRole = new SelectedRoleManager();
+            _role = new RoleManager();
+            _token = new TokenManager();
+            _user = new UserManager();
             _repository = new UnitOfWork<FIdentityContext>();
         }
 

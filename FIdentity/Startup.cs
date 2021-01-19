@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Fri2Ends.Identity.Services.Generic.UnitOfWork;
 using Fri2Ends.Identity.Context;
+using Fri2Ends.Identity.Services.Srevices;
 
 namespace Fri2Ends.Identity
 {
@@ -43,6 +44,7 @@ namespace Fri2Ends.Identity
             #region Dependensies
 
             services.AddTransient<UnitOfWork<FIdentityContext>>();
+            services.AddTransient<AccountManager>();
 
             #endregion
 

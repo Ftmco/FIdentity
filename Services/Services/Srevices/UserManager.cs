@@ -1,33 +1,25 @@
 ﻿using Fri2Ends.Identity.Context;
 using Fri2Ends.Identity.Services.Generic.UnitOfWork;
 using Fri2Ends.Identity.Services.Repository;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Fri2Ends.Identity.Services.Srevices
 {
-    public class UserManager : IUserManager, IDisposable
+    public class UserManager : IUserManager
     {
         #region ::Dependency::
 
-        /// <summary>
-        /// Data Base Context
-        /// </summary>
-        private readonly FIdentityContext _db;
 
         /// <summary>
         /// Unit Of Work Repository
         /// </summary>
         private readonly IUnitOfWork<FIdentityContext> _repository;
 
-        public UserManager(FIdentityContext db)
+        public UserManager()
         {
             _repository = new UnitOfWork<FIdentityContext>();
-            _db = db;
         }
 
         #endregion
@@ -50,19 +42,15 @@ namespace Fri2Ends.Identity.Services.Srevices
             });
         }
 
-        public async void Dispose()
-        {
-            await _db.DisposeAsync();
-        }
 
-        public Task<Users> GetUserByEmailAsync(string email)
+        public async Task<Users> GetUserByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () => await _repository.UserRepository.GetFirstOrDefaultAsync(u => u.Email == email));
         }
 
         public async Task<Users> GetUserByUserNameAsync(string userName)
         {
-            return await Task.Run(async () => await _db.Users.FirstOrDefaultAsync(u => u.UserName == userName));
+            return await Task.Run(async () => await _repository.UserRepository.GetFirstOrDefaultAsync(u => u.UserName == userName));
         }
 
         public async Task<IEnumerable<Users>> GetUsersBySearchAsync(string q)
@@ -74,17 +62,17 @@ namespace Fri2Ends.Identity.Services.Srevices
 
         public async Task<bool> IsExistAsync(Guid userId)
         {
-            return await Task.Run(async () => await _db.Users.AnyAsync(u => u.UserId == userId));
+            return await Task.Run(async () => await _repository.UserRepository.IsExistAsync(u => u.UserId == userId));
         }
 
         public async Task<bool> IsExistAsync(string userName)
         {
-            return await Task.Run(async () => await _db.Users.AnyAsync(u => u.UserName == userName));
+            return await Task.Run(async () => await _repository.UserRepository.IsExistAsync(u => u.UserName == userName));
         }
 
         public async Task<bool> IsExistAsync(Users user)
         {
-            return await Task.Run(async () => await _db.Users.AnyAsync(u => u.UserId == user.UserId &&
+            return await Task.Run(async () => await _repository.UserRepository.IsExistAsync(u => u.UserId == user.UserId &&
             u.UserName == user.UserName));
         }
 

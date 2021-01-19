@@ -1,33 +1,27 @@
 ﻿using Fri2Ends.Identity.Context;
+using Fri2Ends.Identity.Services.Generic.UnitOfWork;
 using Fri2Ends.Identity.Services.Repository;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Threading.Tasks;
 
 namespace Fri2Ends.Identity.Services.Srevices
 {
-    public class TokenManager : ITokenManager, IDisposable
+    public class TokenManager : ITokenManager
     {
         #region ::Dependency::
 
-        private readonly FIdentityContext _db;
+        private readonly IUnitOfWork<FIdentityContext> _repository;
 
-        public TokenManager(FIdentityContext db)
+        public TokenManager()
         {
-            _db = db;
+            _repository = new UnitOfWork<FIdentityContext>();
         }
 
         #endregion
 
-        public async void Dispose()
-        {
-            await _db.DisposeAsync();
-        }
-
         public async Task<Tokens> GetTokenByValueAsync(string tokenValue)
         {
-            return await Task.Run(async () => await _db.Tokens.FirstOrDefaultAsync(t => t.TokenValue == tokenValue));
+            return await Task.Run(async () => await _repository.TokensRepository.GetFirstOrDefaultAsync(t => t.TokenValue == tokenValue));
         }
 
         public async Task<Tokens> GetTokenFromCookiesAsync(IRequestCookieCollection cookie)
