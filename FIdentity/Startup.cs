@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Fri2Ends.Identity.Services.Generic.UnitOfWork;
 using Fri2Ends.Identity.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace Fri2Ends.Identity
 {
@@ -24,7 +22,7 @@ namespace Fri2Ends.Identity
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<FIdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("FidentityContext")));
+            //services.AddDbContext<FIdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("FidentityContext")));
 
             #region --ApiCors--
 
