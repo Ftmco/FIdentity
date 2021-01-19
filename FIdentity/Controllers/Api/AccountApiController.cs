@@ -86,7 +86,7 @@ namespace Fri2Ends.Identity.Controllers.Api
             switch (result.Status)
             {
                 case ActivationResponseEn.Success:
-                    return Ok(new { Id = 0, Title = "User Actived", Result = new { } });
+                    return Ok(new { Id = 0, Title = "User Actived", Result = result.Success });
 
                 case ActivationResponseEn.UserNotFound:
                     return Ok(new { Id = -1, Title = "UserNotFound", Result = new { } });

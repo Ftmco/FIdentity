@@ -63,6 +63,7 @@ namespace Fri2Ends.Identity.Services.Srevices
                     {
                         user.ActiveCode = Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6);
                         user.ActiveDate = DateTime.Now;
+                        user.IsConfirm = true;
                         if (await _repository.UserRepository.UpdateAsync(user) && await _repository.SaveAsync())
                         {
                             Tokens token = await CreateTokenAsync(user, 20);

@@ -112,9 +112,8 @@ public record ActivationViewModel
     /// </summary>
     [Display(Name = "Active Code")]
     [Required(ErrorMessage = "{0} Cant Be Null")]
-    [MaxLength(4, ErrorMessage = "{0} Cant Upper Than {1}")]
+    [MaxLength(6, ErrorMessage = "{0} Cant Upper Than {1}")]
     [MinLength(4, ErrorMessage = "{0} Cant Smaller Than {1}")]
-    [Range(4, 4)]
     public string ActiveCode { get; set; }
 }
 
