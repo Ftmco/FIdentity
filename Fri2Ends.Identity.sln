@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fri2Ends.Identity", "FIdentity\Fri2Ends.Identity.csproj", "{DC526DBA-7CF6-4126-8063-10953FBE25AD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "DataLayer\DataLayer.csproj", "{E66B4F86-AB47-440C-A276-600680605899}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity", "Entity\Entity.csproj", "{C5014A21-E60B-4533-962F-3DBB021CC6CD}"
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DC526DBA-7CF6-4126-8063-10953FBE25AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC526DBA-7CF6-4126-8063-10953FBE25AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC526DBA-7CF6-4126-8063-10953FBE25AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC526DBA-7CF6-4126-8063-10953FBE25AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E66B4F86-AB47-440C-A276-600680605899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E66B4F86-AB47-440C-A276-600680605899}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E66B4F86-AB47-440C-A276-600680605899}.Release|Any CPU.ActiveCfg = Release|Any CPU
