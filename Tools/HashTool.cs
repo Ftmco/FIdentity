@@ -16,7 +16,7 @@ public static class Hash
         return completedSha1Hash;
     }
 
-    public async Task<string> CreateSHA256Async(this string str)
+    public static async Task<string> CreateSHA256Async(this string str)
     {
         return await Task.Run(() =>
         {
