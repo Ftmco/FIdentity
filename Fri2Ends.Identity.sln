@@ -5,13 +5,13 @@ VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fri2Ends.Identity", "FIdentity\Fri2Ends.Identity.csproj", "{DC526DBA-7CF6-4126-8063-10953FBE25AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{E66B4F86-AB47-440C-A276-600680605899}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "DataLayer\DataLayer.csproj", "{E66B4F86-AB47-440C-A276-600680605899}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity", "Entity\Entity.csproj", "{C5014A21-E60B-4533-962F-3DBB021CC6CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity", "Entity\Entity.csproj", "{C5014A21-E60B-4533-962F-3DBB021CC6CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{00A26869-EFDC-43FC-B78A-BDC89298D75A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{00A26869-EFDC-43FC-B78A-BDC89298D75A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModels", "ViewModels\ViewModels.csproj", "{8A39D0A6-DAA2-4A30-B99B-30E52A7C355C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModels", "ViewModels\ViewModels.csproj", "{8A39D0A6-DAA2-4A30-B99B-30E52A7C355C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
