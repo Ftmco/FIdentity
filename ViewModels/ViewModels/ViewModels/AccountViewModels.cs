@@ -32,6 +32,11 @@ public record LoginViewModel
     [Display(Name = "Remember Me")]
     [Required]
     public bool RememberMe { get; set; }
+
+    /// <summary>
+    /// Application Token
+    /// </summary>
+    public string AppKey { get; set; }
 }
 
 
@@ -90,6 +95,11 @@ public record SignupViewModel
     [DataType(DataType.Password)]
     [Compare("Password",ErrorMessage = "Wrong Password (Passwords Not Confirmm)")]
     public string RePassword { get; set; }
+
+    /// <summary>
+    /// Application Token
+    /// </summary>
+    public string AppKey { get; set; }
 }
 
 /// <summary>
@@ -115,6 +125,11 @@ public record ActivationViewModel
     [MaxLength(6, ErrorMessage = "{0} Cant Upper Than {1}")]
     [MinLength(4, ErrorMessage = "{0} Cant Smaller Than {1}")]
     public string ActiveCode { get; set; }
+
+    /// <summary>
+    /// Application Token
+    /// </summary>
+    public string AppKey { get; set; }
 }
 
 
@@ -143,4 +158,9 @@ public record DeleteAccountViewModel
     [MinLength(4, ErrorMessage = "{0} Cant Smaller Than {1}")]
     [Range(4, 4)]
     public string DeleteCode { get; set; }
+
+    /// <summary>
+    /// Application Token
+    /// </summary>
+    public string AppKey { get; set; }
 }
