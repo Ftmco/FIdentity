@@ -24,8 +24,8 @@ namespace Fri2Ends.Identity.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                var role = await _repository.RolesRepository.GetAllAsync(r => r.RoleName == roleName);
-                return role.FirstOrDefault();
+                var role = await _repository.RolesRepository.GetFirstOrDefaultAsync(r => r.RoleName == roleName);
+                return role;
             });
         }
 

@@ -14,5 +14,7 @@ namespace Fri2Ends.Identity.Services.Generic
         Task<bool> UpdateAsync(TModel model);
         Task<bool> DeleteAsync(TModel model);
         Task<bool> DeleteAsync(object id);
+        Task<bool> IsExistAsync(Expression<Func<TModel, bool>> any);
+        Task<TModel> GetFirstOrDefaultAsync(Expression<Func<TModel, bool>> firstOrDefault);
     }
 }

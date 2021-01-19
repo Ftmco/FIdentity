@@ -39,7 +39,7 @@ namespace Fri2Ends.Identity.Services.Srevices
         /// </summary>
         private readonly ISelectedRoleManager _selectedRole;
 
-        public AccountManager(UserManager user, TokenManager token, LoginLogsManager logs, RoleManager role, SelectedRoleManager selectedRole)
+        public AccountManager(UserManager user, TokenManager token, RoleManager role, SelectedRoleManager selectedRole)
         {
             _selectedRole = selectedRole;
             _role = role;

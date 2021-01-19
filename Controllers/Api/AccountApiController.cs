@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Fri2Ends.Identity.Services.Repository;
 using Fri2Ends.Identity.Services.Srevices;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fri2Ends.Identity.Controllers.Api
@@ -85,19 +83,20 @@ namespace Fri2Ends.Identity.Controllers.Api
         {
             ActivationResponse result = await _account.ActiveUserAsync(activation);
 
-            switch (result)
+            switch (result.Status)
             {
-                case ActivationResponse.Success:
+                case ActivationResponseEn.Success:
                     return Ok(new { Id = 0, Title = "User Actived", Result = new { } });
 
-                case ActivationResponse.WrongActiveCode:
-                    return Ok(new { Id = -1, Title = "Wrong ActiveCode", Result = new { } });
-
-                case ActivationResponse.Exception:
+                case ActivationResponseEn.UserNotFound:
+                    return Ok(new { Id = -1, Title = "UserNotFound", Result = new { } });
+                case ActivationResponseEn.WrongActiveCode:
+                    return Ok(new { Id = -3, Title = "Wrong ActiveCode", Result = new { } });
+                case ActivationResponseEn.Exception:
                     return Ok(new { Id = -3, Title = "Exception", Result = new { } });
 
                 default:
-                    goto case ActivationResponse.Exception;
+                    goto case ActivationResponseEn.Exception;
             }
         }
 

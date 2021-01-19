@@ -66,6 +66,11 @@ namespace Fri2Ends.Identity.Services.Generic
             return await Task.Run(async () => await _dbSet.Where(where).ToListAsync());
         }
 
+        public async Task<TModel> GetFirstOrDefaultAsync(Expression<Func<TModel, bool>> firstOrDefault)
+        {
+            return await Task.Run(async () => await _dbSet.FirstOrDefaultAsync(firstOrDefault));
+        }
+
         public async Task<bool> InsertAsync(TModel model)
         {
             return await Task.Run(async () =>
@@ -80,6 +85,11 @@ namespace Fri2Ends.Identity.Services.Generic
                     return false;
                 }
             });
+        }
+
+        public async Task<bool> IsExistAsync(Expression<Func<TModel, bool>> any)
+        {
+            return await Task.Run(async () => await _dbSet.AnyAsync(any));
         }
 
         public async Task<bool> UpdateAsync(TModel model)
