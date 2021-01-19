@@ -181,7 +181,7 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
                     await _db.SaveChangesAsync();
                     return true;
                 }
-                catch
+                catch (Exception ex)
                 {
                     return false;
                 }

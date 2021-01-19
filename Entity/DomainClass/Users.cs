@@ -58,7 +58,7 @@ public record Users
     /// </summary>
     [Display(Name = "Password")]
     [Required(ErrorMessage = "{0} Cant Be Null")]
-    [MaxLength(27,ErrorMessage = "{0} Cant Upper Than {1}")]
+    [MaxLength(1000,ErrorMessage = "{0} Cant Upper Than {1}")]
     [MinLength(6,ErrorMessage = "{0} Cant Smaller Than {1}")]
     [DataType(DataType.Password)]
     public string Password { get; set; }
