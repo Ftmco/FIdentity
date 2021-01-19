@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 /// <summary>
 /// App Tokens
@@ -9,6 +10,7 @@ public record Apps
     /// <summary>
     /// App Id
     /// </summary>
+    [Key]
     public Guid AppId { get; set; }
 
     /// <summary>
