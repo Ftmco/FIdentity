@@ -20,8 +20,7 @@ public static class Hash
         byte[] combined = encoder.GetBytes(str);
         hash.ComputeHash(combined);
         string delimitedHexHash = BitConverter.ToString(hash.Hash);
-        string completedSha1Hash = delimitedHexHash.Replace("-", "");
-        return completedSha1Hash;
+        return delimitedHexHash.Replace("-", "");
     }
 
     /// <summary>
@@ -38,9 +37,7 @@ public static class Hash
             byte[] combined = encoder.GetBytes(str);
             hash.ComputeHash(combined);
             string delimitedHexHash = BitConverter.ToString(hash.Hash);
-            string completedSha1Hash = delimitedHexHash.Replace("-", "");
-            return completedSha1Hash;
-
+            return delimitedHexHash.Replace("-", "");
         });
     }
 }
