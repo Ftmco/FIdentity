@@ -105,6 +105,23 @@ namespace FSI.Server.Api
 
         #endregion
 
+        #region --Recovery Password--
 
+        public async Task<IActionResult> RecoveyPassword()
+        {
+            return Ok();
+        }
+
+        public async Task<IActionResult> SetPassword()
+        {
+            return Ok();
+        }
+
+        public async Task<IActionResult> ChangePassword()
+        {
+            return Ok();
+        }
+
+        #endregion
     }
 }
