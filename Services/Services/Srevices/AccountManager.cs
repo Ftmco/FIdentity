@@ -267,9 +267,31 @@ namespace Fri2Ends.Identity.Services.Srevices
             });
         }
 
-        public  Task<ChangePasswordResponse> RequestChangePasswordAsync(ChangePasswordViewModel changePassword)
+        public async Task<ChangePasswordResponse> RequestChangePasswordAsync(ChangePasswordViewModel changePassword, IHeaderDictionary header)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () =>
+            {
+                Tokens token = await _token.GetTokenFromHeaderAsync(header);
+                if (token != null)
+                {
+                    Users user = await _repository.UserRepository.FindByIdAsync(token.UserId);
+                    if (user != null)
+                    {
+                        if (user.Password == changePassword.OldPassword.CreateSHA256())
+                        {
+                            user.Password = changePassword.NewPassword.CreateSHA256();
+                            if (await _repository.UserRepository.UpdateAsync(user) && await _repository.SaveAsync())
+                            {
+                                return ChangePasswordResponse.Success;
+                            }
+                            return ChangePasswordResponse.Exception;
+                        }
+                        return ChangePasswordResponse.WrongOldPassword;
+                    }
+                    return ChangePasswordResponse.UserNotFound;
+                }
+                return ChangePasswordResponse.UserNotFound;
+            });
         }
 
         public Task<RecoveryPasswordResponse> RequestRecoveyPassword(RecoveryPasswordViewModel recoveryPassword)

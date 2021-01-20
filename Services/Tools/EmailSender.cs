@@ -19,7 +19,7 @@ public class EmailSender
     /// </returns>
     public static async Task<string> Send(SendEmailModel emailModel)
     {
-        return await Task.Run(async () =>
+        return await Task.Run(() =>
         {
             try
             {

@@ -90,10 +90,11 @@ namespace Fri2Ends.Identity.Services.Repository
         /// Change User Password
         /// </summary>
         /// <param name="changePassword">Change Password View Model</param>
+        /// <param name="header">Request Header To Find User</param>
         /// <returns>
         /// Change Password Response
         /// </returns>
-        Task<ChangePasswordResponse> RequestChangePasswordAsync(ChangePasswordViewModel changePassword);
+        Task<ChangePasswordResponse> RequestChangePasswordAsync(ChangePasswordViewModel changePassword,IHeaderDictionary header);
 
         /// <summary>
         /// Recovey Password 
