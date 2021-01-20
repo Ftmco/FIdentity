@@ -267,12 +267,9 @@ namespace Fri2Ends.Identity.Services.Srevices
             });
         }
 
-        public async Task<ChangePasswordResponse> RequestChangePasswordAsync(ChangePasswordViewModel changePassword)
+        public  Task<ChangePasswordResponse> RequestChangePasswordAsync(ChangePasswordViewModel changePassword)
         {
-            return await Task.Run(async () =>
-            {
-
-            });
+            throw new NotImplementedException();
         }
 
         public Task<RecoveryPasswordResponse> RequestRecoveyPassword(RecoveryPasswordViewModel recoveryPassword)

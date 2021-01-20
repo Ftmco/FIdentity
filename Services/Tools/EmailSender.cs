@@ -10,31 +10,53 @@ using System.Threading.Tasks;
 /// </summary>
 public class EmailSender
 {
-    public static void Send(string To, string Subject, string Body, string DisplayName)
+    public static async Task<string> Send(SendEmailModel emailModel)
     {
-
-        SmtpClient SmtpClient = new SmtpClient("smtp-mail.outlook.com");
-
-        MailMessage mail = new MailMessage
+        return await Task.Run(async () =>
         {
-            From = new MailAddress("friendstmco@outlook.com", DisplayName),
-            IsBodyHtml = true,
-            Subject = Subject,
-            Body = Body,
-        };
+            try
+            {
+                SmtpClient SmtpClient = new SmtpClient(emailModel.SmtpServer);
 
-        mail.To.Add(To);
+                MailMessage mail = new MailMessage
+                {
+                    From = new MailAddress("friendstmco@outlook.com", emailModel.DisplayName),
+                    IsBodyHtml = true,
+                    Subject = emailModel.Subject,
+                    Body = emailModel.Body,
+                };
 
-        //mail.Subject = Subject;
-        //mail.Body = Body;
-        //mail.IsBodyHtml = true;
+                mail.To.Add(To);
 
-        SmtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-        SmtpClient.UseDefaultCredentials = false;
-        SmtpClient.Port = 587;
-        SmtpClient.Credentials = new System.Net.NetworkCredential("friendstmco@outlook.com", "FD3445*54lKD");
-        SmtpClient.EnableSsl = false;
-        SmtpClient.Send(mail);
+                //mail.Subject = Subject;
+                //mail.Body = Body;
+                //mail.IsBodyHtml = true;
+
+                SmtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                SmtpClient.Port = emailModel.SmptPort;
+                SmtpClient.Credentials = new System.Net.NetworkCredential(emailModel.UserName, emailModel.Password);
+                SmtpClient.EnableSsl = emailModel.EnableSsl;
+                SmtpClient.Send(mail);
+                return "Success";
+            }
+            catch(Exception ex)
+            {
+                return ex.Message;
+            }
+        })
     }
 
+    public record SendEmailModel
+    {
+        public string To { get; set; }
+        public string Subject { get; set; }
+        public string Body { get; set; }
+        public string DisplayName { get; set; }
+        public string SmtpServer { get; set; }
+        public string EmailFrom { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public int SmptPort { get; set; }
+        public bool EnableSsl { get; set; }
+    }
 }
