@@ -34,16 +34,13 @@ namespace FSI.Server.Api
             switch (result.Status)
             {
                 case LoginStatus.Success:
-                    return Ok(new { Id = 0, Title = "Success", Result = result.Status });
-
+                    return Ok((Id: 0, Title: "Success", Result: result.Status));
                 case LoginStatus.Exception:
-                    return Ok(new { Id = -2, Title = "Exception", Result = new { } });
-
+                    return Ok((Id: -2, Title: "Exception", Result: new { }));
                 case LoginStatus.WrongPassword:
-                    return Ok(new { Id = -3, Title = "Wrong Password", Result = new { } });
-
+                    return Ok((Id: -3, Title: "Wrong Password", Result: new { }));
                 case LoginStatus.UserNotFound:
-                    return Ok(new { Id = -4, Title = "User Not Found", Result = new { } });
+                    return Ok((Id: -4, Title: "User Not Found", Result: new { }));
 
                 default:
                     goto case LoginStatus.Exception;
@@ -63,13 +60,11 @@ namespace FSI.Server.Api
             switch (result)
             {
                 case SignUpResponse.Success:
-                    return Ok(new { Id = 0, Title = "Success Go To Active Account", Result = new { } });
-
+                    return Ok((Id: 0, Title: "Success Go To Active Account", Result: new { }));
                 case SignUpResponse.Exception:
-                    return Ok(new { Id = -2, Title = "Exception", Result = new { } });
-
+                    return Ok((Id: -2, Title: "Exception", Result: new { }));
                 case SignUpResponse.UserAlreadyExist:
-                    return Ok(new { Id = -3, Title = "User Already Exist", Result = new { } });
+                    return Ok((Id: -3, Title: "User Already Exist", Result: new { }));
 
                 default:
                     goto case SignUpResponse.Exception;
@@ -89,14 +84,13 @@ namespace FSI.Server.Api
             switch (result.Status)
             {
                 case ActivationResponseEn.Success:
-                    return Ok(new { Id = 0, Title = "User Actived", Result = result.Success });
-
+                    return Ok((Id: 0, Title: "User Actived", Result: result.Success));
                 case ActivationResponseEn.UserNotFound:
-                    return Ok(new { Id = -1, Title = "UserNotFound", Result = new { } });
+                    return Ok((Id: -1, Title: "UserNotFound", Result: new { }));
                 case ActivationResponseEn.WrongActiveCode:
-                    return Ok(new { Id = -3, Title = "Wrong ActiveCode", Result = new { } });
+                    return Ok((Id: -3, Title: "Wrong ActiveCode", Result: new { }));
                 case ActivationResponseEn.Exception:
-                    return Ok(new { Id = -3, Title = "Exception", Result = new { } });
+                    return Ok((Id: -3, Title: "Exception", Result: new { }));
 
                 default:
                     goto case ActivationResponseEn.Exception;
@@ -117,10 +111,23 @@ namespace FSI.Server.Api
         //    return Ok();
         //}
 
-        //public async Task<IActionResult> ChangePassword(ChangePasswordViewModel changePassword)
-        //{
-        //    return Ok();
-        //}
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel changePassword)
+        {
+            var result = await _account.RequestChangePasswordAsync(changePassword, HttpContext.Request.Headers);
+            switch (result)
+            {
+                case ChangePasswordResponse.Success:
+                    return Ok((Id: 0, Title: "Success", Result: new { }));
+                case ChangePasswordResponse.UserNotFound:
+                    return Ok((Id: -1, Title: "User Not Found", Result: new { }));
+                case ChangePasswordResponse.Exception:
+                    return Ok((Id: -2, Title: "Exception", Result: new { }));
+                case ChangePasswordResponse.WrongOldPassword:
+                    return Ok((Id: -3, Title: "Wrong Password", Result: new { }));
+                default:
+                    goto case ChangePasswordResponse.Exception;
+            }
+        }
 
         #endregion
     }
