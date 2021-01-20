@@ -26,7 +26,7 @@ public class EmailSender
                     Body = emailModel.Body,
                 };
 
-                mail.To.Add(To);
+                mail.To.Add(emailModel.To);
 
                 //mail.Subject = Subject;
                 //mail.Body = Body;
@@ -39,11 +39,11 @@ public class EmailSender
                 SmtpClient.Send(mail);
                 return "Success";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return ex.Message;
             }
-        })
+        });
     }
 
     public record SendEmailModel
