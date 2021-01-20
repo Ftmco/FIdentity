@@ -112,5 +112,17 @@ namespace Fri2Ends.Identity.Services.Repository
         /// Set Password Response
         /// </returns>
         Task<SetPasswordResponse> SetPasswordAsync(ChangePasswordViewModel changePassword);
+
+        /// <summary>
+        /// Check Password
+        /// Change User Password
+        /// </summary>
+        /// <param name="user">Current User</param>
+        /// <param name="currentPassword">Current Password</param>
+        /// <param name="changePassword">Change Password View Model</param>
+        /// <returns>
+        /// Passwrod Is Ok = True
+        /// Wrong Password = False</returns>
+        Task<bool> CheckPasswordAsync(Users user, string currentPassword);
     }
 }

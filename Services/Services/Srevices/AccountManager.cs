@@ -266,5 +266,23 @@ namespace Fri2Ends.Identity.Services.Srevices
                 return (token != null) ? await _repository.UserRepository.FindByIdAsync(token.UserId) : null;
             });
         }
+
+        public async Task<ChangePasswordResponse> RequestChangePasswordAsync(ChangePasswordViewModel changePassword)
+        {
+            return await Task.Run(async () =>
+            {
+
+            });
+        }
+
+        public Task<RecoveryPasswordResponse> RequestRecoveyPassword(RecoveryPasswordViewModel recoveryPassword)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<SetPasswordResponse> SetPasswordAsync(ChangePasswordViewModel changePassword)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
