@@ -34,7 +34,7 @@ public record ChangePasswordViewModel
 /// <summary>
 /// Recovey Password View Model
 /// </summary>
-public record RecoveryPassword
+public record RecoveryPasswordViewModel
 {
     /// <summary>
     /// Email Address

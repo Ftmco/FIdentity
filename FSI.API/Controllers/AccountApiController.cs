@@ -107,17 +107,17 @@ namespace FSI.Server.Api
 
         #region --Recovery Password--
 
-        public async Task<IActionResult> RecoveyPassword()
+        public async Task<IActionResult> RecoveyPassword(RecoveryPasswordViewModel recoveryPassword)
         {
             return Ok();
         }
 
-        public async Task<IActionResult> SetPassword()
+        public async Task<IActionResult> SetPassword(ChangePasswordViewModel changePassword)
         {
             return Ok();
         }
 
-        public async Task<IActionResult> ChangePassword()
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel changePassword)
         {
             return Ok();
         }
