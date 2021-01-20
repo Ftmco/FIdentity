@@ -106,9 +106,5 @@ namespace FSI.Server.Api
         #endregion
 
 
-        public IActionResult Test()
-        {
-            return Ok(new { test = "test" });
-        }
     }
 }

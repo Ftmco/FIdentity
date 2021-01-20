@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModels", "ViewModels\ViewModels.csproj", "{8A39D0A6-DAA2-4A30-B99B-30E52A7C355C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSI.Server", "FSI.Server\FSI.Server.csproj", "{3EEAE0AB-F841-4033-82C2-2E2474E59A67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FSI.Server", "FSI.Server\FSI.Server.csproj", "{3EEAE0AB-F841-4033-82C2-2E2474E59A67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSI.API", "FSI.API\FSI.API.csproj", "{C7D7BAF7-70AA-4C66-8288-2692664CEE90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{3EEAE0AB-F841-4033-82C2-2E2474E59A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EEAE0AB-F841-4033-82C2-2E2474E59A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EEAE0AB-F841-4033-82C2-2E2474E59A67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7D7BAF7-70AA-4C66-8288-2692664CEE90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7D7BAF7-70AA-4C66-8288-2692664CEE90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7D7BAF7-70AA-4C66-8288-2692664CEE90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7D7BAF7-70AA-4C66-8288-2692664CEE90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
