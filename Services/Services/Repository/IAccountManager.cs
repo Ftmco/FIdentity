@@ -23,7 +23,7 @@ namespace Fri2Ends.Identity.Services.Repository
         /// <param name="expireDays">Expire Days Default 20 days</param>
         /// <param name="context">Http Current Context</param>
         /// <returns></returns>
-        Task<LoginResponse> LoginAsync(LoginViewModel login, bool rememmeberMe, int expireDays = 20,HttpContext context = null);
+        Task<LoginResponse> LoginAsync(LoginViewModel login, bool rememmeberMe, int expireDays = 20, HttpContext context = null);
 
         /// <summary>
         /// Active or Confitm Existing User Account
@@ -87,14 +87,30 @@ namespace Fri2Ends.Identity.Services.Repository
         Task<bool> LogoutAsync(IHeaderDictionary headers);
 
         /// <summary>
-        /// Check Password
+        /// Change User Password
         /// </summary>
-        /// <param name="user">Current User</param>
-        /// <param name="currentPassword">Current Password</param>
+        /// <param name="changePassword">Change Password View Model</param>
         /// <returns>
-        /// Passwrod Is Ok = True
-        /// Wrong Password = False</returns>
-        Task<bool> CheckPasswordAsync(Users user, string currentPassword);
+        /// Change Password Response
+        /// </returns>
+        Task<ChangePasswordResponse> RequestChangePasswordAsync(ChangePasswordViewModel changePassword);
 
+        /// <summary>
+        /// Recovey Password 
+        /// </summary>
+        /// <param name="recoveryPassword">Recovery Password View Model</param>
+        /// <returns>
+        /// Recovery Password Response
+        /// </returns>
+        Task<RecoveryPasswordResponse> RequestRecoveyPassword(RecoveryPasswordViewModel recoveryPassword);
+
+        /// <summary>
+        /// Set New Password
+        /// </summary>
+        /// <param name="changePassword">Change Password View Model</param>
+        /// <returns>
+        /// Set Password Response
+        /// </returns>
+        Task<SetPasswordResponse> SetPasswordAsync(ChangePasswordViewModel changePassword);
     }
 }
