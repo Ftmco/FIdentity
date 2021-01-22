@@ -94,7 +94,7 @@ namespace Fri2Ends.Identity.Services.Repository
         /// <returns>
         /// Change Password Response
         /// </returns>
-        Task<ChangePasswordResponse> RequestChangePasswordAsync(ChangePasswordViewModel changePassword,IHeaderDictionary header);
+        Task<ChangePasswordResponse> RequestChangePasswordAsync(ChangePasswordViewModel changePassword, IHeaderDictionary header);
 
         /// <summary>
         /// Recovey Password 
@@ -105,14 +105,6 @@ namespace Fri2Ends.Identity.Services.Repository
         /// </returns>
         Task<RecoveryPasswordResponse> RequestRecoveyPassword(RecoveryPasswordViewModel recoveryPassword);
 
-        /// <summary>
-        /// Set New Password
-        /// </summary>
-        /// <param name="changePassword">Change Password View Model</param>
-        /// <returns>
-        /// Set Password Response
-        /// </returns>
-        Task<SetPasswordResponse> SetPasswordAsync(ChangePasswordViewModel changePassword);
 
         /// <summary>
         /// Check Password

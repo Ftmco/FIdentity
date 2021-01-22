@@ -126,25 +126,6 @@ namespace FSI.Server.Api
         }
 
         [HttpPost]
-        [Route("SetPassword")]
-        public async Task<IActionResult> SetPassword(ChangePasswordViewModel changePassword)
-        {
-            var result = await _account.SetPasswordAsync(changePassword);
-
-            switch (result)
-            {
-                case SetPasswordResponse.Success:
-                    return Ok(new { Id = 0, Title = "Success", Result = new { } });
-                case SetPasswordResponse.UserNotFound:
-                    return Ok(new { Id = -1, Title = "User Not Found", Result = new { } });
-                case SetPasswordResponse.Exception:
-                    return Ok(new { Id = -2, Title = "Exception", Result = new { } });
-                default:
-                    goto case SetPasswordResponse.Exception;
-            }
-        }
-
-        [HttpPost]
         [Route("ChangePassword")]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel changePassword)
         {

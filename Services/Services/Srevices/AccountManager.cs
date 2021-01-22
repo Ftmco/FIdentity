@@ -149,22 +149,20 @@ namespace Fri2Ends.Identity.Services.Srevices
                 {
                     if (await CheckPasswordAsync(user, login.Password))
                     {
-                        Tokens token = await CreateTokenAsync(user, expireDays);
+                        Tokens token = await CreateTokenAsync(user, (rememmeberMe ? expireDays : 0));
                         if (await _repository.TokensRepository.InsertAsync(token) && await _repository.SaveAsync())
                         {
                             LoginLogs log = await CreateLogAsync(token, context);
                             await _repository.LoginLogsRepository.InsertAsync(log); await _repository.SaveAsync();
 
                             //Create Success Type 
-                            if (rememmeberMe)
+
+                            response.Success = new Success
                             {
-                                response.Success = new Success
-                                {
-                                    IsSucces = true,
-                                    Key = token.TokenKey,
-                                    Value = token.TokenValue
-                                };
-                            }
+                                IsSucces = true,
+                                Key = token.TokenKey,
+                                Value = token.TokenValue
+                            };
 
                             response.Status = LoginStatus.Success;
                             return response;
@@ -294,14 +292,63 @@ namespace Fri2Ends.Identity.Services.Srevices
             });
         }
 
-        public Task<RecoveryPasswordResponse> RequestRecoveyPassword(RecoveryPasswordViewModel recoveryPassword)
+        public async Task<RecoveryPasswordResponse> RequestRecoveyPassword(RecoveryPasswordViewModel recoveryPassword)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () =>
+            {
+                var user = await _user.GetUserByEmailAsync(recoveryPassword.Email);
+                if (user != null)
+                {
+                    try
+                    {
+                        if (string.IsNullOrEmpty(recoveryPassword.RecoveryCode))
+                        {
+                            return await RecoveryRequestForChangeAsync(user);
+                        }
+                        else
+                        {
+                            return await RecoverySetPasswordAsync(user, recoveryPassword.NewPassword);
+                        }
+                    }
+                    catch
+                    {
+                        return RecoveryPasswordResponse.Exception;
+                    }
+                }
+                return RecoveryPasswordResponse.UserNotFound;
+            });
         }
 
-        public Task<SetPasswordResponse> SetPasswordAsync(ChangePasswordViewModel changePassword)
+        private async Task<RecoveryPasswordResponse> RecoveryRequestForChangeAsync(Users user)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () =>
+            {
+                user.ActiveCode = Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6);
+                if (await _repository.UserRepository.UpdateAsync(user) && await _repository.SaveAsync())
+                {
+                    var res = await EmailSender.Send(new SendEmailModel());
+                    if (res == "Success")
+                    {
+                        return RecoveryPasswordResponse.Success;
+                    }
+                    return RecoveryPasswordResponse.Exception;
+                }
+                return RecoveryPasswordResponse.Exception;
+            });
+        }
+
+        private async Task<RecoveryPasswordResponse> RecoverySetPasswordAsync(Users user, string newPassword)
+        {
+            return await Task.Run(async () =>
+            {
+                user.ActiveCode = Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6);
+                user.Password = await newPassword.CreateSHA256Async();
+                if (await _repository.UserRepository.UpdateAsync(user) && await _repository.SaveAsync())
+                {
+                    return RecoveryPasswordResponse.Success;
+                }
+                return RecoveryPasswordResponse.Exception;
+            });
         }
     }
 }
