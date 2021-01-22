@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModels", "ViewModels\Vi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FSI.Server", "FSI.Server\FSI.Server.csproj", "{3EEAE0AB-F841-4033-82C2-2E2474E59A67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSI.API", "FSI.API\FSI.API.csproj", "{C7D7BAF7-70AA-4C66-8288-2692664CEE90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FSI.API", "FSI.API\FSI.API.csproj", "{C7D7BAF7-70AA-4C66-8288-2692664CEE90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
