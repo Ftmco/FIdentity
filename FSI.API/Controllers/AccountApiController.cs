@@ -70,11 +70,11 @@ namespace FSI.Server.Api
                 case SignUpResponse.UserAlreadyExist:
                     return Ok(new { Id = -3, Title = "User Already Exist", Result = new { } });
                 case SignUpResponse.AppNotFound:
-                    return Ok(new { Id = -4, Title = "Wrong Application Token", Result = new { } });
+                    return Ok(new { Id = -4, Title = "User Signed In But Wrong Application Token try To Login With Application Token", Result = new { } });
                 case SignUpResponse.AppActivent:
-                    return Ok(new { Id = -5, Title = "Application is`t Active", Result = new { } });
+                    return Ok(new { Id = -5, Title = "User Signed In But Application is`t Active try To Login With Application Token", Result = new { } });
                 case SignUpResponse.AppIsntForYou:
-                    return Ok(new { Id = -6, Title = "You Are Is`t Owner Of This Applications", Result = new { } });
+                    return Ok(new { Id = -6, Title = "User Signed In But You Are Is`t Owner Of This Applications try To Login With Application Token", Result = new { } });
                 default:
                     goto case SignUpResponse.Exception;
             }

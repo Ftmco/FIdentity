@@ -220,7 +220,7 @@ namespace Fri2Ends.Identity.Services.Srevices
                         {
                             if (!string.IsNullOrEmpty(signUp.AppKey))
                             {
-                                Apps app = await _repository.AppsRepository.FindByIdAsync(Guid.Parse(signUp.AppKey));
+                                Apps app = await _repository.AppsRepository.GetFirstOrDefaultAsync(a => a.AppToken == signUp.AppKey);
                                 if (app != null)
                                 {
                                     if (app.IsActive)
