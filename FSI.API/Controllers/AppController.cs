@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿/*
+ Open Api For Applications
+ */
+
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Services.Repository;
 using Services.Services.Srevices;
@@ -22,6 +26,8 @@ namespace FSI.API.Controllers
 
         #endregion
 
+        #region --Users--
+
         [HttpGet]
         [Route("GetAppUsers")]
         public async Task<IActionResult> GetUsers(string appKey, int index, int count)
@@ -30,6 +36,10 @@ namespace FSI.API.Controllers
             return (result != null) ? Ok(new { Id = 0, Title = "Success", Result = result }) :
                 Ok(new { Id = -1, Title = "Not Found Any Users", Result = new { } });
         }
+
+        #endregion
+
+        #region --App Info--
 
         [HttpGet]
         [Route("GetAppInfo")]
@@ -49,5 +59,13 @@ namespace FSI.API.Controllers
                     goto case ApplicationInfoStatus.Exception;
             }
         }
+
+        #endregion
+
+        #region --Delete User--
+
+
+
+        #endregion
     }
 }

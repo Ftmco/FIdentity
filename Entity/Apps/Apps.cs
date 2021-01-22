@@ -44,6 +44,11 @@ public record Apps
     /// Relationships App Selected Features
     /// </summary>
     public virtual List<AppSelectedFeatures> AppSelectedFeatures { get; set; }
+
+    /// <summary>
+    /// Users App Relationships
+    /// </summary>
+    public virtual List<UserApps> UserApps { get; set; }
 }
 
 /// <summary>

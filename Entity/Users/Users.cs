@@ -88,13 +88,7 @@ public record Users
     [Required]
     [DataType(DataType.DateTime)]
     public DateTime ActiveDate { get; set; }
-
-    /// <summary>
-    /// User App Id Forgen Key
-    /// </summary>
-    [Required]
-    public Guid AppId { get; set; }
-
+        
     //Relationships
 
     /// <summary>
@@ -111,5 +105,10 @@ public record Users
     /// Relationships Apps
     /// </summary>
     public virtual Apps Apps { get; set; }
+
+    /// <summary>
+    /// User Apps Relationships
+    /// </summary>
+    public virtual List<UserApps> UserApps { get; set; }
 }
 
