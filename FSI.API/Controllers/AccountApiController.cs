@@ -107,6 +107,8 @@ namespace FSI.Server.Api
 
         #region --Recovery Password--
 
+        [HttpPost]
+        [Route("RecoveryPassword")]
         public async Task<IActionResult> RecoveyPassword(RecoveryPasswordViewModel recoveryPassword)
         {
             var result = await _account.RequestRecoveyPassword(recoveryPassword);
@@ -126,6 +128,8 @@ namespace FSI.Server.Api
             }
         }
 
+        [HttpPost]
+        [Route("SetPassword")]
         public async Task<IActionResult> SetPassword(ChangePasswordViewModel changePassword)
         {
             var result = await _account.SetPasswordAsync(changePassword);
@@ -143,6 +147,8 @@ namespace FSI.Server.Api
             }
         }
 
+        [HttpPost]
+        [Route("ChangePassword")]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel changePassword)
         {
             var result = await _account.RequestChangePasswordAsync(changePassword, HttpContext.Request.Headers);
