@@ -1,6 +1,7 @@
 ﻿using Fri2Ends.Identity.Context;
 using Fri2Ends.Identity.Services.Generic.UnitOfWork;
 using Fri2Ends.Identity.Services.Repository;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,15 +12,20 @@ namespace Fri2Ends.Identity.Services.Srevices
     {
         #region ::Dependency::
 
-
         /// <summary>
         /// Unit Of Work Repository
         /// </summary>
         private readonly IUnitOfWork<FIdentityContext> _repository;
 
+        /// <summary>
+        /// Token Services
+        /// </summary>
+        private readonly ITokenManager _token;
+
         public UserManager()
         {
             _repository = new UnitOfWork<FIdentityContext>();
+            _token = new TokenManager();
         }
 
         #endregion
@@ -51,6 +57,32 @@ namespace Fri2Ends.Identity.Services.Srevices
         public async Task<Users> GetUserByUserNameAsync(string userName)
         {
             return await Task.Run(async () => await _repository.UserRepository.GetFirstOrDefaultAsync(u => u.UserName == userName));
+        }
+
+        public async Task<Users> GetUserFromCookies(IRequestCookieCollection cookies)
+        {
+            return await Task.Run(async () =>
+            {
+                var token = await _token.GetTokenFromCookiesAsync(cookies);
+                if (token != null)
+                {
+                    return await _repository.UserRepository.FindByIdAsync(token.UserId);
+                }
+                return null;
+            });
+        }
+
+        public async Task<Users> GetUserFromHeaders(IHeaderDictionary headers)
+        {
+            return await Task.Run(async () =>
+            {
+                var token = await _token.GetTokenFromHeaderAsync(headers);
+                if (token != null)
+                {
+                    return await _repository.UserRepository.FindByIdAsync(token.UserId);
+                }
+                return null;
+            });
         }
 
         public async Task<IEnumerable<Users>> GetUsersBySearchAsync(string q)

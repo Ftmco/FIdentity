@@ -14,6 +14,12 @@ public record Apps
     public Guid AppId { get; set; }
 
     /// <summary>
+    /// Application Owner
+    /// </summary>
+    [Required]
+    public Guid Owner { get; set; }
+
+    /// <summary>
     /// App Token
     /// </summary>
     public string AppToken { get; set; }
