@@ -9,7 +9,6 @@ namespace Services.Services.Repository
     /// </summary>
     public interface IAppRepository
     {
-
         /// <summary>
         /// Get Application Users
         /// </summary>
