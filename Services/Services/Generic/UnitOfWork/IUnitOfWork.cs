@@ -41,6 +41,15 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
         /// </summary>
         IGenericRepository<Apps> AppsRepository { get; init; }
 
+        /// <summary>
+        /// App Features Repository
+        /// </summary>
+        IGenericRepository<AppFeatures> AppFeaturesRepository { get; init; }
+
+        /// <summary>
+        /// App Selected Features Repository
+        /// </summary>
+        IGenericRepository<AppSelectedFeatures> AppSelectedFeaturesRepository { get; init; }
 
         /// <summary>
         /// Save All Changes Async

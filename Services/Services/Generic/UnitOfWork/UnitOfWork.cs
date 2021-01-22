@@ -152,6 +152,48 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
 
         #endregion
 
+        #region ::App Features Repository::
+
+        /// <summary>
+        /// App Features Repository
+        /// </summary>
+        private IGenericRepository<AppFeatures> _appFeaturesRepository;
+
+        public IGenericRepository<AppFeatures> AppFeaturesRepository
+        {
+            get
+            {
+                if (_appFeaturesRepository == null)
+                {
+                    _appFeaturesRepository = new GenericServices<AppFeatures>(_db);
+                }
+                return _appFeaturesRepository;
+            }
+            init => throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region ::App Selected Features Repository::
+
+        /// <summary>
+        /// App Selected Features Repository
+        /// </summary>
+        private IGenericRepository<AppSelectedFeatures> _appSelectedFeaturesRepository;
+
+        public IGenericRepository<AppSelectedFeatures> AppSelectedFeaturesRepository
+        {
+            get
+            {
+                if (_appSelectedFeaturesRepository == null)
+                {
+                    _appSelectedFeaturesRepository = new GenericServices<AppSelectedFeatures>(_db);
+                }
+                return _appSelectedFeaturesRepository;
+            } init => throw new NotImplementedException(); }
+
+        #endregion
+
         #region __Save __ Dispose__
 
         public async void Dispose()
