@@ -48,5 +48,10 @@ namespace Fri2Ends.Identity.Context
         /// App Selected  Features
         /// </summary>
         public DbSet<AppSelectedFeatures> AppSelectedFeatures { get; set; }
+
+        /// <summary>
+        /// User Apps 
+        /// </summary>
+        public DbSet<UserApps> UserApps { get; set; }
     }
 }
