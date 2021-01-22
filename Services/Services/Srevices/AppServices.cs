@@ -47,7 +47,8 @@ namespace Services.Services.Srevices
                 {
                     if (await IsExistAppAsync(appKey))
                     {
-                        IEnumerable<Users> users = await _repository.UserRepository.GetAllAsync(u => u.AppId == Guid.Parse(appKey));
+                        IEnumerable<UserApps> joinApps = await _repository.UserAppsRepository.GetAllAsync(j => j.AppId == Guid.Parse(appKey));
+                        IList<Users> users = (IList<Users>)await _user.GetUsersFromUsersAppsAsync(joinApps);
                         if (users.Any())
                         {
                             return users.Skip(index * count).Take(count);

@@ -92,6 +92,19 @@ namespace Fri2Ends.Identity.Services.Srevices
             u.PhoneNumber.Contains(q)));
         }
 
+        public async Task<IEnumerable<Users>> GetUsersFromUsersAppsAsync(IEnumerable<UserApps> usersApp)
+        {
+            return await Task.Run(async () =>
+            {
+                IList<Users> users = new List<Users>();
+                foreach (var item in usersApp)
+                {
+                    users.Add(await _repository.UserRepository.FindByIdAsync(item.UserId));
+                }
+                return users;
+            });
+        }
+
         public async Task<bool> IsExistAsync(Guid userId)
         {
             return await Task.Run(async () => await _repository.UserRepository.IsExistAsync(u => u.UserId == userId));

@@ -16,5 +16,6 @@ namespace Fri2Ends.Identity.Services.Repository
         Task<bool> IsExistAsync(string userName);
         Task<bool> IsExistAsync(Users user);
         Task<Users> CreateUserAsync(SignupViewModel signp);
+        Task<IEnumerable<Users>> GetUsersFromUsersAppsAsync(IEnumerable<UserApps> usersApp);
     }
 }
