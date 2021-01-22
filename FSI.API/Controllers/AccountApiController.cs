@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FSI.Server.Api
 {
-    
+
 
     [Route("api/[controller]")]
     [ApiController]
@@ -40,13 +40,13 @@ namespace FSI.Server.Api
             switch (result.Status)
             {
                 case LoginStatus.Success:
-                    return Ok((Id: 0, Title: "Success", Result: result.Status));
+                    return Ok(new { Id = 0, Title = "Success", Result = result });
                 case LoginStatus.Exception:
-                    return Ok((Id: -2, Title: "Exception", Result: new { }));
+                    return Ok(new { Id = -2, Title = "Exception", Result = new { } });
                 case LoginStatus.WrongPassword:
-                    return Ok((Id: -3, Title: "Wrong Password", Result: new { }));
+                    return Ok(new { Id = -3, Title = "Wrong Password", Result = new { } });
                 case LoginStatus.UserNotFound:
-                    return Ok((Id: -4, Title: "User Not Found", Result: new { }));
+                    return Ok(new { Id = -4, Title = "User Not Found", Result = new { } });
 
                 default:
                     goto case LoginStatus.Exception;
@@ -66,11 +66,11 @@ namespace FSI.Server.Api
             switch (result)
             {
                 case SignUpResponse.Success:
-                    return Ok((Id: 0, Title: "Success Go To Active Account", Result: new { }));
+                    return Ok(new { Id = 0, Title = "Success Go To Active Account", Result = new { } });
                 case SignUpResponse.Exception:
-                    return Ok((Id: -2, Title: "Exception", Result: new { }));
+                    return Ok(new { Id = -2, Title = "Exception", Result = new { } });
                 case SignUpResponse.UserAlreadyExist:
-                    return Ok((Id: -3, Title: "User Already Exist", Result: new { }));
+                    return Ok(new { Id = -3, Title = "User Already Exist", Result = new { } });
 
                 default:
                     goto case SignUpResponse.Exception;
@@ -90,13 +90,13 @@ namespace FSI.Server.Api
             switch (result.Status)
             {
                 case ActivationResponseEn.Success:
-                    return Ok((Id: 0, Title: "User Actived", Result: result.Success));
+                    return Ok(new { Id = 0, Title = "User Actived", Result = result.Success });
                 case ActivationResponseEn.UserNotFound:
-                    return Ok((Id: -1, Title: "UserNotFound", Result: new { }));
+                    return Ok(new { Id = -1, Title = "UserNotFound", Result = new { } });
                 case ActivationResponseEn.WrongActiveCode:
-                    return Ok((Id: -3, Title: "Wrong ActiveCode", Result: new { }));
+                    return Ok(new { Id = -3, Title = "Wrong ActiveCode", Result = new { } });
                 case ActivationResponseEn.Exception:
-                    return Ok((Id: -3, Title: "Exception", Result: new { }));
+                    return Ok(new { Id = -3, Title = "Exception", Result = new { } });
 
                 default:
                     goto case ActivationResponseEn.Exception;
@@ -114,13 +114,13 @@ namespace FSI.Server.Api
             switch (result)
             {
                 case RecoveryPasswordResponse.Success:
-                    return Ok((Id: 0, Title: "Success", Result: new { }));
+                    return Ok(new { Id = 0, Title = "Success", Result = new { } });
                 case RecoveryPasswordResponse.UserNotFound:
-                    return Ok((Id: -1, Title: "User Not Found", Result: new { }));
+                    return Ok(new { Id = -1, Title = "User Not Found", Result = new { } });
                 case RecoveryPasswordResponse.Exception:
-                    return Ok((Id: -2, Title: "Exception", Result: new { }));
+                    return Ok(new { Id = -2, Title = "Exception", Result = new { } });
                 case RecoveryPasswordResponse.WrongRecoveryCode:
-                    return Ok((Id: -3, Title: "Wrong Recovey Code", Result: new { }));
+                    return Ok(new { Id = -3, Title = "Wrong Recovey Code", Result = new { } });
                 default:
                     goto case RecoveryPasswordResponse.Exception;
             }
@@ -133,11 +133,11 @@ namespace FSI.Server.Api
             switch (result)
             {
                 case SetPasswordResponse.Success:
-                    return Ok((Id: 0, Title: "Success", Result: new { }));
+                    return Ok(new { Id = 0, Title = "Success", Result = new { } });
                 case SetPasswordResponse.UserNotFound:
-                    return Ok((Id: -1, Title: "User Not Found", Result: new { }));
+                    return Ok(new { Id = -1, Title = "User Not Found", Result = new { } });
                 case SetPasswordResponse.Exception:
-                    return Ok((Id: -2, Title: "Exception", Result: new { }));
+                    return Ok(new { Id = -2, Title = "Exception", Result = new { } });
                 default:
                     goto case SetPasswordResponse.Exception;
             }
@@ -149,13 +149,13 @@ namespace FSI.Server.Api
             switch (result)
             {
                 case ChangePasswordResponse.Success:
-                    return Ok((Id: 0, Title: "Success", Result: new { }));
+                    return Ok(new { Id = 0, Title = "Success", Result = new { } });
                 case ChangePasswordResponse.UserNotFound:
-                    return Ok((Id: -1, Title: "User Not Found", Result: new { }));
+                    return Ok(new { Id = -1, Title = "User Not Found", Result = new { } });
                 case ChangePasswordResponse.Exception:
-                    return Ok((Id: -2, Title: "Exception", Result: new { }));
+                    return Ok(new { Id = -2, Title = "Exception", Result = new { } });
                 case ChangePasswordResponse.WrongOldPassword:
-                    return Ok((Id: -3, Title: "Wrong Password", Result: new { }));
+                    return Ok(new { Id = -3, Title = "Wrong Password", Result = new { } });
                 default:
                     goto case ChangePasswordResponse.Exception;
             }
