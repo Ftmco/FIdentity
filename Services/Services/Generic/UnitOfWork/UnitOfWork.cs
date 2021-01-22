@@ -190,7 +190,31 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
                     _appSelectedFeaturesRepository = new GenericServices<AppSelectedFeatures>(_db);
                 }
                 return _appSelectedFeaturesRepository;
-            } init => throw new NotImplementedException(); }
+            }
+            init => throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region ::User Apps Repository::
+
+        /// <summary>
+        /// User Apps Repository
+        /// </summary>
+        private IGenericRepository<UserApps> _userAppsRepository;
+
+        public IGenericRepository<UserApps> UserAppsRepository
+        {
+            get
+            {
+                if (_userAppsRepository == null)
+                {
+                    _userAppsRepository = new GenericServices<UserApps>(_db);
+                }
+                return _userAppsRepository;
+            }
+            init => throw new NotImplementedException();
+        }
 
         #endregion
 
