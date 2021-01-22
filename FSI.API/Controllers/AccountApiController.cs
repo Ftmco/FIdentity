@@ -1,10 +1,16 @@
-﻿using Fri2Ends.Identity.Services.Repository;
+﻿/*
+ Open Api For Account Users
+ */
+
+using Fri2Ends.Identity.Services.Repository;
 using Fri2Ends.Identity.Services.Srevices;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace FSI.Server.Api
 {
+    
+
     [Route("api/[controller]")]
     [ApiController]
     public class AccountApiController : ControllerBase
