@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,7 +8,7 @@ namespace Services.Services.Repository
     /// <summary>
     /// Application Repository
     /// </summary>
-    public interface IAppRepository
+    public interface IAppManager
     {
         /// <summary>
         /// Get Application Users
@@ -45,5 +46,15 @@ namespace Services.Services.Repository
         /// List Features (IEnumerable)
         /// </returns>
         Task<IEnumerable<AppFeatures>> GetAppFeaturesAsync(string appKey);
+
+        /// <summary>
+        /// Check Is Owner App
+        /// </summary>
+        /// <param name="appId">Application Id</param>
+        /// <param name="header">Request Header</param>
+        /// <returns>
+        /// Is Owner True
+        /// </returns>
+        Task<bool> IsOwnerAsync(Guid appId, IHeaderDictionary header);
     }
 }

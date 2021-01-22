@@ -16,7 +16,22 @@ public enum SignUpResponse
     /// <summary>
     /// User Exist
     /// </summary>
-    UserAlreadyExist = -3
+    UserAlreadyExist = -3,
+
+    /// <summary>
+    /// Application Code Is Not Exist
+    /// </summary>
+    AppNotFound = -4,
+
+    /// <summary>
+    /// Applications In Not Active
+    /// </summary>
+    AppActivent = -5,
+
+    /// <summary>
+    /// User Is Not Owner To App
+    /// </summary>
+    AppIsntForYou = -6
 }
 
 /// <summary>

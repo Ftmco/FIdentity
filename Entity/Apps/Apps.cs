@@ -17,23 +17,32 @@ public record Apps
     /// Application Owner
     /// </summary>
     [Required]
-    public Guid Owner { get; set; }
+    public Guid OwnerId { get; set; }
 
     /// <summary>
     /// App Token
     /// </summary>
+    [Required]
     public string AppToken { get; set; }
 
     /// <summary>
     /// Create Token Date
     /// </summary>
+    [Required]
     public DateTime CreateDate { get; set; }
 
     /// <summary>
     /// App Token Type
     /// From Token Type Enum
     /// </summary>
+    [Required]
     public int TokenType { get; set; }
+
+    /// <summary>
+    /// App Is Active
+    /// </summary>
+    [Required]
+    public bool IsActive { get; set; }
 
     /// <summary>
     /// Relationships Users
@@ -49,6 +58,11 @@ public record Apps
     /// Users App Relationships
     /// </summary>
     public virtual List<UserApps> UserApps { get; set; }
+
+    /// <summary>
+    /// Owner Relationships
+    /// </summary>
+    public virtual Owner Owner { get; set; }
 }
 
 /// <summary>

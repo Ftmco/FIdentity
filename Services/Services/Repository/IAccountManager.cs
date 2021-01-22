@@ -12,8 +12,9 @@ namespace Fri2Ends.Identity.Services.Repository
         /// SignUp User 
         /// </summary>
         /// <param name="signUp">SignUp View Model</param>
+        /// <param name="header">Headers For Owner Apps</param>
         /// <returns></returns>
-        Task<SignUpResponse> SignUpAsync(SignupViewModel signUp);
+        Task<SignUpResponse> SignUpAsync(SignupViewModel signUp,IHeaderDictionary header);
 
         /// <summary>
         /// Login Existing User

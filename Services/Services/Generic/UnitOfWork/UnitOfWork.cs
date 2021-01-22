@@ -218,6 +218,28 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
 
         #endregion
 
+        #region ::Owner Repository::
+
+        /// <summary>
+        /// Owner Repository
+        /// </summary>
+        private IGenericRepository<Owner> _ownerRepository;
+
+        public IGenericRepository<Owner> OwnerRepository
+        {
+            get
+            {
+                if (_ownerRepository == null)
+                {
+                    _ownerRepository = new GenericServices<Owner>(_db);
+                }
+                return _ownerRepository;
+            }
+            init => throw new NotImplementedException();
+        }
+
+        #endregion
+
         #region __Save __ Dispose__
 
         public async void Dispose()

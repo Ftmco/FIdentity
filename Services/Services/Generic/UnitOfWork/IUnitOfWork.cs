@@ -57,6 +57,11 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
         IGenericRepository<UserApps> UserAppsRepository { get; init; }
 
         /// <summary>
+        /// Owner Repository
+        /// </summary>
+        IGenericRepository<Owner> OwnerRepository { get; init; }
+
+        /// <summary>
         /// Save All Changes Async
         /// </summary>
         /// <returns></returns>

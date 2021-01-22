@@ -53,5 +53,10 @@ namespace Fri2Ends.Identity.Context
         /// User Apps 
         /// </summary>
         public DbSet<UserApps> UserApps { get; set; }
+
+        /// <summary>
+        /// Owner Apps
+        /// </summary>
+        public DbSet<Owner> Owner { get; set; }
     }
 }

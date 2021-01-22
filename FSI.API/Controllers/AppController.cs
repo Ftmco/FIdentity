@@ -17,11 +17,11 @@ namespace FSI.API.Controllers
     {
         #region __Dependency__
 
-        private readonly IAppRepository _app;
+        private readonly IAppManager _app;
 
         public AppController()
         {
-            _app = new AppServices();
+            _app = new AppManager();
         }
 
         #endregion
@@ -64,7 +64,12 @@ namespace FSI.API.Controllers
 
         #region --Delete User--
 
-
+        [HttpGet]
+        [Route("DeleteUser")]
+        public async Task<IActionResult> DeleteUser(string appKey,string userId)
+        {
+            return Ok();
+        }
 
         #endregion
     }

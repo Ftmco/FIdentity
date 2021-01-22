@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Services.Services.Srevices
 {
-    public class AppServices : IAppRepository
+    public class AppManager : IAppManager
     {
         #region __Dependency__
 
@@ -30,7 +30,7 @@ namespace Services.Services.Srevices
         /// </summary>
         private readonly IUserManager _user;
 
-        public AppServices()
+        public AppManager()
         {
             _repository = new UnitOfWork<FIdentityContext>();
             _token = new TokenManager();
@@ -139,6 +139,16 @@ namespace Services.Services.Srevices
                 {
                     return null;
                 }
+            });
+        }
+
+        public async Task<bool> IsOwnerAsync(Guid appId, IHeaderDictionary header)
+        {
+            return await Task.Run(async () =>
+            {
+                string ownerToken = header["Owner"].ToString();
+                Owner owner = await _repository.OwnerRepository.GetFirstOrDefaultAsync(o => o.OwnerToken == ownerToken);
+                return owner != null;
             });
         }
     }
