@@ -23,12 +23,21 @@ public record Apps
     /// </summary>
     public DateTime CreateDate { get; set; }
 
+    /// <summary>
+    /// App Token Type
+    /// From Token Type Enum
+    /// </summary>
     public int TokenType { get; set; }
 
     /// <summary>
     /// Relationships Users
     /// </summary>
     public virtual List<Users> Users { get; set; }
+
+    /// <summary>
+    /// Relationships App Selected Features
+    /// </summary>
+    public virtual List<AppSelectedFeatures> AppSelectedFeatures { get; set; }
 }
 
 /// <summary>
