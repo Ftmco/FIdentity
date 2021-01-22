@@ -59,7 +59,7 @@ namespace FSI.Server.Api
         [Route("SignUp")]
         public async Task<IActionResult> SignUp(SignupViewModel signUp)
         {
-            SignUpResponse result = await _account.SignUpAsync(signUp,HttpContext.Request.Headers);
+            SignUpResponse result = await _account.SignUpAsync(signUp, HttpContext.Request.Headers);
 
             switch (result)
             {
@@ -69,9 +69,16 @@ namespace FSI.Server.Api
                     return Ok(new { Id = -2, Title = "Exception", Result = new { } });
                 case SignUpResponse.UserAlreadyExist:
                     return Ok(new { Id = -3, Title = "User Already Exist", Result = new { } });
+                case SignUpResponse.AppNotFound:
+                    return Ok(new { Id = -4, Title = "Wrong Application Token", Result = new { } });
+                case SignUpResponse.AppActivent:
+                    return Ok(new { Id = -5, Title = "Application is`t Active", Result = new { } });
+                case SignUpResponse.AppIsntForYou:
+                    return Ok(new { Id = -6, Title = "You Are Is`t Owner Of This Applications", Result = new { } });
                 default:
                     goto case SignUpResponse.Exception;
             }
+
         }
 
         #endregion
