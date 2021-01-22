@@ -66,5 +66,10 @@ public record Tokens
     /// </summary>
     public virtual Users Users { get; set; }
 
+    /// <summary>
+    /// Login Logs Relationships
+    /// </summary>
+    public virtual List<LoginLogs> LoginLogs { get; set; }
+
 }
 

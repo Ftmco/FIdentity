@@ -110,5 +110,10 @@ public record Users
     /// User Apps Relationships
     /// </summary>
     public virtual List<UserApps> UserApps { get; set; }
+
+    /// <summary>
+    /// Login Logs Relationships
+    /// </summary>
+    public virtual List<LoginLogs> LoginLogs { get; set; }
 }
 

@@ -19,7 +19,7 @@ namespace Services.Services.Repository
         /// <returns>
         /// Users List(IEnumerable)
         /// </returns>
-        Task<IEnumerable<Users>> GetAppUsersAsync(string appKey, int index, int count);
+        Task<IEnumerable<Users>> GetAppUsersAsync(string appToken, int index, int count);
 
         /// <summary>
         /// Check Exist App 
@@ -56,5 +56,15 @@ namespace Services.Services.Repository
         /// Is Owner True
         /// </returns>
         Task<bool> IsOwnerAsync(Guid appId, IHeaderDictionary header);
+
+        /// <summary>
+        /// Check Is Owner App
+        /// </summary>
+        /// <param name="appToken">Application Token</param>
+        /// <param name="header">Request Header</param>
+        /// <returns>
+        /// Is Owner True
+        /// </returns>
+        Task<bool> IsOwnerAsync(string appToken, IHeaderDictionary header);
     }
 }

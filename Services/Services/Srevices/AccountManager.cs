@@ -229,7 +229,7 @@ namespace Fri2Ends.Identity.Services.Srevices
                                         {
                                             UserApps newJoin = new()
                                             {
-                                                AppId = app.AppId,
+                                                AppToken = app.AppToken,
                                                 JoindeDate = DateTime.Now,
                                                 UserId = user.UserId
                                             };

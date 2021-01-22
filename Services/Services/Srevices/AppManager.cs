@@ -39,15 +39,15 @@ namespace Services.Services.Srevices
 
         #endregion
 
-        public async Task<IEnumerable<Users>> GetAppUsersAsync(string appKey, int index, int count)
+        public async Task<IEnumerable<Users>> GetAppUsersAsync(string appToken, int index, int count)
         {
             return await Task.Run(async () =>
             {
                 try
                 {
-                    if (await IsExistAppAsync(appKey))
+                    if (await IsExistAppAsync(appToken))
                     {
-                        IEnumerable<UserApps> joinApps = await _repository.UserAppsRepository.GetAllAsync(j => j.AppId == Guid.Parse(appKey));
+                        IEnumerable<UserApps> joinApps = await _repository.UserAppsRepository.GetAllAsync(j => j.AppToken == appToken);
                         IList<Users> users = (IList<Users>)await _user.GetUsersFromUsersAppsAsync(joinApps);
                         if (users.Any())
                         {
@@ -64,13 +64,13 @@ namespace Services.Services.Srevices
             });
         }
 
-        public async Task<bool> IsExistAppAsync(string appKey)
+        public async Task<bool> IsExistAppAsync(string appToken)
         {
             return await Task.Run(async () =>
             {
                 try
                 {
-                    return await _repository.AppsRepository.IsExistAsync(a => a.AppId == Guid.Parse(appKey));
+                    return await _repository.AppsRepository.IsExistAsync(a => a.AppToken == appToken);
                 }
                 catch
                 {
@@ -79,7 +79,7 @@ namespace Services.Services.Srevices
             });
         }
 
-        public async Task<ApplicationInfoViewModel> GetApplicationInfoAsync(string appKey, IHeaderDictionary header)
+        public async Task<ApplicationInfoViewModel> GetApplicationInfoAsync(string appToken, IHeaderDictionary header)
         {
             return await Task.Run(async () =>
             {
@@ -90,17 +90,16 @@ namespace Services.Services.Srevices
                     Users user = await _user.GetUserFromHeaders(header);
                     if (user != null)
                     {
-                        if (await IsExistAppAsync(appKey))
+                        if (await IsExistAppAsync(appToken))
                         {
-                            Apps app = await _repository.AppsRepository.GetFirstOrDefaultAsync(a => a.AppId == Guid.Parse(appKey) && a.Owner == user.UserId);
-                            if (app != null)
+                            if (await IsOwnerAsync(appToken, header))
                             {
                                 return new ApplicationInfoViewModel
                                 {
-                                    App = app,
+                                    App = await _repository.AppsRepository.GetFirstOrDefaultAsync(a => a.AppToken == appToken),
                                     Status = ApplicationInfoStatus.Success,
                                     User = user,
-                                    Features = (IList<AppFeatures>)await GetAppFeaturesAsync(appKey)
+                                    Features = (IList<AppFeatures>)await GetAppFeaturesAsync(appToken)
                                 };
                             }
                             response.Status = ApplicationInfoStatus.AppNotfound;
@@ -146,9 +145,35 @@ namespace Services.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                string ownerToken = header["Owner"].ToString();
-                Owner owner = await _repository.OwnerRepository.GetFirstOrDefaultAsync(o => o.OwnerToken == ownerToken);
-                return owner != null;
+                try
+                {
+                    string ownerToken = header["Owner"].ToString();
+                    Owner owner = await _repository.OwnerRepository.GetFirstOrDefaultAsync(o => o.OwnerToken == ownerToken);
+                    Apps app = await _repository.AppsRepository.FindByIdAsync(appId);
+                    return app.OwnerId == owner.OwnerId;
+                }
+                catch
+                {
+                    return false;
+                }
+            });
+        }
+
+        public async Task<bool> IsOwnerAsync(string appToken, IHeaderDictionary header)
+        {
+            return await Task.Run(async () =>
+            {
+                try
+                {
+                    string ownerToken = header["Owner"].ToString();
+                    Owner owner = await _repository.OwnerRepository.GetFirstOrDefaultAsync(o => o.OwnerToken == ownerToken);
+                    Apps app = await _repository.AppsRepository.GetFirstOrDefaultAsync(a => a.AppToken == appToken);
+                    return app.OwnerId == owner.OwnerId;
+                }
+                catch
+                {
+                    return false;
+                }
             });
         }
     }

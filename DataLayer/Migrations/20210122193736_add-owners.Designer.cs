@@ -4,14 +4,16 @@ using Fri2Ends.Identity.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(FIdentityContext))]
-    partial class FIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20210122193736_add-owners")]
+    partial class addowners
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,20 +133,7 @@ namespace DataLayer.Migrations
                     b.Property<Guid>("TokenId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("TokensTokenId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UsersUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("LogId");
-
-                    b.HasIndex("TokensTokenId");
-
-                    b.HasIndex("UsersUserId");
 
                     b.ToTable("LoginLogs");
                 });
@@ -352,21 +341,6 @@ namespace DataLayer.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("LoginLogs", b =>
-                {
-                    b.HasOne("Tokens", "Tokens")
-                        .WithMany("LoginLogs")
-                        .HasForeignKey("TokensTokenId");
-
-                    b.HasOne("Users", "Users")
-                        .WithMany("LoginLogs")
-                        .HasForeignKey("UsersUserId");
-
-                    b.Navigation("Tokens");
-
-                    b.Navigation("Users");
-                });
-
             modelBuilder.Entity("SelectedRoles", b =>
                 {
                     b.HasOne("Roles", "Roles")
@@ -437,15 +411,8 @@ namespace DataLayer.Migrations
                     b.Navigation("SelectedRoles");
                 });
 
-            modelBuilder.Entity("Tokens", b =>
-                {
-                    b.Navigation("LoginLogs");
-                });
-
             modelBuilder.Entity("Users", b =>
                 {
-                    b.Navigation("LoginLogs");
-
                     b.Navigation("SelectedRoles");
 
                     b.Navigation("Tokens");

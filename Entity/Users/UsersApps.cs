@@ -21,7 +21,7 @@ public record UserApps
     /// Forgen Key Apps
     /// </summary>
     [Required]
-    public Guid AppId { get; set; }
+    public string AppToken { get; set; }
 
     /// <summary>
     /// Forgen Key User
@@ -42,8 +42,4 @@ public record UserApps
     /// </summary>
     public virtual Users Users { get; set; }
 
-    /// <summary>
-    /// Apps Relationships
-    /// </summary>
-    public virtual Apps Apps { get; set; }
 }

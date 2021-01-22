@@ -59,7 +59,7 @@ namespace FSI.Server.Api
         [Route("SignUp")]
         public async Task<IActionResult> SignUp(SignupViewModel signUp)
         {
-            SignUpResponse result = await _account.SignUpAsync(signUp);
+            SignUpResponse result = await _account.SignUpAsync(signUp,HttpContext.Request.Headers);
 
             switch (result)
             {

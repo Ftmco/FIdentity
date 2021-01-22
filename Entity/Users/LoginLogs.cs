@@ -53,5 +53,24 @@ public record LoginLogs
     [Required]
     public Guid TokenId { get; set; }
 
+    /// <summary>
+    /// UserId 
+    /// </summary>
+    [Required]
+    public Guid UserId { get; set; }
+
+    //Relationships
+
+    /// <summary>
+    /// Tokens Relationships
+    /// </summary>
+    public virtual Tokens Tokens { get; set; }
+
+    /// <summary>
+    /// Users Relationships
+    /// </summary>
+    public virtual Users Users { get; set; }
+
+
 }
 

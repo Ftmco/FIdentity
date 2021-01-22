@@ -30,9 +30,9 @@ namespace FSI.API.Controllers
 
         [HttpGet]
         [Route("GetAppUsers")]
-        public async Task<IActionResult> GetUsers(string appKey, int index, int count)
+        public async Task<IActionResult> GetUsers(string appToken, int index, int count)
         {
-            IList<Users> result = await _app.GetAppUsersAsync(appKey, index, count) as List<Users>;
+            IList<Users> result = await _app.GetAppUsersAsync(appToken, index, count) as List<Users>;
             return (result != null) ? Ok(new { Id = 0, Title = "Success", Result = result }) :
                 Ok(new { Id = -1, Title = "Not Found Any Users", Result = new { } });
         }
