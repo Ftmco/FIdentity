@@ -101,15 +101,41 @@ namespace FSI.Server.Api
 
         #region --Recovery Password--
 
-        //public async Task<IActionResult> RecoveyPassword(RecoveryPasswordViewModel recoveryPassword)
-        //{
-        //    return Ok();
-        //}
+        public async Task<IActionResult> RecoveyPassword(RecoveryPasswordViewModel recoveryPassword)
+        {
+            var result = await _account.RequestRecoveyPassword(recoveryPassword);
 
-        //public async Task<IActionResult> SetPassword(ChangePasswordViewModel changePassword)
-        //{
-        //    return Ok();
-        //}
+            switch (result)
+            {
+                case RecoveryPasswordResponse.Success:
+                    return Ok((Id: 0, Title: "Success", Result: new { }));
+                case RecoveryPasswordResponse.UserNotFound:
+                    return Ok((Id: -1, Title: "User Not Found", Result: new { }));
+                case RecoveryPasswordResponse.Exception:
+                    return Ok((Id: -2, Title: "Exception", Result: new { }));
+                case RecoveryPasswordResponse.WrongRecoveryCode:
+                    return Ok((Id: -3, Title: "Wrong Recovey Code", Result: new { }));
+                default:
+                    goto case RecoveryPasswordResponse.Exception;
+            }
+        }
+
+        public async Task<IActionResult> SetPassword(ChangePasswordViewModel changePassword)
+        {
+            var result = await _account.SetPasswordAsync(changePassword);
+
+            switch (result)
+            {
+                case SetPasswordResponse.Success:
+                    return Ok((Id: 0, Title: "Success", Result: new { }));
+                case SetPasswordResponse.UserNotFound:
+                    return Ok((Id: -1, Title: "User Not Found", Result: new { }));
+                case SetPasswordResponse.Exception:
+                    return Ok((Id: -2, Title: "Exception", Result: new { }));
+                default:
+                    goto case SetPasswordResponse.Exception;
+            }
+        }
 
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel changePassword)
         {
