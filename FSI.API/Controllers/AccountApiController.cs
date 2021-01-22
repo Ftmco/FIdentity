@@ -69,7 +69,6 @@ namespace FSI.Server.Api
                     return Ok(new { Id = -2, Title = "Exception", Result = new { } });
                 case SignUpResponse.UserAlreadyExist:
                     return Ok(new { Id = -3, Title = "User Already Exist", Result = new { } });
-
                 default:
                     goto case SignUpResponse.Exception;
             }
