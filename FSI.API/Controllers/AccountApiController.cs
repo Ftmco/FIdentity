@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 
 namespace FSI.Server.Api
 {
-
-
     [Route("api/[controller]")]
     [ApiController]
     public class AccountApiController : ControllerBase
