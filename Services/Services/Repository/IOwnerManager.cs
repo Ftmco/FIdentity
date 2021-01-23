@@ -11,5 +11,6 @@ namespace Services.Services.Repository
     {
         Task<OwnerInfoViewModel> GetOwnerInfoAsync(Guid userId);
         Task<OwnerInfoViewModel> GetOwnerInfoAsync(IHeaderDictionary header);
+        Task<OwnerInfoViewModel> GetOwnerInfoAsync(IRequestCookieCollection cookie);
     }
 }

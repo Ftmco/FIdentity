@@ -1,13 +1,12 @@
 ﻿using Fri2Ends.Identity.Context;
 using Fri2Ends.Identity.Services.Generic.UnitOfWork;
+using Fri2Ends.Identity.Services.Repository;
+using Fri2Ends.Identity.Services.Srevices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Services.Services.Repository;
 using Services.Services.Srevices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FSI.Server.Pages
@@ -24,6 +23,8 @@ namespace FSI.Server.Pages
 
         private IOwnerManager _owner;
 
+        private IAccountManager _account;
+
         #endregion
 
         public IndexModel(ILogger<IndexModel> logger)
@@ -31,11 +32,19 @@ namespace FSI.Server.Pages
             _logger = logger;
             _repository = new UnitOfWork<FIdentityContext>();
             _owner = new OwnerManger();
+            _account = new AccountManager();
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGet()
         {
-            ownerInfo = _owner.GetOwnerInfoAsync(HttpContext.Request.Headers).Result;
+            var cookies = HttpContext.Request.Cookies;
+            if (await _account.IsLoginAsync(cookies))
+            {
+                OwnerInfo = await _owner.GetOwnerInfoAsync(cookies);
+                return Page();
+            }
+            else
+                return RedirectToPage("Login");
         }
     }
 }

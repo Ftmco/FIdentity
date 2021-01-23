@@ -118,5 +118,9 @@ namespace Fri2Ends.Identity.Services.Repository
         /// Passwrod Is Ok = True
         /// Wrong Password = False</returns>
         Task<bool> CheckPasswordAsync(Users user, string currentPassword);
+
+        Task<bool> IsLoginAsync(IHeaderDictionary header);
+
+        Task<bool> IsLoginAsync(IRequestCookieCollection cookie);
     }
 }

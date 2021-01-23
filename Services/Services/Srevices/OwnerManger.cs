@@ -56,7 +56,20 @@ namespace Services.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                var user = await _user.GetUserFromHeaders(header);
+                Users user = await _user.GetUserFromHeaders(header);
+                if (user != null)
+                {
+                    return await GetOwnerInfoAsync(user.UserId);
+                }
+                return null;
+            });
+        }
+
+        public async Task<OwnerInfoViewModel> GetOwnerInfoAsync(IRequestCookieCollection cookie)
+        {
+            return await Task.Run(async () =>
+            {
+                Users user = await _user.GetUserFromCookies(cookie);
                 if (user != null)
                 {
                     return await GetOwnerInfoAsync(user.UserId);

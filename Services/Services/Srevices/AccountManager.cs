@@ -390,5 +390,15 @@ namespace Fri2Ends.Identity.Services.Srevices
                 return RecoveryPasswordResponse.Exception;
             });
         }
+
+        public Task<bool> IsLoginAsync(IHeaderDictionary header)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> IsLoginAsync(IRequestCookieCollection cookie)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
