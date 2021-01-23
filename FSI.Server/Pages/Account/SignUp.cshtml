@@ -1,0 +1,60 @@
+﻿@page
+@model FSI.Server.Pages.Account.SignInModel
+@{
+    ViewData["Title"] = "Signin";
+}
+
+<div style="margin:50px">
+    <h3 class="text-center">Signin F Identity</h3>
+    <div class="card-body">
+        <form class="form-horizontal form-material">
+            <div class="form-group mb-4">
+                <label class="col-md-12 p-0" asp-for="@Model.Signup.UserName"></label>
+                <div class="col-md-12 border-bottom p-0">
+                    <input asp-for="@Model.Signup.UserName"
+                           class="form-control p-0 border-0">
+                    <span asp-validation-for="@Model.Signup.UserName"></span>
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <label for="example-email" class="col-md-12 p-0" asp-for="@Model.Signup.Email"></label>
+                <div class="col-md-12 border-bottom p-0">
+                    <input asp-for="@Model.Signup.Email" class="form-control p-0 border-0" name="example-email"
+                           id="example-email">
+                    <span asp-validation-for="@Model.Signup.Email"></span>
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <label class="col-md-12 p-0" asp-for="@Model.Signup.Password"></label>
+                <div class="col-md-12 border-bottom p-0">
+                    <input asp-for="@Model.Signup.Password" class="form-control p-0 border-0">
+                    <span asp-validation-for="@Model.Signup.Password"></span>
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <label class="col-md-12 p-0" asp-for="@Model.Signup.RePassword"></label>
+                <div class="col-md-12 border-bottom p-0">
+                    <input asp-for="@Model.Signup.RePassword" class="form-control p-0 border-0">
+                    <span asp-validation-for="@Model.Signup.RePassword"></span>
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <label class="col-md-12 p-0" asp-for="@Model.Signup.PhoneNumber"></label>
+                <div class="col-md-12 border-bottom p-0">
+                    <input asp-for="@Model.Signup.PhoneNumber"
+                           class="form-control p-0 border-0">
+                    <span asp-validation-for="@Model.Signup.PhoneNumber"></span>
+                </div>
+            </div>
+
+
+            <div class="form-group mb-4">
+                <div class="col-sm-12">
+                    <button class="btn btn-success">Signin</button>
+
+                    <button class="btn btn-primary" asp-page="Login">Login</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
