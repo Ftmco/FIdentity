@@ -44,7 +44,7 @@ namespace FSI.Server.Pages
                 return Page();
             }
             else
-                return RedirectToPage("Login");
+                return RedirectToPage("/Account/Login");
         }
     }
 }

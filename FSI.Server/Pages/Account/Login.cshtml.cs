@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FSI.Server.Pages.Account
+namespace FSI.Server.Pages
 {
     public class LoginModel : PageModel
     {
+        public LoginViewModel Login { get; set; }
+
         public void OnGet()
         {
         }
