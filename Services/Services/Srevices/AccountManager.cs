@@ -318,11 +318,9 @@ namespace Fri2Ends.Identity.Services.Srevices
                         if (user.Password == changePassword.OldPassword.CreateSHA256())
                         {
                             user.Password = changePassword.NewPassword.CreateSHA256();
-                            if (await _repository.UserRepository.UpdateAsync(user) && await _repository.SaveAsync())
-                            {
-                                return ChangePasswordResponse.Success;
-                            }
-                            return ChangePasswordResponse.Exception;
+                            return (await _repository.UserRepository.UpdateAsync(user) && await _repository.SaveAsync()) ?
+                            ChangePasswordResponse.Success :
+                             ChangePasswordResponse.Exception;
                         }
                         return ChangePasswordResponse.WrongOldPassword;
                     }
@@ -336,19 +334,14 @@ namespace Fri2Ends.Identity.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                var user = await _user.GetUserByEmailAsync(recoveryPassword.Email);
+                Users user = await _user.GetUserByEmailAsync(recoveryPassword.Email);
                 if (user != null)
                 {
                     try
                     {
-                        if (string.IsNullOrEmpty(recoveryPassword.RecoveryCode))
-                        {
-                            return await RecoveryRequestForChangeAsync(user);
-                        }
-                        else
-                        {
-                            return await RecoverySetPasswordAsync(user, recoveryPassword.NewPassword);
-                        }
+                        return (string.IsNullOrEmpty(recoveryPassword.RecoveryCode)) ?
+                         await RecoveryRequestForChangeAsync(user) :
+                        await RecoverySetPasswordAsync(user, recoveryPassword.NewPassword);
                     }
                     catch
                     {
@@ -366,12 +359,11 @@ namespace Fri2Ends.Identity.Services.Srevices
                 user.ActiveCode = Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6);
                 if (await _repository.UserRepository.UpdateAsync(user) && await _repository.SaveAsync())
                 {
-                    var res = await EmailSender.Send(new SendEmailModel());
-                    if (res == "Success")
-                    {
-                        return RecoveryPasswordResponse.Success;
-                    }
-                    return RecoveryPasswordResponse.Exception;
+                    string res = await EmailSender.Send(new SendEmailModel());
+
+                    return (res == "Success") ?
+                      RecoveryPasswordResponse.Success :
+                     RecoveryPasswordResponse.Exception;
                 }
                 return RecoveryPasswordResponse.Exception;
             });
@@ -383,22 +375,29 @@ namespace Fri2Ends.Identity.Services.Srevices
             {
                 user.ActiveCode = Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6);
                 user.Password = await newPassword.CreateSHA256Async();
-                if (await _repository.UserRepository.UpdateAsync(user) && await _repository.SaveAsync())
-                {
-                    return RecoveryPasswordResponse.Success;
-                }
-                return RecoveryPasswordResponse.Exception;
+
+                return (await _repository.UserRepository.UpdateAsync(user) && await _repository.SaveAsync()) ?
+                 RecoveryPasswordResponse.Success :
+                RecoveryPasswordResponse.Exception;
             });
         }
 
-        public Task<bool> IsLoginAsync(IHeaderDictionary header)
+        public async Task<bool> IsLoginAsync(IHeaderDictionary header)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () =>
+            {
+                Users user = await _user.GetUserFromHeaders(header);
+                return user != null;
+            });
         }
 
-        public Task<bool> IsLoginAsync(IRequestCookieCollection cookie)
+        public async Task<bool> IsLoginAsync(IRequestCookieCollection cookie)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () =>
+            {
+                Users user = await _user.GetUserFromCookies(cookie);
+                return user != null;
+            });
         }
     }
 }
