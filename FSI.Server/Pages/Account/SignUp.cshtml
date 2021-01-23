@@ -7,6 +7,7 @@
 <div style="margin:50px">
     <h3 class="text-center">Signin F Identity</h3>
     <div class="card-body">
+        <span class="text-danger">@ViewData["Err"]</span>
         <form asp-page-handler="Signup" method="post" class="form-horizontal form-material">
             <div class="form-group mb-4">
                 <label class="col-md-12 p-0" asp-for="@Model.Signup.UserName"></label>
@@ -19,8 +20,7 @@
             <div class="form-group mb-4">
                 <label for="example-email" class="col-md-12 p-0" asp-for="@Model.Signup.Email"></label>
                 <div class="col-md-12 border-bottom p-0">
-                    <input asp-for="@Model.Signup.Email" class="form-control p-0 border-0" name="example-email"
-                           id="example-email">
+                    <input asp-for="@Model.Signup.Email" class="form-control p-0 border-0">
                     <span asp-validation-for="@Model.Signup.Email"></span>
                 </div>
             </div>

@@ -32,7 +32,7 @@ namespace FSI.Server.Pages.Account
             switch (result)
             {
                 case SignUpResponse.Success:
-                    return RedirectToPage("/Login");
+                    return RedirectToPage("Login");
                 case SignUpResponse.Exception:
                     {
                         ViewData["Err"] = "Try Again";

@@ -176,5 +176,20 @@ namespace Services.Services.Srevices
                 }
             });
         }
+
+        public  Task<IEnumerable<Apps>> GetOwnerAppsAsync(IHeaderDictionary header)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Apps>> GetOwnerAppsAsync(IRequestCookieCollection cookie)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Apps>> GetOwnerAppsAsync(Guid ownerId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

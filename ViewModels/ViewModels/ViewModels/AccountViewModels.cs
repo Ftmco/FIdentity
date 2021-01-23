@@ -52,7 +52,7 @@ public record SignupViewModel
     [Display(Name = "Email")]
     [Required(ErrorMessage = "{0} Cant Be Null")]
     [MaxLength(70, ErrorMessage = "{0} Cant Upper Than {1}")]
-    [MinLength(9, ErrorMessage = "{0} Cant Smaller Than {1}")]
+    [MinLength(8, ErrorMessage = "{0} Cant Smaller Than {1}")]
     [DataType(DataType.EmailAddress)]
     public string Email { get; set; }
 

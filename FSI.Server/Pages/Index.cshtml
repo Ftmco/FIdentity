@@ -17,20 +17,20 @@
                     <div class="overlay-box">
                         <div class="user-content">
                             <a href="javascript:void(0)">
-                                <img src="~/Images/UsersImages/@Model.OwnerInfo.UserProfileImageName"
+                                <img src="~/Images/UsersImages/@Model.OwnerInfo?.UserProfileImageName"
                                      class="thumb-lg img-circle" alt="img">
                             </a>
-                            <h4 class="text-white mt-2">@Model.OwnerInfo.UserName</h4>
-                            <h5 class="text-white mt-2">@Model.OwnerInfo.Email</h5>
+                            <h4 class="text-white mt-2">@Model.OwnerInfo?.UserName</h4>
+                            <h5 class="text-white mt-2">@Model.OwnerInfo?.Email</h5>
                         </div>
                     </div>
                 </div>
                 <div class="user-btm-box mt-5 d-md-flex">
                     <div class="col-md-4 col-sm-4 text-center">
-                        <h1>Apps Count : </h1>
+                        <h4>Apps Count : </h4>
                     </div>
                     <div class="col-md-4 col-sm-4 text-center">
-                        <h1>@Model.OwnerInfo.AppCount</h1>
+                        <h4>@(Model.OwnerInfo?.AppCount??0)</h4>
                     </div>
                 </div>
             </div>
@@ -42,62 +42,41 @@
                 <div class="card-body">
                     <div class="col-sm-12">
                         <div class="white-box">
-                            <h3 class="box-title">Basic Table</h3>
-                            <p class="text-muted">Add class <code>.table</code></p>
+                            <h3 class="box-title">Application List</h3>
+                            <button class="btn btn-primary">Add New App</button>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
                                             <th class="border-top-0">#</th>
-                                            <th class="border-top-0">First Name</th>
-                                            <th class="border-top-0">Last Name</th>
+                                            <th class="border-top-0">
+                                                @Html.DisplayNameFor(model => model.AppInfo.FirstOrDefault().AppToken)
+                                            </th>
+                                            <th class="border-top-0">
+                                                @Html.DisplayNameFor(model => model.AppInfo.FirstOrDefault().IsActive)
+                                            </th>
                                             @*<th class="border-top-0">Username</th>*@
-                                            <th class="border-top-0">Role</th>
+                                            <th class="border-top-0">
+                                                @Html.DisplayNameFor(model => model.AppInfo.FirstOrDefault().CreateDate)
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Deshmukh</td>
-                                            <td>Prohaska</td>
-                                           
-                                            <td>admin</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Deshmukh</td>
-                                            <td>Gaylord</td>
-                                           
-                                            <td>member</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Sanghani</td>
-                                            <td>Gusikowski</td>
-                                           
-                                            <td>developer</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Roshan</td>
-                                            <td>Rogahn</td>
-                                           
-                                            <td>supporter</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Joshi</td>
-                                            <td>Hickle</td>
-                                            
-                                            <td>member</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>Nigam</td>
-                                            <td>Eichmann</td>
-                                            
-                                            <td>supporter</td>
-                                        </tr>
+                                        @foreach (var item in Model.AppInfo)
+                                        {
+                                            <tr>
+                                                @item.AppId
+                                            </tr>
+                                            <tr>
+                                                @item.AppToken
+                                            </tr>
+                                            <tr>
+                                                @item.IsActive
+                                            </tr>
+                                            <tr>
+                                                @item.CreateDate
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>

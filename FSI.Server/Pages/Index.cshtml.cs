@@ -7,13 +7,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Services.Services.Repository;
 using Services.Services.Srevices;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FSI.Server.Pages
 {
     public class IndexModel : PageModel
     {
+        #region __Models__
+
         public OwnerInfoViewModel OwnerInfo { get; set; }
+
+        public IEnumerable<Apps> AppInfo { get; set; }
+
+        #endregion
 
         #region __Depdency__
 
@@ -25,7 +32,7 @@ namespace FSI.Server.Pages
 
         private IAccountManager _account;
 
-        #endregion
+        private IAppManager _app;
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -33,7 +40,12 @@ namespace FSI.Server.Pages
             _repository = new UnitOfWork<FIdentityContext>();
             _owner = new OwnerManger();
             _account = new AccountManager();
+            _app = new AppManager();
         }
+
+        #endregion
+
+
 
         public async Task<IActionResult> OnGet()
         {
@@ -41,6 +53,7 @@ namespace FSI.Server.Pages
             if (await _account.IsLoginAsync(cookies))
             {
                 OwnerInfo = await _owner.GetOwnerInfoAsync(cookies);
+                AppInfo = await _app.GetOwnerAppsAsync(cookies);
                 return Page();
             }
             else

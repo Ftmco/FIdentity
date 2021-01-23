@@ -39,6 +39,33 @@ namespace Services.Services.Repository
         Task<ApplicationInfoViewModel> GetApplicationInfoAsync(string appKey, IHeaderDictionary header);
 
         /// <summary>
+        /// Find and Return Owner Apps
+        /// </summary>
+        /// <param name="header">Request Header</param>
+        /// <returns>
+        /// List Apps
+        /// </returns>
+        Task<IEnumerable<Apps>> GetOwnerAppsAsync(IHeaderDictionary header);
+
+        /// <summary>
+        ///  Find and Return Owner Apps
+        /// </summary>
+        /// <param name="cookie">Request Cookies</param>
+        /// <returns>
+        /// List Apps
+        /// </returns>
+        Task<IEnumerable<Apps>> GetOwnerAppsAsync(IRequestCookieCollection cookie);
+
+        /// <summary>
+        ///  Find and Return Owner Apps
+        /// </summary>
+        /// <param name="ownerId">Owner Id</param>
+        /// <returns>
+        /// List Apps
+        /// </returns>
+        Task<IEnumerable<Apps>> GetOwnerAppsAsync(Guid ownerId);
+
+        /// <summary>
         /// Get App Features
         /// </summary>
         /// <param name="appKey">App Id</param>
