@@ -59,7 +59,7 @@ namespace FSI.Server.Api
         [Route("SignUp")]
         public async Task<IActionResult> SignUp(SignupViewModel signUp)
         {
-            SignUpResponse result = await _account.SignUpAsync(signUp);
+            SignUpResponse result = await _account.SignUpAsync(signUp, HttpContext.Request.Headers);
 
             switch (result)
             {
@@ -69,9 +69,16 @@ namespace FSI.Server.Api
                     return Ok(new { Id = -2, Title = "Exception", Result = new { } });
                 case SignUpResponse.UserAlreadyExist:
                     return Ok(new { Id = -3, Title = "User Already Exist", Result = new { } });
+                case SignUpResponse.AppNotFound:
+                    return Ok(new { Id = -4, Title = "User Signed In But Wrong Application Token try To Login With Application Token", Result = new { } });
+                case SignUpResponse.AppActivent:
+                    return Ok(new { Id = -5, Title = "User Signed In But Application is`t Active try To Login With Application Token", Result = new { } });
+                case SignUpResponse.AppIsntForYou:
+                    return Ok(new { Id = -6, Title = "User Signed In But You Are Is`t Owner Of This Applications try To Login With Application Token", Result = new { } });
                 default:
                     goto case SignUpResponse.Exception;
             }
+
         }
 
         #endregion
@@ -122,25 +129,6 @@ namespace FSI.Server.Api
                     return Ok(new { Id = -3, Title = "Wrong Recovey Code", Result = new { } });
                 default:
                     goto case RecoveryPasswordResponse.Exception;
-            }
-        }
-
-        [HttpPost]
-        [Route("SetPassword")]
-        public async Task<IActionResult> SetPassword(ChangePasswordViewModel changePassword)
-        {
-            var result = await _account.SetPasswordAsync(changePassword);
-
-            switch (result)
-            {
-                case SetPasswordResponse.Success:
-                    return Ok(new { Id = 0, Title = "Success", Result = new { } });
-                case SetPasswordResponse.UserNotFound:
-                    return Ok(new { Id = -1, Title = "User Not Found", Result = new { } });
-                case SetPasswordResponse.Exception:
-                    return Ok(new { Id = -2, Title = "Exception", Result = new { } });
-                default:
-                    goto case SetPasswordResponse.Exception;
             }
         }
 

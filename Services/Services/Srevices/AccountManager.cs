@@ -2,6 +2,8 @@
 using Fri2Ends.Identity.Services.Generic.UnitOfWork;
 using Fri2Ends.Identity.Services.Repository;
 using Microsoft.AspNetCore.Http;
+using Services.Services.Repository;
+using Services.Services.Srevices;
 using System;
 using System.Threading.Tasks;
 
@@ -39,6 +41,11 @@ namespace Fri2Ends.Identity.Services.Srevices
         /// </summary>
         private readonly ISelectedRoleManager _selectedRole;
 
+        /// <summary>
+        /// Application Serivces
+        /// </summary>
+        private readonly IAppManager _app;
+
         public AccountManager()
         {
             _selectedRole = new SelectedRoleManager();
@@ -46,6 +53,7 @@ namespace Fri2Ends.Identity.Services.Srevices
             _token = new TokenManager();
             _user = new UserManager();
             _repository = new UnitOfWork<FIdentityContext>();
+            _app = new AppManager();
         }
 
         #endregion
@@ -149,22 +157,20 @@ namespace Fri2Ends.Identity.Services.Srevices
                 {
                     if (await CheckPasswordAsync(user, login.Password))
                     {
-                        Tokens token = await CreateTokenAsync(user, expireDays);
+                        Tokens token = await CreateTokenAsync(user, (rememmeberMe ? expireDays : 0));
                         if (await _repository.TokensRepository.InsertAsync(token) && await _repository.SaveAsync())
                         {
                             LoginLogs log = await CreateLogAsync(token, context);
                             await _repository.LoginLogsRepository.InsertAsync(log); await _repository.SaveAsync();
 
                             //Create Success Type 
-                            if (rememmeberMe)
+
+                            response.Success = new Success
                             {
-                                response.Success = new Success
-                                {
-                                    IsSucces = true,
-                                    Key = token.TokenKey,
-                                    Value = token.TokenValue
-                                };
-                            }
+                                IsSucces = true,
+                                Key = token.TokenKey,
+                                Value = token.TokenValue
+                            };
 
                             response.Status = LoginStatus.Success;
                             return response;
@@ -201,20 +207,52 @@ namespace Fri2Ends.Identity.Services.Srevices
             });
         }
 
-        public async Task<SignUpResponse> SignUpAsync(SignupViewModel signUp)
+        public async Task<SignUpResponse> SignUpAsync(SignupViewModel signUp, IHeaderDictionary header)
         {
             return await Task.Run(async () =>
             {
-                var user = await _user.CreateUserAsync(signUp);
-                if (!await _user.IsExistAsync(user.UserName))
+                try
                 {
-                    if (await _repository.UserRepository.InsertAsync(user) && await _repository.SaveAsync())
+                    var user = await _user.CreateUserAsync(signUp);
+                    if (!await _user.IsExistAsync(user.UserName))
                     {
-                        return SignUpResponse.Success;
+                        if (await _repository.UserRepository.InsertAsync(user) && await _repository.SaveAsync())
+                        {
+                            if (!string.IsNullOrEmpty(signUp.AppKey))
+                            {
+                                Apps app = await _repository.AppsRepository.GetFirstOrDefaultAsync(a => a.AppToken == signUp.AppKey);
+                                if (app != null)
+                                {
+                                    if (app.IsActive)
+                                    {
+                                        if (await _app.IsOwnerAsync(app.AppId, header))
+                                        {
+                                            UserApps newJoin = new()
+                                            {
+                                                AppToken = app.AppToken,
+                                                JoindeDate = DateTime.Now,
+                                                UserId = user.UserId
+                                            };
+                                            await _repository.UserAppsRepository.InsertAsync(newJoin);
+                                            await _repository.SaveAsync();
+                                            return SignUpResponse.Success;
+                                        }
+                                        return SignUpResponse.AppIsntForYou;
+                                    }
+                                    return SignUpResponse.AppActivent;
+                                }
+                                return SignUpResponse.AppNotFound;
+                            }
+                            return SignUpResponse.Success;
+                        }
+                        return SignUpResponse.Exception;
                     }
+                    return SignUpResponse.UserAlreadyExist;
+                }
+                catch
+                {
                     return SignUpResponse.Exception;
                 }
-                return SignUpResponse.UserAlreadyExist;
             });
         }
 
@@ -294,14 +332,63 @@ namespace Fri2Ends.Identity.Services.Srevices
             });
         }
 
-        public Task<RecoveryPasswordResponse> RequestRecoveyPassword(RecoveryPasswordViewModel recoveryPassword)
+        public async Task<RecoveryPasswordResponse> RequestRecoveyPassword(RecoveryPasswordViewModel recoveryPassword)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () =>
+            {
+                var user = await _user.GetUserByEmailAsync(recoveryPassword.Email);
+                if (user != null)
+                {
+                    try
+                    {
+                        if (string.IsNullOrEmpty(recoveryPassword.RecoveryCode))
+                        {
+                            return await RecoveryRequestForChangeAsync(user);
+                        }
+                        else
+                        {
+                            return await RecoverySetPasswordAsync(user, recoveryPassword.NewPassword);
+                        }
+                    }
+                    catch
+                    {
+                        return RecoveryPasswordResponse.Exception;
+                    }
+                }
+                return RecoveryPasswordResponse.UserNotFound;
+            });
         }
 
-        public Task<SetPasswordResponse> SetPasswordAsync(ChangePasswordViewModel changePassword)
+        private async Task<RecoveryPasswordResponse> RecoveryRequestForChangeAsync(Users user)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () =>
+            {
+                user.ActiveCode = Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6);
+                if (await _repository.UserRepository.UpdateAsync(user) && await _repository.SaveAsync())
+                {
+                    var res = await EmailSender.Send(new SendEmailModel());
+                    if (res == "Success")
+                    {
+                        return RecoveryPasswordResponse.Success;
+                    }
+                    return RecoveryPasswordResponse.Exception;
+                }
+                return RecoveryPasswordResponse.Exception;
+            });
+        }
+
+        private async Task<RecoveryPasswordResponse> RecoverySetPasswordAsync(Users user, string newPassword)
+        {
+            return await Task.Run(async () =>
+            {
+                user.ActiveCode = Guid.NewGuid().GetHashCode().ToString().Replace("-", "").Substring(0, 6);
+                user.Password = await newPassword.CreateSHA256Async();
+                if (await _repository.UserRepository.UpdateAsync(user) && await _repository.SaveAsync())
+                {
+                    return RecoveryPasswordResponse.Success;
+                }
+                return RecoveryPasswordResponse.Exception;
+            });
         }
     }
 }

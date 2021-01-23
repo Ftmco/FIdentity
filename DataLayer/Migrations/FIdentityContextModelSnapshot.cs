@@ -19,6 +19,61 @@ namespace DataLayer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
+            modelBuilder.Entity("AppFeatures", b =>
+                {
+                    b.Property<Guid>("FeatureId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FeatureName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("FeatureTitle")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("ShurtDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FeatureId");
+
+                    b.ToTable("AppFeatures");
+                });
+
+            modelBuilder.Entity("AppSelectedFeatures", b =>
+                {
+                    b.Property<Guid>("SelectedId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AppFeaturesFeatureId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AppId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AppsAppId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FeatureId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("SelectedId");
+
+                    b.HasIndex("AppFeaturesFeatureId");
+
+                    b.HasIndex("AppsAppId");
+
+                    b.ToTable("AppSelectedFeatures");
+                });
+
             modelBuilder.Entity("Apps", b =>
                 {
                     b.Property<Guid>("AppId")
@@ -26,15 +81,24 @@ namespace DataLayer.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AppToken")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("TokenType")
                         .HasColumnType("int");
 
                     b.HasKey("AppId");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Apps");
                 });
@@ -67,9 +131,37 @@ namespace DataLayer.Migrations
                     b.Property<Guid>("TokenId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("TokensTokenId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UsersUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("LogId");
 
+                    b.HasIndex("TokensTokenId");
+
+                    b.HasIndex("UsersUserId");
+
                     b.ToTable("LoginLogs");
+                });
+
+            modelBuilder.Entity("Owner", b =>
+                {
+                    b.Property<Guid>("OwnerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("OwnerToken")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("OwnerId");
+
+                    b.ToTable("Owner");
                 });
 
             modelBuilder.Entity("Roles", b =>
@@ -157,6 +249,37 @@ namespace DataLayer.Migrations
                     b.ToTable("Tokens");
                 });
 
+            modelBuilder.Entity("UserApps", b =>
+                {
+                    b.Property<Guid>("UserAppsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppToken")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("AppsAppId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("JoindeDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UsersUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserAppsId");
+
+                    b.HasIndex("AppsAppId");
+
+                    b.HasIndex("UsersUserId");
+
+                    b.ToTable("UserApps");
+                });
+
             modelBuilder.Entity("Users", b =>
                 {
                     b.Property<Guid>("UserId")
@@ -169,9 +292,6 @@ namespace DataLayer.Migrations
 
                     b.Property<DateTime>("ActiveDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid>("AppId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("AppsAppId")
                         .HasColumnType("uniqueidentifier");
@@ -206,6 +326,47 @@ namespace DataLayer.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("AppSelectedFeatures", b =>
+                {
+                    b.HasOne("AppFeatures", "AppFeatures")
+                        .WithMany("AppSelectedFeatures")
+                        .HasForeignKey("AppFeaturesFeatureId");
+
+                    b.HasOne("Apps", "Apps")
+                        .WithMany("AppSelectedFeatures")
+                        .HasForeignKey("AppsAppId");
+
+                    b.Navigation("AppFeatures");
+
+                    b.Navigation("Apps");
+                });
+
+            modelBuilder.Entity("Apps", b =>
+                {
+                    b.HasOne("Owner", "Owner")
+                        .WithMany("Apps")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("LoginLogs", b =>
+                {
+                    b.HasOne("Tokens", "Tokens")
+                        .WithMany("LoginLogs")
+                        .HasForeignKey("TokensTokenId");
+
+                    b.HasOne("Users", "Users")
+                        .WithMany("LoginLogs")
+                        .HasForeignKey("UsersUserId");
+
+                    b.Navigation("Tokens");
+
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("SelectedRoles", b =>
                 {
                     b.HasOne("Roles", "Roles")
@@ -230,6 +391,19 @@ namespace DataLayer.Migrations
                     b.Navigation("Users");
                 });
 
+            modelBuilder.Entity("UserApps", b =>
+                {
+                    b.HasOne("Apps", null)
+                        .WithMany("UserApps")
+                        .HasForeignKey("AppsAppId");
+
+                    b.HasOne("Users", "Users")
+                        .WithMany("UserApps")
+                        .HasForeignKey("UsersUserId");
+
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("Users", b =>
                 {
                     b.HasOne("Apps", "Apps")
@@ -239,9 +413,23 @@ namespace DataLayer.Migrations
                     b.Navigation("Apps");
                 });
 
+            modelBuilder.Entity("AppFeatures", b =>
+                {
+                    b.Navigation("AppSelectedFeatures");
+                });
+
             modelBuilder.Entity("Apps", b =>
                 {
+                    b.Navigation("AppSelectedFeatures");
+
+                    b.Navigation("UserApps");
+
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Owner", b =>
+                {
+                    b.Navigation("Apps");
                 });
 
             modelBuilder.Entity("Roles", b =>
@@ -249,11 +437,20 @@ namespace DataLayer.Migrations
                     b.Navigation("SelectedRoles");
                 });
 
+            modelBuilder.Entity("Tokens", b =>
+                {
+                    b.Navigation("LoginLogs");
+                });
+
             modelBuilder.Entity("Users", b =>
                 {
+                    b.Navigation("LoginLogs");
+
                     b.Navigation("SelectedRoles");
 
                     b.Navigation("Tokens");
+
+                    b.Navigation("UserApps");
                 });
 #pragma warning restore 612, 618
         }

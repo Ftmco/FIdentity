@@ -152,6 +152,94 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
 
         #endregion
 
+        #region ::App Features Repository::
+
+        /// <summary>
+        /// App Features Repository
+        /// </summary>
+        private IGenericRepository<AppFeatures> _appFeaturesRepository;
+
+        public IGenericRepository<AppFeatures> AppFeaturesRepository
+        {
+            get
+            {
+                if (_appFeaturesRepository == null)
+                {
+                    _appFeaturesRepository = new GenericServices<AppFeatures>(_db);
+                }
+                return _appFeaturesRepository;
+            }
+            init => throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region ::App Selected Features Repository::
+
+        /// <summary>
+        /// App Selected Features Repository
+        /// </summary>
+        private IGenericRepository<AppSelectedFeatures> _appSelectedFeaturesRepository;
+
+        public IGenericRepository<AppSelectedFeatures> AppSelectedFeaturesRepository
+        {
+            get
+            {
+                if (_appSelectedFeaturesRepository == null)
+                {
+                    _appSelectedFeaturesRepository = new GenericServices<AppSelectedFeatures>(_db);
+                }
+                return _appSelectedFeaturesRepository;
+            }
+            init => throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region ::User Apps Repository::
+
+        /// <summary>
+        /// User Apps Repository
+        /// </summary>
+        private IGenericRepository<UserApps> _userAppsRepository;
+
+        public IGenericRepository<UserApps> UserAppsRepository
+        {
+            get
+            {
+                if (_userAppsRepository == null)
+                {
+                    _userAppsRepository = new GenericServices<UserApps>(_db);
+                }
+                return _userAppsRepository;
+            }
+            init => throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region ::Owner Repository::
+
+        /// <summary>
+        /// Owner Repository
+        /// </summary>
+        private IGenericRepository<Owner> _ownerRepository;
+
+        public IGenericRepository<Owner> OwnerRepository
+        {
+            get
+            {
+                if (_ownerRepository == null)
+                {
+                    _ownerRepository = new GenericServices<Owner>(_db);
+                }
+                return _ownerRepository;
+            }
+            init => throw new NotImplementedException();
+        }
+
+        #endregion
+
         #region __Save __ Dispose__
 
         public async void Dispose()
@@ -181,7 +269,7 @@ namespace Fri2Ends.Identity.Services.Generic.UnitOfWork
                     await _db.SaveChangesAsync();
                     return true;
                 }
-                catch (Exception ex)
+                catch
                 {
                     return false;
                 }
