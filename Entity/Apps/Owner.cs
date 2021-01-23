@@ -24,10 +24,21 @@ public record Owner
     [Required]
     public string OwnerToken { get; set; }
 
+    /// <summary>
+    /// Users Forgen Key
+    /// </summary>
+    [Required]
+    public Guid UserId { get; set; }
+
     //Relationships 
 
     /// <summary>
     /// Relationships With Apps
     /// </summary>
     public virtual List<Apps> Apps { get; set; }
+
+    /// <summary>
+    /// Users Relationships
+    /// </summary>
+    public virtual Users Users { get; set; }
 }

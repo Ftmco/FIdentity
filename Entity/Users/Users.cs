@@ -88,7 +88,13 @@ public record Users
     [Required]
     [DataType(DataType.DateTime)]
     public DateTime ActiveDate { get; set; }
-        
+
+    /// <summary>
+    /// Profile Image
+    /// </summary>
+    [Display(Name = "Profile Image")]
+    public string UserProfileImageName { get; set; }
+
     //Relationships
 
     /// <summary>
@@ -115,5 +121,10 @@ public record Users
     /// Login Logs Relationships
     /// </summary>
     public virtual List<LoginLogs> LoginLogs { get; set; }
+
+    /// <summary>
+    /// Owner Relationships
+    /// </summary>
+    public virtual List<Owner> Owner { get; set; }
 }
 
