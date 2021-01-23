@@ -7,7 +7,7 @@
 <div style="margin:50px">
     <h3 class="text-center">Signin F Identity</h3>
     <div class="card-body">
-        <form class="form-horizontal form-material">
+        <form asp-page-handler="Signup" method="post" class="form-horizontal form-material">
             <div class="form-group mb-4">
                 <label class="col-md-12 p-0" asp-for="@Model.Signup.UserName"></label>
                 <div class="col-md-12 border-bottom p-0">
