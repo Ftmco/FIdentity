@@ -33,7 +33,7 @@ namespace FSI.Server.Api
         [Route("Login")]
         public async Task<IActionResult> Login(LoginViewModel login)
         {
-            LoginResponse result = await _account.LoginAsync(login, login.RememberMe, 20, HttpContext);
+            LoginResponse result = await _account.LoginAsync(login, 20, HttpContext);
 
             switch (result.Status)
             {

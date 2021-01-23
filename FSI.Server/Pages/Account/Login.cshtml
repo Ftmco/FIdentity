@@ -10,6 +10,7 @@
     <h3 class="text-center">Login F Identity</h3>
     <div class="card">
         <div class="card-body">
+            <span class="text-danger">@ViewData["Err"]</span>
             <form class="form-horizontal form-material" asp-page-handler="Login" method="post">
                 <div class="form-group mb-4">
                     <label class="col-md-12 p-0" asp-for="@Model.Login.Email"></label>

@@ -21,6 +21,7 @@ namespace FSI.Server.Pages
         }
 
         #endregion
+
         public LoginViewModel Login { get; set; }
 
         public void OnGet()
