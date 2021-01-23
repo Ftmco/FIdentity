@@ -24,7 +24,7 @@ namespace Fri2Ends.Identity.Services.Repository
         /// <param name="expireDays">Expire Days Default 20 days</param>
         /// <param name="context">Http Current Context</param>
         /// <returns></returns>
-        Task<LoginResponse> LoginAsync(LoginViewModel login, bool rememmeberMe, int expireDays = 20, HttpContext context = null);
+        Task<LoginResponse> LoginAsync(LoginViewModel login, int expireDays = 20, HttpContext context = null);
 
         /// <summary>
         /// Active or Confitm Existing User Account

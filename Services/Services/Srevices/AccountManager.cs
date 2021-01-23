@@ -146,7 +146,7 @@ namespace Fri2Ends.Identity.Services.Srevices
             });
         }
 
-        public async Task<LoginResponse> LoginAsync(LoginViewModel login, bool rememmeberMe, int expireDays = 20, HttpContext context = null)
+        public async Task<LoginResponse> LoginAsync(LoginViewModel login, int expireDays = 20, HttpContext context = null)
         {
             return await Task.Run(async () =>
             {
@@ -157,7 +157,7 @@ namespace Fri2Ends.Identity.Services.Srevices
                 {
                     if (await CheckPasswordAsync(user, login.Password))
                     {
-                        Tokens token = await CreateTokenAsync(user, (rememmeberMe ? expireDays : 0));
+                        Tokens token = await CreateTokenAsync(user, (login.RememberMe ? expireDays : 0));
                         if (await _repository.TokensRepository.InsertAsync(token) && await _repository.SaveAsync())
                         {
                             LoginLogs log = await CreateLogAsync(token, context);
