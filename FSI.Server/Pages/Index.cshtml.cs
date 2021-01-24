@@ -62,7 +62,27 @@ namespace FSI.Server.Pages
 
         public async Task<IActionResult> OnPostCreateApp(Apps app)
         {
-            var result = await _app.
+            var result = await _app.CreateAppAsync(app.AppTitle, HttpContext.Request.Headers);
+
+            switch (result)
+            {
+                case CreateAppResponse.Success:
+                    {
+                        return RedirectToPage("Idenx");
+                    }
+                case CreateAppResponse.OwnerNotFound:
+                    {
+                        ViewData["Err"] = "You are Not an Owner";
+                        return RedirectToPage("Idenx");
+                    }
+                case CreateAppResponse.Exception:
+                    {
+                        ViewData["Err"] = "Try Again";
+                        return RedirectToPage("Idenx");
+                    }
+                default:
+                    goto case CreateAppResponse.Exception;
+            }
         }
     }
 }
