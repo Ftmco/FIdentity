@@ -177,19 +177,45 @@ namespace Services.Services.Srevices
             });
         }
 
-        public  Task<IEnumerable<Apps>> GetOwnerAppsAsync(IHeaderDictionary header)
+        public async Task<IEnumerable<Apps>> GetOwnerAppsAsync(IHeaderDictionary header)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () =>
+            {
+                Users user = await _user.GetUserFromHeaders(header);
+                if (user != null)
+                {
+                    Owner owner = await _repository.OwnerRepository.GetFirstOrDefaultAsync(o => o.UserId == user.UserId);
+                    if (owner != null)
+                    {
+                        return await GetOwnerAppsAsync(owner.OwnerId);
+                    }
+                    return null;
+                }
+                return null;
+            });
         }
 
-        public Task<IEnumerable<Apps>> GetOwnerAppsAsync(IRequestCookieCollection cookie)
+        public async Task<IEnumerable<Apps>> GetOwnerAppsAsync(IRequestCookieCollection cookie)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () =>
+            {
+                Users user = await _user.GetUserFromCookies(cookie);
+                if (user != null)
+                {
+                    Owner owner = await _repository.OwnerRepository.GetFirstOrDefaultAsync(o => o.UserId == user.UserId);
+                    if (owner != null)
+                    {
+                        return await GetOwnerAppsAsync(owner.OwnerId);
+                    }
+                    return null;
+                }
+                return null;
+            });
         }
 
-        public Task<IEnumerable<Apps>> GetOwnerAppsAsync(Guid ownerId)
+        public async Task<IEnumerable<Apps>> GetOwnerAppsAsync(Guid ownerId)
         {
-            throw new NotImplementedException();
+            return await Task.Run(async () => await _repository.AppsRepository.GetAllAsync(a => a.OwnerId == ownerId));
         }
     }
 }
