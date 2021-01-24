@@ -112,14 +112,18 @@ namespace Fri2Ends.Identity.Services.Srevices
 
         public async Task<bool> IsExistAsync(string userName)
         {
-            return await Task.Run(async () => await _repository.UserRepository.IsExistAsync(u => u.UserName == userName));
+            var username = userName.ToLower().Trim();
+            return await Task.Run(async () => await _repository.UserRepository.IsExistAsync(u => u.UserName == username || u.Email == username));
         }
 
         public async Task<bool> IsExistAsync(Users user)
         {
-            return await Task.Run(async () => await _repository.UserRepository.IsExistAsync(u => u.UserId == user.UserId &&
-            u.UserName == user.UserName));
+            return await Task.Run(async () => await IsExistAsync(user.UserName) && await IsExistPhoneAsync(user.PhoneNumber));
         }
 
+        public async Task<bool> IsExistPhoneAsync(string phone)
+        {
+            return await Task.Run(async () => await _repository.UserRepository.IsExistAsync(u => u.PhoneNumber == phone));
+        }
     }
 }

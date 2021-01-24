@@ -213,8 +213,8 @@ namespace Fri2Ends.Identity.Services.Srevices
             {
                 try
                 {
-                    var user = await _user.CreateUserAsync(signUp);
-                    if (!await _user.IsExistAsync(user.UserName))
+                    Users user = await _user.CreateUserAsync(signUp);
+                    if (!await _user.IsExistAsync(user))
                     {
                         if (await _repository.UserRepository.InsertAsync(user) && await _repository.SaveAsync())
                         {
