@@ -93,5 +93,29 @@ namespace Services.Services.Repository
         /// Is Owner True
         /// </returns>
         Task<bool> IsOwnerAsync(string appToken, IHeaderDictionary header);
+
+        /// <summary>
+        /// Create New Appliction
+        /// </summary>
+        /// <param name="appTitle">Application Title</param>
+        /// <param name="header">Request Headers</param>
+        /// <returns></returns>
+        Task<CreateAppResponse> CreateAppAsync(string appTitle,IHeaderDictionary header);
+
+        /// <summary>
+        /// Create New Appliction
+        /// </summary>
+        /// <param name="appTitle">Application Title</param>
+        /// <param name="cookie">Request Cookies</param>
+        /// <returns></returns>
+        Task<CreateAppResponse> CreateAppAsync(string appTitle,IRequestCookieCollection cookie);
+
+        /// <summary>
+        /// Create New Appliction
+        /// </summary>
+        /// <param name="appTitle">Application Title</param>
+        /// <param name="user">Users</param>
+        /// <returns></returns>
+        Task<CreateAppResponse> CreateAppAsync(string appTitle, Users user);
     }
 }

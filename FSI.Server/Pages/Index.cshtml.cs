@@ -20,6 +20,8 @@ namespace FSI.Server.Pages
 
         public IEnumerable<Apps> AppInfo { get; set; }
 
+        public Apps CreateApp { get; set; }
+
         #endregion
 
         #region __Depdency__
@@ -45,8 +47,6 @@ namespace FSI.Server.Pages
 
         #endregion
 
-
-
         public async Task<IActionResult> OnGet()
         {
             var cookies = HttpContext.Request.Cookies;
@@ -58,6 +58,11 @@ namespace FSI.Server.Pages
             }
             else
                 return RedirectToPage("/Account/Login");
+        }
+
+        public async Task<IActionResult> OnPostCreateApp(Apps app)
+        {
+            var result = await _app.
         }
     }
 }

@@ -26,6 +26,12 @@ public record Apps
     public string AppToken { get; set; }
 
     /// <summary>
+    /// Application Title
+    /// </summary>
+    [Required]
+    public string AppTitle { get; set; }
+
+    /// <summary>
     /// Create Token Date
     /// </summary>
     [Required]

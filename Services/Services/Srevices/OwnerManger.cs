@@ -40,6 +40,7 @@ namespace Services.Services.Srevices
                         IEnumerable<Apps> apps = await _repository.AppsRepository.GetAllAsync(a => a.OwnerId == owner.OwnerId);
                         return new OwnerInfoViewModel
                         {
+                            OwnerId = owner.OwnerId,
                             Email = user.Email,
                             UserName = user.UserName,
                             AppCount = apps.Count(),
@@ -56,7 +57,7 @@ namespace Services.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                Users user = await _user.GetUserFromHeaders(header);
+                Users user = await _user.GetUserFromHeadersAsync(header);
                 if (user != null)
                 {
                     return await GetOwnerInfoAsync(user.UserId);
@@ -69,7 +70,7 @@ namespace Services.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                Users user = await _user.GetUserFromCookies(cookie);
+                Users user = await _user.GetUserFromCookiesAsync(cookie);
                 if (user != null)
                 {
                     return await GetOwnerInfoAsync(user.UserId);

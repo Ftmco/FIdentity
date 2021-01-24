@@ -30,11 +30,17 @@ namespace Services.Services.Srevices
         /// </summary>
         private readonly IUserManager _user;
 
+        /// <summary>
+        /// Owner Services
+        /// </summary>
+        private readonly IOwnerManager _owner;
+
         public AppManager()
         {
             _repository = new UnitOfWork<FIdentityContext>();
             _token = new TokenManager();
             _user = new UserManager();
+            _owner = new OwnerManger();
         }
 
         #endregion
@@ -71,7 +77,7 @@ namespace Services.Services.Srevices
 
                 try
                 {
-                    Users user = await _user.GetUserFromHeaders(header);
+                    Users user = await _user.GetUserFromHeadersAsync(header);
                     if (user != null)
                     {
                         if (await IsExistAppAsync(appToken))
@@ -151,7 +157,7 @@ namespace Services.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                Users user = await _user.GetUserFromHeaders(header);
+                Users user = await _user.GetUserFromHeadersAsync(header);
                 if (user != null)
                 {
                     Owner owner = await _repository.OwnerRepository.GetFirstOrDefaultAsync(o => o.UserId == user.UserId);
@@ -167,7 +173,7 @@ namespace Services.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                Users user = await _user.GetUserFromCookies(cookie);
+                Users user = await _user.GetUserFromCookiesAsync(cookie);
                 if (user != null)
                 {
                     Owner owner = await _repository.OwnerRepository.GetFirstOrDefaultAsync(o => o.UserId == user.UserId);
@@ -182,6 +188,39 @@ namespace Services.Services.Srevices
         public async Task<IEnumerable<Apps>> GetOwnerAppsAsync(Guid ownerId)
         {
             return await Task.Run(async () => await _repository.AppsRepository.GetAllAsync(a => a.OwnerId == ownerId));
+        }
+
+        public async Task<CreateAppResponse> CreateAppAsync(string appTitle, IHeaderDictionary header)
+        {
+            return await Task.Run(async () => await CreateAppAsync(appTitle, await _user.GetUserFromHeadersAsync(header)));
+        }
+
+        public async Task<CreateAppResponse> CreateAppAsync(string appTitle, IRequestCookieCollection cookie)
+        {
+            return await Task.Run(async () => await CreateAppAsync(appTitle, await _user.GetUserFromCookiesAsync(cookie)));
+        }
+
+        public async Task<CreateAppResponse> CreateAppAsync(string appTitle, Users user)
+        {
+            return await Task.Run(async () =>
+            {
+                OwnerInfoViewModel owner = await _owner.GetOwnerInfoAsync(user.UserId);
+                if (owner != null)
+                {
+                    var result = await _repository.AppsRepository.InsertAsync(new Apps
+                    {
+                        AppTitle = appTitle,
+                        AppToken = Guid.NewGuid().ToString().CreateSHA256(),
+                        IsActive = false,
+                        CreateDate = DateTime.Now,
+                        OwnerId = owner.OwnerId,
+                        TokenType = (int)AppTokenType.Global
+                    }) && await _repository.SaveAsync();
+
+                    return result ? CreateAppResponse.Success : CreateAppResponse.Exception;
+                }
+                return CreateAppResponse.OwnerNotFound;
+            });
         }
     }
 }
