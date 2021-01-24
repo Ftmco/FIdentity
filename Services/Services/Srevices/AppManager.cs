@@ -43,24 +43,15 @@ namespace Services.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                try
+                if (await IsExistAppAsync(appToken))
                 {
-                    if (await IsExistAppAsync(appToken))
-                    {
-                        IEnumerable<UserApps> joinApps = await _repository.UserAppsRepository.GetAllAsync(j => j.AppToken == appToken);
-                        IList<Users> users = (IList<Users>)await _user.GetUsersFromUsersAppsAsync(joinApps);
-                        if (users.Any())
-                        {
-                            return users.Skip(index * count).Take(count);
-                        }
-                        return null;
-                    }
-                    return null;
+                    IEnumerable<UserApps> joinApps = await _repository.UserAppsRepository.GetAllAsync(j => j.AppToken == appToken);
+                    IList<Users> users = (IList<Users>)await _user.GetUsersFromUsersAppsAsync(joinApps);
+
+                    return (users.Any()) ?
+                    users.Skip(index * count).Take(count) : null;
                 }
-                catch
-                {
-                    return null;
-                }
+                return null;
             });
         }
 
@@ -68,14 +59,7 @@ namespace Services.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                try
-                {
-                    return await _repository.AppsRepository.IsExistAsync(a => a.AppToken == appToken);
-                }
-                catch
-                {
-                    return false;
-                }
+                return await _repository.AppsRepository.IsExistAsync(a => a.AppToken == appToken);
             });
         }
 
@@ -145,17 +129,10 @@ namespace Services.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                try
-                {
-                    string ownerToken = header["Owner"].ToString();
-                    Owner owner = await _repository.OwnerRepository.GetFirstOrDefaultAsync(o => o.OwnerToken == ownerToken);
-                    Apps app = await _repository.AppsRepository.FindByIdAsync(appId);
-                    return app.OwnerId == owner.OwnerId;
-                }
-                catch
-                {
-                    return false;
-                }
+                string ownerToken = header["Owner"].ToString();
+                Owner owner = await _repository.OwnerRepository.GetFirstOrDefaultAsync(o => o.OwnerToken == ownerToken);
+                Apps app = await _repository.AppsRepository.FindByIdAsync(appId);
+                return app.OwnerId == owner.OwnerId;
             });
         }
 
@@ -163,17 +140,10 @@ namespace Services.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                try
-                {
-                    string ownerToken = header["Owner"].ToString();
-                    Owner owner = await _repository.OwnerRepository.GetFirstOrDefaultAsync(o => o.OwnerToken == ownerToken);
-                    Apps app = await _repository.AppsRepository.GetFirstOrDefaultAsync(a => a.AppToken == appToken);
-                    return app.OwnerId == owner.OwnerId;
-                }
-                catch
-                {
-                    return false;
-                }
+                string ownerToken = header["Owner"].ToString();
+                Owner owner = await _repository.OwnerRepository.GetFirstOrDefaultAsync(o => o.OwnerToken == ownerToken);
+                Apps app = await _repository.AppsRepository.GetFirstOrDefaultAsync(a => a.AppToken == appToken);
+                return app.OwnerId == owner.OwnerId;
             });
         }
 
@@ -185,11 +155,9 @@ namespace Services.Services.Srevices
                 if (user != null)
                 {
                     Owner owner = await _repository.OwnerRepository.GetFirstOrDefaultAsync(o => o.UserId == user.UserId);
-                    if (owner != null)
-                    {
-                        return await GetOwnerAppsAsync(owner.OwnerId);
-                    }
-                    return null;
+                    return (owner != null) ?
+                    await GetOwnerAppsAsync(owner.OwnerId) :
+                   null;
                 }
                 return null;
             });
@@ -203,11 +171,9 @@ namespace Services.Services.Srevices
                 if (user != null)
                 {
                     Owner owner = await _repository.OwnerRepository.GetFirstOrDefaultAsync(o => o.UserId == user.UserId);
-                    if (owner != null)
-                    {
-                        return await GetOwnerAppsAsync(owner.OwnerId);
-                    }
-                    return null;
+                    return (owner != null) ?
+                   await GetOwnerAppsAsync(owner.OwnerId) :
+                   null;
                 }
                 return null;
             });
