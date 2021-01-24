@@ -59,7 +59,7 @@ namespace Fri2Ends.Identity.Services.Srevices
             return await Task.Run(async () => await _repository.UserRepository.GetFirstOrDefaultAsync(u => u.UserName == userName));
         }
 
-        public async Task<Users> GetUserFromCookies(IRequestCookieCollection cookies)
+        public async Task<Users> GetUserFromCookiesAsync(IRequestCookieCollection cookies)
         {
             return await Task.Run(async () =>
             {
@@ -72,7 +72,7 @@ namespace Fri2Ends.Identity.Services.Srevices
             });
         }
 
-        public async Task<Users> GetUserFromHeaders(IHeaderDictionary headers)
+        public async Task<Users> GetUserFromHeadersAsync(IHeaderDictionary headers)
         {
             return await Task.Run(async () =>
             {

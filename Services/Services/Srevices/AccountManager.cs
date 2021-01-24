@@ -386,7 +386,7 @@ namespace Fri2Ends.Identity.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                Users user = await _user.GetUserFromHeaders(header);
+                Users user = await _user.GetUserFromHeadersAsync(header);
                 return user != null;
             });
         }
@@ -395,7 +395,7 @@ namespace Fri2Ends.Identity.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                Users user = await _user.GetUserFromCookies(cookie);
+                Users user = await _user.GetUserFromCookiesAsync(cookie);
                 return user != null;
             });
         }
