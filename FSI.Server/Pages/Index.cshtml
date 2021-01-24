@@ -47,6 +47,11 @@
                             <!--Modal-->
                             <div class="w3-container">
                                 <button onclick="document.getElementById('id01').style.display='block'" class="btn btn-primary">Create New App</button>
+                                @if (!Model.IsOwner)
+                                {
+                                    <button onclick="document.getElementById('id01').style.display='block'" class="btn btn-success" style="color:white">Application Ownership Request</button>
+                                }
+                                <span class="text-danger">@TempData["Err"]</span>
 
                                 <div id="id01" class="w3-modal">
                                     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
@@ -59,10 +64,10 @@
 
                                         <form class="w3-container" asp-page-handler="CreateApp" method="post">
                                             <div class="form-group mb-4">
-                                                <label for="example-email" class="col-md-12 p-0" asp-for="@Model.CreateApp.AppTitle"></label>
+                                                <label for="example-email" class="col-md-12 p-0" asp-for="@Model.[AppTitle"></label>
                                                 <div class="col-md-12 border-bottom p-0">
-                                                    <input asp-for="@Model.CreateApp.AppTitle" class="form-control p-0 border-0">
-                                                    <span asp-validation-for="@Model.CreateApp.AppTitle"></span>
+                                                    <input asp-for="@Model.AppTitle" class="form-control p-0 border-0">
+                                                    <span asp-validation-for="@Model.AppTitle"></span>
                                                 </div>
                                             </div>
 

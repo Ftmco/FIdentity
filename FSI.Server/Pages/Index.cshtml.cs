@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Services.Services.Repository;
 using Services.Services.Srevices;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace FSI.Server.Pages
@@ -20,7 +21,11 @@ namespace FSI.Server.Pages
 
         public IEnumerable<Apps> AppInfo { get; set; }
 
-        public Apps CreateApp { get; set; }
+        [Display(Name = "App Title")]
+        [Required]
+        public string AppTitle { get; set; }
+
+        public bool IsOwner => OwnerInfo != null;
 
         #endregion
 
@@ -60,25 +65,25 @@ namespace FSI.Server.Pages
                 return RedirectToPage("/Account/Login");
         }
 
-        public async Task<IActionResult> OnPostCreateApp(Apps app)
+        public async Task<IActionResult> OnPostCreateApp(string AppTitle)
         {
-            var result = await _app.CreateAppAsync(app.AppTitle, HttpContext.Request.Headers);
+            CreateAppResponse result = await _app.CreateAppAsync(AppTitle, HttpContext.Request.Headers);
 
             switch (result)
             {
                 case CreateAppResponse.Success:
                     {
-                        return RedirectToPage("Idenx");
+                        return RedirectToPage("Index");
                     }
                 case CreateAppResponse.OwnerNotFound:
                     {
-                        ViewData["Err"] = "You are Not an Owner";
-                        return RedirectToPage("Idenx");
+                        TempData["Err"] = "You are Not an Owner";
+                        return RedirectToPage("Index");
                     }
                 case CreateAppResponse.Exception:
                     {
-                        ViewData["Err"] = "Try Again";
-                        return RedirectToPage("Idenx");
+                        TempData["Err"] = "Try Again";
+                        return RedirectToPage("Index");
                     }
                 default:
                     goto case CreateAppResponse.Exception;

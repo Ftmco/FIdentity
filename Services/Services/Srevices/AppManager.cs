@@ -204,20 +204,24 @@ namespace Services.Services.Srevices
         {
             return await Task.Run(async () =>
             {
-                OwnerInfoViewModel owner = await _owner.GetOwnerInfoAsync(user.UserId);
-                if (owner != null)
+                if (user != null)
                 {
-                    var result = await _repository.AppsRepository.InsertAsync(new Apps
+                    OwnerInfoViewModel owner = await _owner.GetOwnerInfoAsync(user.UserId);
+                    if (owner != null)
                     {
-                        AppTitle = appTitle,
-                        AppToken = Guid.NewGuid().ToString().CreateSHA256(),
-                        IsActive = false,
-                        CreateDate = DateTime.Now,
-                        OwnerId = owner.OwnerId,
-                        TokenType = (int)AppTokenType.Global
-                    }) && await _repository.SaveAsync();
+                        var result = await _repository.AppsRepository.InsertAsync(new Apps
+                        {
+                            AppTitle = appTitle,
+                            AppToken = Guid.NewGuid().ToString().CreateSHA256(),
+                            IsActive = false,
+                            CreateDate = DateTime.Now,
+                            OwnerId = owner.OwnerId,
+                            TokenType = (int)AppTokenType.Global
+                        }) && await _repository.SaveAsync();
 
-                    return result ? CreateAppResponse.Success : CreateAppResponse.Exception;
+                        return result ? CreateAppResponse.Success : CreateAppResponse.Exception;
+                    }
+                    return CreateAppResponse.OwnerNotFound;
                 }
                 return CreateAppResponse.OwnerNotFound;
             });
