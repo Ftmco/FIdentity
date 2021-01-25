@@ -13,3 +13,11 @@ public record OwnerInfoViewModel
     public int AppCount { get; set; }
     public string Token { get; set; }
 }
+
+public enum OwnerShipRequestStatus
+{
+    Success = 0,
+    UserNotfound = -1,
+    Exception = -2,
+    CoExist = -3
+}

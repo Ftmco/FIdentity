@@ -30,5 +30,42 @@ namespace Services.Services.Repository
         /// <param name="cookie">Request Cookie</param>
         /// <returns>OwnerInfoViewModel</returns>
         Task<OwnerInfoViewModel> GetOwnerInfoAsync(IRequestCookieCollection cookie);
+
+        /// <summary>
+        /// Ownership Request 
+        /// </summary>
+        /// <param name="cookie">Request Cookies</param>
+        /// <param name="coName">Company Name</param>
+        /// <param name="coImage">Company Image</param>
+        /// <returns>OwnerShipRequestStatus</returns>
+        Task<OwnerShipRequestStatus> OwnerRequestAsync(IRequestCookieCollection cookie, string coName, IFormFile coImage);
+
+        /// <summary>
+        /// Ownership Request 
+        /// </summary>
+        /// <param name="header">Request Headers</param>
+        /// <param name="coName">Company Name</param>
+        /// <param name="coImage">Company Image</param>
+        /// <returns>OwnerShipRequestStatus</returns>
+        Task<OwnerShipRequestStatus> OwnerRequestAsync(IHeaderDictionary header, string coName, IFormFile coImage);
+
+        /// <summary>
+        /// Ownership Request
+        /// </summary>
+        /// <param name="userId">Current User Id</param>
+        /// <param name="coName">Company Name</param>
+        /// <param name="coImage">Company Image</param>
+        /// <returns>OwnerShipRequestStatus</returns>
+        Task<OwnerShipRequestStatus> OwnerRequestAsync(Guid userId, string coName, IFormFile coImage);
+
+        /// <summary>
+        /// Create Owner Model
+        /// </summary>
+        /// <param name="userId">Current User Id</param>
+        /// <param name="coName">Company Name</param>
+        /// <param name="coImage">Company Image</param>
+        /// <returns>Owner Model</returns>
+        Task<Owner> CreateOwnerAsync(Guid userId, string coName, IFormFile coImage);
+
     }
 }

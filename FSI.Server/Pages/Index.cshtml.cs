@@ -94,7 +94,13 @@ namespace FSI.Server.Pages
 
         public async Task<IActionResult> OnPostOwnerShipRequest(string coName,IFormFile coImage)
         {
-            return Page();
+            var cookies = HttpContext.Request.Cookies;
+            if (await _account.IsLoginAsync(cookies))
+            {
+                var result = await _owner.
+            }
+            else
+                return RedirectToPage("/Account/Login");
         }
     }
 }
