@@ -2,6 +2,8 @@
 using Fri2Ends.Identity.Services.Generic.UnitOfWork;
 using Fri2Ends.Identity.Services.Repository;
 using Fri2Ends.Identity.Services.Srevices;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -88,6 +90,11 @@ namespace FSI.Server.Pages
                 default:
                     goto case CreateAppResponse.Exception;
             }
+        }
+
+        public async Task<IActionResult> OnPostOwnerShipRequest(string coName,IFormFile coImage)
+        {
+            return Page();
         }
     }
 }

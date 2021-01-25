@@ -27,10 +27,16 @@
                 </div>
                 <div class="user-btm-box mt-5 d-md-flex">
                     <div class="col-md-4 col-sm-4 text-center">
-                        <h4>Apps Count : </h4>
+                        <h5>Apps Count : </h5>
                     </div>
                     <div class="col-md-4 col-sm-4 text-center">
-                        <h4>@(Model.OwnerInfo?.AppCount??0)</h4>
+                        <h5>@(Model.OwnerInfo?.AppCount??0)</h5>
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-center">
+                        <h5>Your Token : </h5>
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-center">
+                        <h5>@(Model.OwnerInfo?.Token)</h5>
                     </div>
                 </div>
             </div>
@@ -49,10 +55,48 @@
                                 <button onclick="document.getElementById('id01').style.display='block'" class="btn btn-primary">Create New App</button>
                                 @if (!Model.IsOwner)
                                 {
-                                    <button onclick="document.getElementById('id01').style.display='block'" class="btn btn-success" style="color:white">Application Ownership Request</button>
+                                    <button onclick="document.getElementById('id02').style.display='block'" class="btn btn-success" style="color:white">Application Ownership Request</button>
+                                    <!--Ownership Request Modal-->
+                                    <div id="id02" class="w3-modal">
+                                        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+                                            <div class="w3-center">
+                                                <br>
+                                                <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                                                <img src="~/Images/AppIcon.png" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">
+                                            </div>
+
+                                            <form class="w3-container" asp-page-handler="OwnerShipRequest" method="post">
+                                                <div class="form-group mb-4">
+                                                    <label for="coName" class="col-md-12 p-0">Company Name</label>
+                                                    <div class="col-md-12 border-bottom p-0">
+                                                        <input id="coName" type="text" name="coName" class="form-control p-0 border-0">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group mb-4">
+                                                    <div class="col-md-12 border-bottom p-0">
+                                                        <input name="coImage" type="file" class="form-control p-0 border-0">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group mb-4">
+                                                    <div class="col-sm-12">
+                                                        <button class="btn btn-success btn-block">Create</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                                                <button onclick="document.getElementById('id02').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--End Ownership Request Modal-->
                                 }
                                 <span class="text-danger">@TempData["Err"]</span>
 
+                                <!--Create App Modal-->
                                 <div id="id01" class="w3-modal">
                                     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
@@ -64,7 +108,7 @@
 
                                         <form class="w3-container" asp-page-handler="CreateApp" method="post">
                                             <div class="form-group mb-4">
-                                                <label for="example-email" class="col-md-12 p-0" asp-for="@Model.[AppTitle"></label>
+                                                <label for="example-email" class="col-md-12 p-0" asp-for="@Model.AppTitle"></label>
                                                 <div class="col-md-12 border-bottom p-0">
                                                     <input asp-for="@Model.AppTitle" class="form-control p-0 border-0">
                                                     <span asp-validation-for="@Model.AppTitle"></span>
@@ -83,6 +127,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!--End Create App Modal-->
+
                             </div>
                             <!--End Modal Create New Application-->
 
@@ -144,16 +190,3 @@
     <!-- End Right sidebar -->
     <!-- ============================================================== -->
 </div>
-<<<<<<< Updated upstream
-
-
-
-<script>
-
-    function CreateNewApp() {
-
-    }
-
-</script>
-=======
->>>>>>> Stashed changes

@@ -44,7 +44,8 @@ namespace Services.Services.Srevices
                             Email = user.Email,
                             UserName = user.UserName,
                             AppCount = apps.Count(),
-                            UserProfileImageName = user.UserProfileImageName
+                            UserProfileImageName = user.UserProfileImageName,
+                            Token = owner.OwnerToken
                         };
                     }
                     return null;

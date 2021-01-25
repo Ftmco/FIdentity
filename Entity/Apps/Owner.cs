@@ -25,6 +25,18 @@ public record Owner
     public string OwnerToken { get; set; }
 
     /// <summary>
+    /// Company Name
+    /// </summary>
+    [Required]
+    public string CompanyName { get; set; }
+
+    /// <summary>
+    /// Profile Image
+    /// </summary>
+    [Required]
+    public string ImageName { get; set; }
+
+    /// <summary>
     /// Users Forgen Key
     /// </summary>
     [Required]

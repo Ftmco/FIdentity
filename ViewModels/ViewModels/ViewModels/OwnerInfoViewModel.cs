@@ -11,4 +11,5 @@ public record OwnerInfoViewModel
     public string Email { get; set; }
     public string UserName { get; set; }
     public int AppCount { get; set; }
+    public string Token { get; set; }
 }
