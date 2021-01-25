@@ -132,9 +132,11 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-
                                             <th>
-                                              Is Enable
+                                                Title
+                                            </th>
+                                            <th>
+                                                Is Enable
                                             </th>
                                             @*<th class="border-top-0">Username</th>*@
                                             <th>
@@ -157,7 +159,9 @@
                                                     <td>
                                                         <p>#</p>
                                                     </td>
-
+                                                    <td>
+                                                        @item.AppTitle
+                                                    </td>
                                                     <td class="@((item.IsActive)? "text-success" : "text-danger")">
                                                         <p>@((item.IsActive)? "Active" : "Disabled")</p>
                                                     </td>
@@ -168,8 +172,8 @@
                                                         <button class="btn btn-success" onclick="prompt('please press ctrl+c to copy the text below', '@item.AppToken');">Show App Token</button>
                                                     </td>
                                                     <td>
-                                                        <a class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                        <a asp-page-handler="Delete" asp-route-id="@item.AppId" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                                        <a asp-page-handler="Delete" asp-route-id="@item.AppId" class="btn btn-danger"><i title="Delete Application" class="fa fa-trash"></i></a>
+                                                        <a class="btn btn-primary"><i class="fa fa-user" title="Application Users"></i></a>
                                                     </td>
                                                 </tr>
                                             }
