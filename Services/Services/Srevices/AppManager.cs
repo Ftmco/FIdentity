@@ -213,7 +213,7 @@ namespace Services.Services.Srevices
                         {
                             AppTitle = appTitle,
                             AppToken = Guid.NewGuid().ToString().CreateSHA256(),
-                            IsActive = false,
+                            IsActive = true,
                             CreateDate = DateTime.Now,
                             OwnerId = owner.OwnerId,
                             TokenType = (int)AppTokenType.Global
