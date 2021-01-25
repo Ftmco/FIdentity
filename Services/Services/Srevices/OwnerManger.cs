@@ -131,23 +131,27 @@ namespace Services.Services.Srevices
             {
                 try
                 {
-                    string imageName = Guid.NewGuid().ToString() + Path.GetExtension(coImage.FileName);
-                    string path = Directory.GetCurrentDirectory() + @"\Images\OwnerImages\";
-                    if (!Directory.Exists(path))
-                        Directory.CreateDirectory(path);
-
-                    using (var stream = new FileStream(path + imageName, FileMode.Create))
+                    if (await ImageTool.CheckFormImageAsync(coImage))
                     {
-                        await coImage.CopyToAsync(stream);
+                        string imageName = Guid.NewGuid().ToString() + Path.GetExtension(coImage.FileName);
+                        string path = Directory.GetCurrentDirectory() + @"\Images\OwnerImages\";
+                        if (!Directory.Exists(path))
+                            Directory.CreateDirectory(path);
+
+                        using (var stream = new FileStream(path + imageName, FileMode.Create))
+                        {
+                            await coImage.CopyToAsync(stream);
+                        }
+
+                        return new Owner
+                        {
+                            CompanyName = coName,
+                            ImageName = imageName,
+                            OwnerToken = Guid.NewGuid().ToString().CreateSHA256(),
+                            UserId = userId
+                        };
                     }
-
-                    return new Owner
-                    {
-                        CompanyName = coName,
-                        ImageName = imageName,
-                        OwnerToken = Guid.NewGuid().ToString().CreateSHA256(),
-                        UserId = userId
-                    };
+                    return null;
                 }
                 catch
                 {

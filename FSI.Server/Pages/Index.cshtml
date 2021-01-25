@@ -27,17 +27,12 @@
                 </div>
                 <div class="user-btm-box mt-5 d-md-flex">
                     <div class="col-md-4 col-sm-4 text-center">
-                        <h5>Apps Count : </h5>
+                        <p>Apps Count : </p>
                     </div>
                     <div class="col-md-4 col-sm-4 text-center">
-                        <h5>@(Model.OwnerInfo?.AppCount??0)</h5>
+                        <p>@(Model.OwnerInfo?.AppCount??0)</p>
                     </div>
-                    <div class="col-md-4 col-sm-4 text-center">
-                        <h5>Your Token : </h5>
-                    </div>
-                    <div class="col-md-4 col-sm-4 text-center">
-                        <h5>@(Model.OwnerInfo?.Token)</h5>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -66,7 +61,7 @@
                                                 <img src="~/Images/AppIcon.png" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">
                                             </div>
 
-                                            <form class="w3-container" asp-page-handler="OwnerShipRequest" method="post">
+                                            <form class="w3-container" asp-page-handler="OwnerShipRequest" method="post" enctype="multipart/form-data">
                                                 <div class="form-group mb-4">
                                                     <label for="coName" class="col-md-12 p-0">Company Name</label>
                                                     <div class="col-md-12 border-bottom p-0">
@@ -136,16 +131,20 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th class="border-top-0">#</th>
-                                            <th class="border-top-0">
-                                                @Html.DisplayNameFor(model => model.AppInfo.FirstOrDefault().AppToken)
-                                            </th>
-                                            <th class="border-top-0">
+                                            <th>#</th>
+
+                                            <th>
                                                 @Html.DisplayNameFor(model => model.AppInfo.FirstOrDefault().IsActive)
                                             </th>
                                             @*<th class="border-top-0">Username</th>*@
-                                            <th class="border-top-0">
+                                            <th>
                                                 @Html.DisplayNameFor(model => model.AppInfo.FirstOrDefault().CreateDate)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.AppInfo.FirstOrDefault().AppToken)
+                                            </th>
+                                            <th>
+
                                             </th>
                                         </tr>
                                     </thead>
@@ -155,16 +154,23 @@
                                             @foreach (var item in Model.AppInfo)
                                             {
                                                 <tr>
-                                                    @item.AppId
-                                                </tr>
-                                                <tr>
-                                                    @item.AppToken
-                                                </tr>
-                                                <tr class="@((item.IsActive)? "text-success" : "text-danger")">
-                                                    <p>@((item.IsActive)? "Active" : "Disabled"))</p>
-                                                </tr>
-                                                <tr>
-                                                    @item.CreateDate
+                                                    <td>
+                                                        <p>#</p>
+                                                    </td>
+
+                                                    <td class="@((item.IsActive)? "text-success" : "text-danger")">
+                                                        <p>@((item.IsActive)? "Active" : "Disabled")</p>
+                                                    </td>
+                                                    <td>
+                                                        @item.CreateDate
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-success" onclick="prompt('please press ctrl+c to copy the text below', '@item.AppToken');">Show App Token</button>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                        <a class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                                    </td>
                                                 </tr>
                                             }
                                         }

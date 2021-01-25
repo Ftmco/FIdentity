@@ -18,6 +18,5 @@ namespace Fri2Ends.Identity.Services.Repository
         Task<bool> IsExistPhoneAsync(string phone);
         Task<Users> CreateUserAsync(SignupViewModel signp);
         Task<IEnumerable<Users>> GetUsersFromUsersAppsAsync(IEnumerable<UserApps> usersApp);
-        Task GetUserFromHeadersAsync(object header);
     }
 }

@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -20,7 +17,7 @@ public class ImageTool
     /// <returns>
     ///Valid Image = True
     /// </returns>
-    public async Task<bool> CheckFormImageAsync(IFormFile file)
+    public static async Task<bool> CheckFormImageAsync(IFormFile file)
     {
         return await Task.Run(() =>
         {

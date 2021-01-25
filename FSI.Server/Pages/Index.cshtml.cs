@@ -96,7 +96,7 @@ namespace FSI.Server.Pages
 
         public async Task<IActionResult> OnPostCreateApp(string AppTitle)
         {
-            CreateAppResponse result = await _app.CreateAppAsync(AppTitle, HttpContext.Request.Headers);
+            CreateAppResponse result = await _app.CreateAppAsync(AppTitle, HttpContext.Request.Cookies);
 
             switch (result)
             {
