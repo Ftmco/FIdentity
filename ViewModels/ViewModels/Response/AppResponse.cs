@@ -10,3 +10,11 @@ public enum CreateAppResponse
     OwnerNotFound = -1,
     Exception = -2
 }
+
+public enum DeleteAppStatus
+{
+    Success = 0,
+    AppNotFound = -1,
+    AccessDenied = -3,
+    Exception = -2
+}

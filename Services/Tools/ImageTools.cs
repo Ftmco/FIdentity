@@ -50,11 +50,7 @@ public class ImageTool
                 file.OpenReadStream().Read(buffer, 0, 512);
                 string content = Encoding.UTF8.GetString(buffer);
                 if (Regex.IsMatch(content, @"<script|<html|<head|<title|<body|<pre|<table|<a\s+href|<img|<plaintext|<cross\-domain\-policy", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Multiline))
-                {
                     return false;
-                }
-
-
             }
             catch
             {

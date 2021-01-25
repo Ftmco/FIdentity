@@ -117,5 +117,29 @@ namespace Services.Services.Repository
         /// <param name="user">Users</param>
         /// <returns></returns>
         Task<CreateAppResponse> CreateAppAsync(string appTitle, Users user);
+
+        /// <summary>
+        /// Delete Application
+        /// </summary>
+        /// <param name="cookie">Request Cookie</param>
+        /// <param name="appId">Application Id</param>
+        /// <returns>DeleteAppStatus</returns>
+        Task<DeleteAppStatus> DeleteAppAsync(IRequestCookieCollection cookie, Guid appId);
+
+        /// <summary>
+        /// Delete Application
+        /// </summary>
+        /// <param name="header">Request Headers</param>
+        /// <param name="appId">Application Id</param>
+        /// <returns>DeleteAppStatus</returns>
+        Task<DeleteAppStatus> DeleteAppAsync(IHeaderDictionary header, Guid appId);
+
+        /// <summary>
+        /// Delete Application
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <param name="appId">Application Id</param>
+        /// <returns>DeleteAppStatus</returns>
+        Task<DeleteAppStatus> DeleteAppAsync(Guid userId, Guid appId);
     }
 }

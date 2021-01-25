@@ -134,7 +134,7 @@
                                             <th>#</th>
 
                                             <th>
-                                                @Html.DisplayNameFor(model => model.AppInfo.FirstOrDefault().IsActive)
+                                              Is Enable
                                             </th>
                                             @*<th class="border-top-0">Username</th>*@
                                             <th>
@@ -169,7 +169,7 @@
                                                     </td>
                                                     <td>
                                                         <a class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                        <a class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                                        <a asp-page-handler="Delete" asp-route-id="@item.AppId" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                             }

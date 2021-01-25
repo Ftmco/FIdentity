@@ -226,5 +226,48 @@ namespace Services.Services.Srevices
                 return CreateAppResponse.OwnerNotFound;
             });
         }
+
+        public async Task<DeleteAppStatus> DeleteAppAsync(IRequestCookieCollection cookie, Guid appId)
+        {
+            return await Task.Run(async () =>
+            {
+                Users user = await _user.GetUserFromCookiesAsync(cookie);
+                return await DeleteAppAsync(user.UserId, appId);
+            });
+        }
+
+        public async Task<DeleteAppStatus> DeleteAppAsync(IHeaderDictionary header, Guid appId)
+        {
+            return await Task.Run(async () =>
+            {
+                Users user = await _user.GetUserFromHeadersAsync(header);
+                return await DeleteAppAsync(user.UserId, appId);
+            });
+        }
+
+        public async Task<DeleteAppStatus> DeleteAppAsync(Guid userId, Guid appId)
+        {
+            return await Task.Run(async () =>
+            {
+                OwnerInfoViewModel owner = await _owner.GetOwnerInfoAsync(userId);
+                if (owner != null)
+                {
+                    IEnumerable<Apps> apps = await GetOwnerAppsAsync(owner.OwnerId);
+                    if (apps.Any())
+                    {
+                        Apps app = apps.FirstOrDefault(a => a.AppId == appId);
+                        if (app != null)
+                        {
+                            return (await _repository.AppsRepository.DeleteAsync(app) && await _repository.SaveAsync()) ?
+                            DeleteAppStatus.Success :
+                           DeleteAppStatus.Exception;
+                        }
+                        return DeleteAppStatus.AppNotFound;
+                    }
+                    return DeleteAppStatus.AppNotFound;
+                }
+                return DeleteAppStatus.AccessDenied;
+            });
+        }
     }
 }
