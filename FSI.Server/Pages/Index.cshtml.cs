@@ -19,29 +19,56 @@ namespace FSI.Server.Pages
     {
         #region __Models__
 
+        /// <summary>
+        /// Owner Info Model
+        /// </summary>
         public OwnerInfoViewModel OwnerInfo { get; set; }
 
+        /// <summary>
+        /// Applications Info
+        /// </summary>
         public IEnumerable<Apps> AppInfo { get; set; }
 
+        /// <summary>
+        /// Application Title For Add New App
+        /// </summary>
         [Display(Name = "App Title")]
         [Required]
         public string AppTitle { get; set; }
 
+        /// <summary>
+        /// Check Current User Is Owner 
+        /// </summary>
         public bool IsOwner => OwnerInfo != null;
 
         #endregion
 
         #region __Depdency__
 
+        /// <summary>
+        /// Logger
+        /// </summary>
         private readonly ILogger<IndexModel> _logger;
 
-        private IUnitOfWork<FIdentityContext> _repository;
+        /// <summary>
+        /// Repository Controller Services
+        /// </summary>
+        private readonly IUnitOfWork<FIdentityContext> _repository;
 
-        private IOwnerManager _owner;
+        /// <summary>
+        /// Owner Services
+        /// </summary>
+        private readonly IOwnerManager _owner;
 
-        private IAccountManager _account;
+        /// <summary>
+        /// Account Services
+        /// </summary>
+        private readonly IAccountManager _account;
 
-        private IAppManager _app;
+        /// <summary>
+        /// Applications Services
+        /// </summary>
+        private readonly IAppManager _app;
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -92,12 +119,35 @@ namespace FSI.Server.Pages
             }
         }
 
-        public async Task<IActionResult> OnPostOwnerShipRequest(string coName,IFormFile coImage)
+        public async Task<IActionResult> OnPostOwnerShipRequest(string coName, IFormFile coImage)
         {
             var cookies = HttpContext.Request.Cookies;
             if (await _account.IsLoginAsync(cookies))
             {
-                var result = await _owner.
+                OwnerShipRequestStatus result = await _owner.OwnerRequestAsync(cookies, coName, coImage);
+
+                switch (result)
+                {
+                    case OwnerShipRequestStatus.Success:
+                        {
+                            TempData["Err"] = "Now You Are Owership";
+                            return RedirectToPage("Index");
+                        }
+                    case OwnerShipRequestStatus.UserNotfound:
+                        return RedirectToPage("/Account/Login");
+                    case OwnerShipRequestStatus.Exception:
+                        {
+                            TempData["Err"] = "Try Again";
+                            return RedirectToPage("Index");
+                        }
+                    case OwnerShipRequestStatus.CoExist:
+                        {
+                            TempData["Err"] = "There is currently an owner with current specifications";
+                            return RedirectToPage("Index");
+                        }
+                    default:
+                        goto case OwnerShipRequestStatus.Exception;
+                }
             }
             else
                 return RedirectToPage("/Account/Login");
