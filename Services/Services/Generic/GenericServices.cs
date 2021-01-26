@@ -51,6 +51,22 @@ namespace Fri2Ends.Identity.Services.Generic
             return await Task.Run(async () => await DeleteAsync(await FindByIdAsync(id)));
         }
 
+        public async Task<bool> DeleteAsync(IEnumerable<TModel> modelList)
+        {
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    _dbSet.RemoveRange(modelList);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            });
+        }
+
         public async Task<TModel> FindByIdAsync(object id)
         {
             return await Task.Run(async () => await _dbSet.FindAsync(id));
@@ -87,6 +103,22 @@ namespace Fri2Ends.Identity.Services.Generic
             });
         }
 
+        public async Task<bool> InsertAsync(IEnumerable<TModel> modelList)
+        {
+            return await Task.Run(async () =>
+            {
+                try
+                {
+                    await _dbSet.AddRangeAsync(modelList);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            });
+        }
+
         public async Task<bool> IsExistAsync(Expression<Func<TModel, bool>> any)
         {
             return await Task.Run(async () => await _dbSet.AnyAsync(any));
@@ -99,6 +131,22 @@ namespace Fri2Ends.Identity.Services.Generic
                 try
                 {
                     _dbSet.Update(model);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            });
+        }
+
+        public async Task<bool> UpdateAsync(IEnumerable<TModel> modelList)
+        {
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    _dbSet.UpdateRange(modelList);
                     return true;
                 }
                 catch

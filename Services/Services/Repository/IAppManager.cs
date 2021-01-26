@@ -152,5 +152,16 @@ namespace Services.Services.Repository
         /// <param name="appId">Application Id</param>
         /// <returns>DeleteAppStatus</returns>
         Task<DeleteAppStatus> DeleteAppAsync(Guid userId, Guid appId);
+
+        /// <summary>
+        /// Delete User 
+        /// </summary>
+        /// <param name="context">HttpContext</param>
+        /// <param name="userId">User Id</param>
+        /// <param name="appToken">Application Token</param>
+        /// <returns>
+        /// Success = True
+        /// </returns>
+        Task<bool> DeleteUserAsync(HttpContext context, Guid userId,string appToken);
     }
 }

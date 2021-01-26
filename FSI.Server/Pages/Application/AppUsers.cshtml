@@ -5,7 +5,7 @@
 }
 
 <div class="table-responsive">
-
+    <span class="text-danger">@TempData["Err"]</span>
     <table class="table">
         <thead>
             <tr>
@@ -48,7 +48,7 @@
                             @item.ActiveDate
                         </td>
                         <td>
-                            <a class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                            <a asp-page-handler="Delete" asp-route-id="@item.UserId" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 }

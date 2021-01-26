@@ -293,6 +293,40 @@ namespace Services.Services.Srevices
             });
         }
 
+        public async Task<bool> DeleteUserAsync(HttpContext context, Guid userId, string appToken)
+        {
+            return await Task.Run(async () =>
+            {
+                OwnerInfoViewModel owner = await _owner.GetOwnerInfoAsync(context.Request.Cookies);
+                if (owner == null)
+                {
+                    owner = await _owner.GetOwnerInfoAsync(context.Response.Headers);
+                }
+
+                if (owner != null)
+                {
+                    Apps app = await _repository.AppsRepository.GetFirstOrDefaultAsync(a => a.OwnerId == owner.OwnerId && a.AppToken == appToken);
+                    if (app != null)
+                    {
+                        Users user = await _repository.UserRepository.FindByIdAsync(userId);
+                        if (user != null)
+                        {
+                            IEnumerable<UserApps> joins = await _repository.UserAppsRepository.GetAllAsync(ua => ua.UserId == userId && ua.AppToken == appToken);
+                            if (await _repository.UserAppsRepository.DeleteAsync(joins) && await _repository.SaveAsync())
+                            {
+                                return true;
+                            }
+                            return false;
+                        }
+                        return false;
+                    }
+                    return false;
+                }
+                else
+                    return false;
+            });
+        }
+
         internal class DistinctApplicationUsersViewModel : IEqualityComparer<ApplicationUsersViewModel>
         {
             public bool Equals(ApplicationUsersViewModel x, ApplicationUsersViewModel y)

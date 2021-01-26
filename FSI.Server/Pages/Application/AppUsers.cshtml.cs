@@ -45,8 +45,26 @@ namespace FSI.Server.Pages.Application
 
         public async Task<IActionResult> OnGet(string token)
         {
-            Users = await _app.GetAppUsersViewModelAsync(token.ToString(), 0, 10);
-            return Page();
+            if (await _account.IsLoginAsync(HttpContext.Request.Cookies))
+            {
+                Users = await _app.GetAppUsersViewModelAsync(token.ToString(), 0, 10);
+                return Page();
+            }
+            return RedirectToPage("/Account/Login");
+        }
+
+        public async Task<IActionResult> OnGetDelete(Guid id)
+        {
+            if (await _account.IsLoginAsync(HttpContext.Request.Cookies))
+            {
+                bool result = await _app.DeleteUserAsync(HttpContext, id);
+                if (!result)
+                {
+                    TempData["Err"] = "Try Again";
+                }
+                return RedirectToPage("/Application/AppUsers");
+            }
+            return RedirectToPage("/Account/Login");
         }
     }
 }
