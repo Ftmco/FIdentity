@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Application Users";
 }
-
+<br />
+<h1 class="text-center text-success">Application Users</h1>
+<br />
 <div class="table-responsive">
     <span class="text-danger">@TempData["Err"]</span>
     <table class="table">
@@ -48,7 +50,7 @@
                             @item.ActiveDate
                         </td>
                         <td>
-                            <a asp-page-handler="Delete" asp-route-id="@item.UserId" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                            <a asp-page-handler="Delete" asp-route-id="@item.UserId" asp-route-token="@Model.AppToken" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 }

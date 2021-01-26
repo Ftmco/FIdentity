@@ -20,6 +20,8 @@ namespace FSI.Server.Pages.Application
         /// </summary>
         public IEnumerable<ApplicationUsersViewModel> Users { get; set; }
 
+        public string AppToken { get; set; }
+
         #endregion
 
         #region __Depdency__
@@ -48,21 +50,22 @@ namespace FSI.Server.Pages.Application
             if (await _account.IsLoginAsync(HttpContext.Request.Cookies))
             {
                 Users = await _app.GetAppUsersViewModelAsync(token.ToString(), 0, 10);
+                AppToken = token;
                 return Page();
             }
             return RedirectToPage("/Account/Login");
         }
 
-        public async Task<IActionResult> OnGetDelete(Guid id)
+        public async Task<IActionResult> OnGetDelete(Guid id, string token)
         {
             if (await _account.IsLoginAsync(HttpContext.Request.Cookies))
             {
-                bool result = await _app.DeleteUserAsync(HttpContext, id);
+                bool result = await _app.DeleteUserAsync(HttpContext, id, token);
                 if (!result)
                 {
                     TempData["Err"] = "Try Again";
                 }
-                return RedirectToPage("/Application/AppUsers");
+                return RedirectToPage($"/Application/AppUsers", new { token = token });
             }
             return RedirectToPage("/Account/Login");
         }
