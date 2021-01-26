@@ -173,7 +173,7 @@
                                                     </td>
                                                     <td>
                                                         <a asp-page-handler="Delete" asp-route-id="@item.AppId" class="btn btn-danger"><i title="Delete Application" class="fa fa-trash"></i></a>
-                                                        <a class="btn btn-primary"><i class="fa fa-user" title="Application Users"></i></a>
+                                                        <a href="/Application/AppUsers?token=@item.AppToken" class="btn btn-primary"><i class="fa fa-user" title="Application Users"></i></a>
                                                     </td>
                                                 </tr>
                                             }

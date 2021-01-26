@@ -1,0 +1,62 @@
+﻿@page
+@model FSI.Server.Pages.Application.AppUsersModel
+@{
+    ViewData["Title"] = "Application Users";
+}
+
+<div class="table-responsive">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Profile Image</th>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Is Active</th>
+                <th>Phone Number</th>
+                <th>
+                    Active Date
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model.Users.Any())
+            {
+                foreach (var item in Model.Users)
+                {
+                    <tr>
+                        <td>#</td>
+                        <td>
+                            <img alt="...." />
+                        </td>
+                        <td>
+                            @item.UserName
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        <td class="@((item.IsActive)? "text-success" :"text-danger")">
+                            <p>@((item.IsActive)? "true" : "false")</p>
+                        </td>
+                        <td>
+                            @item.PhoneNumber
+                        </td>
+                        <td>
+                            @item.ActiveDate
+                        </td>
+                        <td>
+                            <a class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<br />
+<br />
+<br />

@@ -22,6 +22,17 @@ namespace Services.Services.Repository
         Task<IEnumerable<Users>> GetAppUsersAsync(string appToken, int index, int count);
 
         /// <summary>
+        /// Get Application Users View Model
+        /// </summary>
+        /// <param name="appKey">Application Id</param>
+        /// <param name="index">Index</param>
+        /// <param name="count">Show Count</param>
+        /// <returns>
+        /// ApplicationUsersViewModel List(IEnumerable)
+        /// </returns>
+        Task<IEnumerable<ApplicationUsersViewModel>> GetAppUsersViewModelAsync(string appToken, int index, int count);
+
+        /// <summary>
         /// Check Exist App 
         /// </summary>
         /// <param name="appKey">App Id</param>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Application Information View Model
@@ -24,6 +25,17 @@ public record ApplicationInfoViewModel
     /// App Features
     /// </summary>
     public IList<AppFeatures> Features { get; set; }
+}
+
+public record ApplicationUsersViewModel
+{
+    public Guid UserId { get; set; }
+    public string Email { get; set; }
+    public string UserName { get; set; }
+    public string PhoneNumber { get; set; }
+    public bool IsActive { get; set; }
+    public DateTime ActiveDate { get; set; }
+    public string ProfileImageName { get; set; }
 }
 
 public enum ApplicationInfoStatus

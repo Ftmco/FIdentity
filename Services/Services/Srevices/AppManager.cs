@@ -269,5 +269,23 @@ namespace Services.Services.Srevices
                 return DeleteAppStatus.AccessDenied;
             });
         }
+
+        public async Task<IEnumerable<ApplicationUsersViewModel>> GetAppUsersViewModelAsync(string appToken, int index, int count)
+        {
+            return await Task.Run(async () =>
+            {
+                IEnumerable<Users> result = await GetAppUsersAsync(appToken, index, count);
+                return result.Select(au => new ApplicationUsersViewModel
+                {
+                    ActiveDate = au.ActiveDate,
+                    Email = au.Email,
+                    IsActive = au.IsConfirm,
+                    PhoneNumber = au.PhoneNumber,
+                    ProfileImageName = au.UserProfileImageName,
+                    UserId = au.UserId,
+                    UserName = au.UserName
+                }).ToList();
+            });
+        }
     }
 }
