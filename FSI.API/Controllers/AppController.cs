@@ -34,7 +34,7 @@ namespace FSI.API.Controllers
         {
             IList<Users> result = await _app.GetAppUsersAsync(appToken, index, count) as List<Users>;
             return (result != null) ? Ok(new { Id = 0, Title = "Success", Result = result }) :
-                Ok(new { Id = -1, Title = "Not Found Any Users", Result = new { } });
+                NotFound(new { Id = -1, Title = "Not Found Any Users", Result = new { } });
         }
 
         #endregion
@@ -52,9 +52,9 @@ namespace FSI.API.Controllers
                 case ApplicationInfoStatus.Success:
                     return Ok(new { Id = 0, Title = "Success", Result = result });
                 case ApplicationInfoStatus.AppNotfound:
-                    return Ok(new { Id = -1, Title = "App Not found", Result = new { } });
+                    return NotFound(new { Id = -1, Title = "App Not found", Result = new { } });
                 case ApplicationInfoStatus.Exception:
-                    return Ok(new { Id = -2, Title = "Exception", Result = new { } });
+                    return BadRequest(new { Id = -2, Title = "Exception", Result = new { } });
                 default:
                     goto case ApplicationInfoStatus.Exception;
             }
