@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Services.Services.Repository;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -286,7 +287,7 @@ namespace Services.Services.Srevices
                         ProfileImageName = au.UserProfileImageName,
                         UserId = au.UserId,
                         UserName = au.UserName
-                    }).Distinct().ToList();
+                    }).Distinct(new DistinctApplicationUsersViewModel()).ToList();
                 }
                 return null;
             });
@@ -294,7 +295,19 @@ namespace Services.Services.Srevices
 
         internal class DistinctApplicationUsersViewModel : IEqualityComparer<ApplicationUsersViewModel>
         {
-            
+            public bool Equals(ApplicationUsersViewModel x, ApplicationUsersViewModel y)
+            {
+                if (x.UserId == y.UserId)
+                {
+                    return true;
+                }
+                return false;
+            }
+
+            public int GetHashCode([DisallowNull] ApplicationUsersViewModel obj)
+            {
+                return obj.GetHashCode();
+            }
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Services.Services.Srevices
                             Email = user.Email,
                             UserName = user.UserName,
                             AppCount = apps.Count(),
-                            UserProfileImageName = user.UserProfileImageName,
+                            UserProfileImageName = owner.ImageName,
                             Token = owner.OwnerToken
                         };
                     }
@@ -134,7 +134,7 @@ namespace Services.Services.Srevices
                     if (await ImageTool.CheckFormImageAsync(coImage))
                     {
                         string imageName = Guid.NewGuid().ToString() + Path.GetExtension(coImage.FileName);
-                        string path = Directory.GetCurrentDirectory() + @"\Images\OwnerImages\";
+                        string path = Directory.GetCurrentDirectory() + @"\wwwroot\Images\OwnerImages\";
                         if (!Directory.Exists(path))
                             Directory.CreateDirectory(path);
 
