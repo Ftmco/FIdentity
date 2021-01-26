@@ -171,6 +171,30 @@ namespace Fri2Ends.Identity.Services.Srevices
                                 Key = token.TokenKey,
                                 Value = token.TokenValue
                             };
+                            if (!string.IsNullOrEmpty(login.AppKey))
+                            {
+                                Apps app = await _repository.AppsRepository.GetFirstOrDefaultAsync(a => a.AppToken == login.AppKey);
+                                if (app != null)
+                                {
+                                    UserApps newJoin = new()
+                                    {
+                                        AppToken = app.AppToken,
+                                        JoindeDate = DateTime.Now,
+                                        UserId = user.UserId
+                                    };
+                                    await _repository.UserAppsRepository.InsertAsync(newJoin); await _repository.SaveAsync();
+                                    response.Status = LoginStatus.Success;
+                                    response.Success = new()
+                                    {
+                                        IsSucces = true,
+                                        Key = token.TokenKey,
+                                        Value = token.TokenValue
+                                    };
+                                    return response;
+                                }
+                                response.Status = LoginStatus.ApplicationNotFound;
+                                return response;
+                            }
 
                             response.Status = LoginStatus.Success;
                             return response;

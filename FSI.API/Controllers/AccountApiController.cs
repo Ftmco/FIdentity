@@ -45,7 +45,8 @@ namespace FSI.Server.Api
                     return BadRequest(new { Id = -3, Title = "Wrong Password", Result = new { } });
                 case LoginStatus.UserNotFound:
                     return NotFound(new { Id = -4, Title = "User Not Found", Result = new { } });
-
+                case LoginStatus.ApplicationNotFound:
+                    return NotFound(new { Id = -5, Title = "Application Not Found", Result = new { } });
                 default:
                     goto case LoginStatus.Exception;
             }

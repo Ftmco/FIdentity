@@ -275,17 +275,26 @@ namespace Services.Services.Srevices
             return await Task.Run(async () =>
             {
                 IEnumerable<Users> result = await GetAppUsersAsync(appToken, index, count);
-                return result.Select(au => new ApplicationUsersViewModel
+                if (result != null)
                 {
-                    ActiveDate = au.ActiveDate,
-                    Email = au.Email,
-                    IsActive = au.IsConfirm,
-                    PhoneNumber = au.PhoneNumber,
-                    ProfileImageName = au.UserProfileImageName,
-                    UserId = au.UserId,
-                    UserName = au.UserName
-                }).ToList();
+                    return result.Select(au => new ApplicationUsersViewModel
+                    {
+                        ActiveDate = au.ActiveDate,
+                        Email = au.Email,
+                        IsActive = au.IsConfirm,
+                        PhoneNumber = au.PhoneNumber,
+                        ProfileImageName = au.UserProfileImageName,
+                        UserId = au.UserId,
+                        UserName = au.UserName
+                    }).Distinct().ToList();
+                }
+                return null;
             });
+        }
+
+        internal class DistinctApplicationUsersViewModel : IEqualityComparer<ApplicationUsersViewModel>
+        {
+            
         }
     }
 }

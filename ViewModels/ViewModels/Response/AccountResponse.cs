@@ -59,7 +59,8 @@ public enum LoginStatus
     Success = 0,
     Exception = -2,
     WrongPassword = -3,
-    UserNotFound = -4
+    UserNotFound = -4,
+    ApplicationNotFound = -5
 }
 
 public record ActivationResponse
