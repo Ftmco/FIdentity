@@ -6,7 +6,7 @@
 
 
 <!-- Column -->
-<div class="col-lg-8 col-xlg-9 col-md-12">
+<div class="col-md-12">
     <div class="card">
         <div class="card-body">
             <div class="col-sm-12">
@@ -137,7 +137,7 @@
                                                 @item.CreateDate
                                             </td>
                                             <td>
-                                                <button class="btn btn-success" onclick="prompt('please press ctrl+c to copy the text below', '@item.AppToken');">Show App Token</button>
+                                                <button style="color:white" class="btn btn-success" onclick="prompt('please press ctrl+c to copy the text below', '@item.AppToken');">Show App Token</button>
                                             </td>
                                             <td>
                                                 <a asp-page-handler="Delete" asp-route-id="@item.AppId" class="btn btn-danger"><i title="Delete Application" class="fa fa-trash"></i></a>
