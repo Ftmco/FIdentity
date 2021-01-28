@@ -40,13 +40,13 @@ namespace FSI.Server.Api
                 case LoginStatus.Success:
                     return Ok(new { Id = 0, Title = "Success", Result = result });
                 case LoginStatus.Exception:
-                    return BadRequest(new { Id = -2, Title = "Exception", Result = new { } });
+                    return Ok(new { Id = -2, Title = "Exception", Result = new { } });
                 case LoginStatus.WrongPassword:
-                    return BadRequest(new { Id = -3, Title = "Wrong Password", Result = new { } });
+                    return Ok(new { Id = -3, Title = "Wrong Password", Result = new { } });
                 case LoginStatus.UserNotFound:
-                    return NotFound(new { Id = -4, Title = "User Not Found", Result = new { } });
+                    return Ok(new { Id = -4, Title = "User Not Found", Result = new { } });
                 case LoginStatus.ApplicationNotFound:
-                    return NotFound(new { Id = -5, Title = "Application Not Found", Result = new { } });
+                    return Ok(new { Id = -5, Title = "Application Not Found", Result = new { } });
                 default:
                     goto case LoginStatus.Exception;
             }
@@ -67,15 +67,15 @@ namespace FSI.Server.Api
                 case SignUpResponse.Success:
                     return Ok(new { Id = 0, Title = "Success Go To Active Account", Result = new { } });
                 case SignUpResponse.Exception:
-                    return BadRequest(new { Id = -2, Title = "Exception", Result = new { } });
+                    return Ok(new { Id = -2, Title = "Exception", Result = new { } });
                 case SignUpResponse.UserAlreadyExist:
-                    return BadRequest(new { Id = -3, Title = "User Already Exist", Result = new { } });
+                    return Ok(new { Id = -3, Title = "User Already Exist", Result = new { } });
                 case SignUpResponse.AppNotFound:
-                    return NotFound(new { Id = -4, Title = "User Signed In But Wrong Application Token try To Login With Application Token", Result = new { } });
+                    return Ok(new { Id = -4, Title = "User Signed In But Wrong Application Token try To Login With Application Token", Result = new { } });
                 case SignUpResponse.AppActivent:
-                    return BadRequest(new { Id = -5, Title = "User Signed In But Application is`t Active try To Login With Application Token", Result = new { } });
+                    return Ok(new { Id = -5, Title = "User Signed In But Application is`t Active try To Login With Application Token", Result = new { } });
                 case SignUpResponse.AppIsntForYou:
-                    return BadRequest(new { Id = -6, Title = "User Signed In But You Are Is`t Owner Of This Applications try To Login With Application Token", Result = new { } });
+                    return Ok(new { Id = -6, Title = "User Signed In But You Are Is`t Owner Of This Applications try To Login With Application Token", Result = new { } });
                 default:
                     goto case SignUpResponse.Exception;
             }
@@ -97,11 +97,11 @@ namespace FSI.Server.Api
                 case ActivationResponseEn.Success:
                     return Ok(new { Id = 0, Title = "User Actived", Result = result.Success });
                 case ActivationResponseEn.UserNotFound:
-                    return NotFound(new { Id = -1, Title = "UserNotFound", Result = new { } });
+                    return Ok(new { Id = -1, Title = "UserNotFound", Result = new { } });
                 case ActivationResponseEn.WrongActiveCode:
-                    return BadRequest(new { Id = -3, Title = "Wrong ActiveCode", Result = new { } });
+                    return Ok(new { Id = -3, Title = "Wrong ActiveCode", Result = new { } });
                 case ActivationResponseEn.Exception:
-                    return BadRequest(new { Id = -3, Title = "Exception", Result = new { } });
+                    return Ok(new { Id = -2, Title = "Exception", Result = new { } });
 
                 default:
                     goto case ActivationResponseEn.Exception;
@@ -123,11 +123,11 @@ namespace FSI.Server.Api
                 case RecoveryPasswordResponse.Success:
                     return Ok(new { Id = 0, Title = "Success", Result = new { } });
                 case RecoveryPasswordResponse.UserNotFound:
-                    return NotFound(new { Id = -1, Title = "User Not Found", Result = new { } });
+                    return Ok(new { Id = -1, Title = "User Not Found", Result = new { } });
                 case RecoveryPasswordResponse.Exception:
-                    return BadRequest(new { Id = -2, Title = "Exception", Result = new { } });
+                    return Ok(new { Id = -2, Title = "Exception", Result = new { } });
                 case RecoveryPasswordResponse.WrongRecoveryCode:
-                    return BadRequest(new { Id = -3, Title = "Wrong Recovey Code", Result = new { } });
+                    return Ok(new { Id = -3, Title = "Wrong Recovey Code", Result = new { } });
                 default:
                     goto case RecoveryPasswordResponse.Exception;
             }
