@@ -3,7 +3,6 @@ using Fri2Ends.Identity.Services.Generic.UnitOfWork;
 using Fri2Ends.Identity.Services.Repository;
 using Fri2Ends.Identity.Services.Srevices;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -16,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace FSI.Server.Pages
 {
+    [CheckAccess]
     public class IndexModel : PageModel
     {
         #region __Models__
@@ -81,7 +81,7 @@ namespace FSI.Server.Pages
         }
 
         #endregion
-
+              
         public async Task<IActionResult> OnGet()
         {
             var cookies = HttpContext.Request.Cookies;

@@ -25,6 +25,7 @@ namespace FSI.Server
         {
             services.AddRazorPages();
 
+
             //Allow Domain
             services.AddCors(options =>
             {
@@ -56,7 +57,7 @@ namespace FSI.Server
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+           
             app.UseRouting();
 
             app.UseAuthorization();
