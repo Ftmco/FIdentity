@@ -10,10 +10,10 @@
     <!-- Row -->
     <div class="row">
         <!-- Column -->
-        <div class="col-lg-4 col-xlg-3 col-md-12">
+        <div class="col-md-12">
             <div class="white-box">
                 <div class="user-bg">
-                    <img width="100%" alt="user" src="~/assets/plugins/images/large/img1.jpg">
+                    <img width="100%" alt="user" src="~/Images/OwnerImages/@Model.OwnerInfo?.UserProfileImageName">
                     <div class="overlay-box">
                         <div class="user-content">
                             <a href="javascript:void(0)">
@@ -22,22 +22,15 @@
                             </a>
                             <h4 class="text-white mt-2">@Model.OwnerInfo?.UserName</h4>
                             <h5 class="text-white mt-2">@Model.OwnerInfo?.Email</h5>
+                            <h6 class="text-white mt-2">App Count :  @(Model.OwnerInfo?.AppCount??0)</h6>
                         </div>
                     </div>
                 </div>
-                <div class="user-btm-box mt-5 d-md-flex">
-                    <div class="col-md-4 col-sm-4 text-center">
-                        <p>Apps Count : </p>
-                    </div>
-                    <div class="col-md-4 col-sm-4 text-center">
-                        <p>@(Model.OwnerInfo?.AppCount??0)</p>
-                    </div>
-
-                </div>
+               
             </div>
         </div>
         <!-- Column -->
-       
+
     </div>
     <!-- Row -->
     <!-- ============================================================== -->
