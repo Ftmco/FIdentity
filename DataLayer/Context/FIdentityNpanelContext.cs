@@ -12,7 +12,6 @@ namespace FTeam.DataLayer.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("");
         }
 
         public DbSet<Users> Users { get; set; }
