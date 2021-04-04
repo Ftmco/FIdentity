@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace FTeam.DependencyController.Kernel
@@ -11,6 +13,11 @@ namespace FTeam.DependencyController.Kernel
         /// Interface Base For Return Injections
         /// </summary>
         private TInterface _interface;
+
+        /// <summary>
+        /// Depdency Collection
+        /// </summary>
+        private static Dictionary<object, object> _depdencyListDicts;
 
         #endregion
 
@@ -72,6 +79,13 @@ namespace FTeam.DependencyController.Kernel
             if (typeof(TInterface) != classType)
                 throw new TypeAccessException(nameof(classType));
 
+            ConstructorInfo[] classConstructors = classType.GetConstructors(BindingFlags.Public);
+
+            foreach (ConstructorInfo constructor in classConstructors)
+            {
+
+            }
+
             return _interface = new TClass();
         }
 
@@ -97,5 +111,16 @@ namespace FTeam.DependencyController.Kernel
 
                     return _interface = new TClass();
                 });
+
+        public void Add()
+        {
+            _depdencyListDicts.Add();
+        }
+
+        public Task AddAsync()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

@@ -5,6 +5,11 @@ namespace FTeam.DependencyController.Kernel
 {
     public interface IFdependencyKernel<TInterface, TClass> where TClass : class, TInterface, new()
     {
+
+        Task AddAsync();
+
+        void Add();
+
         Task<TInterface> GetDepdencyAsync(Type classType);
 
         Task<TInterface> GetDepdencyAsync();
