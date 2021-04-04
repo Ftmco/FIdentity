@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\EntityApplications\EntityApplications.csproj" />
+    <ProjectReference Include="..\..\Entity\EntityNpanel.csproj" />
+    <ProjectReference Include="..\..\ViewModels\ViewModels.csproj" />
     <ProjectReference Include="..\Shared\NPanelApplication.Shared.csproj" />
   </ItemGroup>
 

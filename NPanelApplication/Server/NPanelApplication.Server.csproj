@@ -9,6 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\EntityApplications\EntityApplications.csproj" />
+    <ProjectReference Include="..\..\Entity\EntityNpanel.csproj" />
+    <ProjectReference Include="..\..\Services\Services.csproj" />
+    <ProjectReference Include="..\..\ViewModels\ViewModels.csproj" />
     <ProjectReference Include="..\Client\NPanelApplication.Client.csproj" />
     <ProjectReference Include="..\Shared\NPanelApplication.Shared.csproj" />
   </ItemGroup>
