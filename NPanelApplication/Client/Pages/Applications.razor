@@ -1,0 +1,60 @@
+﻿@page "/Applications"
+@using NPanelApplication.Shared
+@inject HttpClient Http
+
+<div class="alert alert-success">
+    <h1 class="text-center text-info">Applications</h1>
+</div>
+
+<br />
+<button class="btn btn-primary"> <span class="oi oi-plus" aria-hidden="true"></span> Add New Application</button>
+<br />
+<br />
+<br />
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Application Name</th>
+                <th>Users Count</th>
+                <th>Create Date</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                    <td>
+                        <button class="btn btn-warning" title="Edit"><span class="oi oi-pencil" aria-hidden="true"></span></button>
+                        <button class="btn btn-danger" title="Delete"><span class="oi oi-trash" aria-hidden="true"></span></button>
+                        <button class="btn btn-info" title="Settings"><span class="oi oi-cog" aria-hidden="true"></span></button>
+                        <button class="btn btn-success" title="Users"><span class="oi oi-people" aria-hidden="true"></span></button>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+    }
+
+}
