@@ -14,12 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< Updated upstream
-    <ProjectReference Include="..\Entity\Entity.csproj" />
-=======
     <ProjectReference Include="..\EntityApplications\EntityApplications.csproj" />
     <ProjectReference Include="..\Entity\EntityNpanel.csproj" />
->>>>>>> Stashed changes
   </ItemGroup>
 
 </Project>
