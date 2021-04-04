@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntityNpanel.Roles
+namespace FTeam.EntityNpanel.Roles
 {
-    class Pages
+    public record Pages
     {
     }
 }

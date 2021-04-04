@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntityNpanel.Sessions
+namespace FTeam.EntityNpanel.Sessions
 {
-    class UsersSessions
+    public record UsersSessions
     {
     }
 }

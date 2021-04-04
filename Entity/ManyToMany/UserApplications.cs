@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.ManyToMany
+namespace FTeam.EntityNpanel.ManyToMany
 {
-    class UserApplications
+    public record UserApplications
     {
     }
 }

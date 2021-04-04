@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntityNpanel.ManyToMany
+namespace FTeam.EntityNpanel.ManyToMany
 {
-    class RoleAccessPages
+    public record RoleAccessPages
     {
     }
 }
