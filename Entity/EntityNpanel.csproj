@@ -5,13 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UsersApplications\**" />
+    <EmbeddedResource Remove="UsersApplications\**" />
+    <None Remove="UsersApplications\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="ManyToMany\" />
     <Folder Include="Roles\" />
-    <Folder Include="UsersApplications\ManyToMany\" />
-    <Folder Include="UsersApplications\Roles\" />
-    <Folder Include="UsersApplications\Sessions\" />
-    <Folder Include="UsersApplications\Users\" />
-    <Folder Include="Users\" />
   </ItemGroup>
 
 </Project>
