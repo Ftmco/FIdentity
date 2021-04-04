@@ -1,5 +1,6 @@
 ﻿@page "/Applications"
 @using NPanelApplication.Shared
+@using FTeam.Entity.Applications
 @inject HttpClient Http
 
 <div class="alert alert-success">
@@ -12,9 +13,9 @@
 <br />
 <br />
 
-@if (forecasts == null)
+@if (applications == null)
 {
-    <p><em>Loading...</em></p>
+    <Loding />
 }
 else
 {
@@ -29,13 +30,13 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var application in applications)
             {
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <td>@application.ApplicationName</td>
+                    <td>10</td>
+                    <td>@application.CreateDate</td>
+                    <td>@application.ApplicationEmail</td>
                     <td>
                         <button class="btn btn-warning" title="Edit"><span class="oi oi-pencil" aria-hidden="true"></span></button>
                         <button class="btn btn-danger" title="Delete"><span class="oi oi-trash" aria-hidden="true"></span></button>
@@ -50,11 +51,11 @@ else
 }
 
 @code {
-    private WeatherForecast[] forecasts;
+    private FTeam.Entity.Applications.Applications[] applications;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+
     }
 
 }
