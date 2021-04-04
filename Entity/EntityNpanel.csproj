@@ -1,12 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ManyToMany\" />
     <Folder Include="Roles\" />
+    <Folder Include="UsersApplications\ManyToMany\" />
     <Folder Include="UsersApplications\Roles\" />
     <Folder Include="UsersApplications\Sessions\" />
     <Folder Include="UsersApplications\Users\" />
