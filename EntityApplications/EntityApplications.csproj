@@ -1,14 +1,11 @@
-<<<<<<< HEAD
-﻿<Project Sdk="Microsoft.NET.Sdk">
-=======
+
 <Project Sdk="Microsoft.NET.Sdk">
->>>>>>> Dependency_Test
+
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
-<<<<<<< HEAD
   <ItemGroup>
     <Folder Include="ManyToMany\" />
     <Folder Include="Roles\" />
@@ -16,6 +13,4 @@
     <Folder Include="Users\" />
   </ItemGroup>
 
-=======
->>>>>>> Dependency_Test
 </Project>

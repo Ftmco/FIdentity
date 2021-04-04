@@ -19,10 +19,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
-<<<<<<< HEAD
+
     <ProjectReference Include="..\EntityApplications\EntityApplications.csproj" />
-=======
->>>>>>> Dependency_Test
+
     <ProjectReference Include="..\Entity\EntityNpanel.csproj" />
     <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
   </ItemGroup>

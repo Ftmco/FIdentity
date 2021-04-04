@@ -1,29 +1,16 @@
-<<<<<<< HEAD
 <Project Sdk="Microsoft.NET.Sdk">
-=======
-﻿<Project Sdk="Microsoft.NET.Sdk">
->>>>>>> Dependency_Test
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
-=======
-<<<<<<<< HEAD:Entity/EntityNpanel.csproj
-========
-<<<<<<< Updated upstream:Entity/Entity.csproj
     <Folder Include="ManyToMany\" />
->>>>>>>> Dependency_Test:Entity/Entity.csproj
     <Folder Include="Roles\" />
     <Folder Include="UsersApplications\ManyToMany\" />
     <Folder Include="UsersApplications\Roles\" />
     <Folder Include="UsersApplications\Sessions\" />
     <Folder Include="UsersApplications\Users\" />
-=======
->>>>>>> Stashed changes:Entity/EntityNpanel.csproj
->>>>>>> Dependency_Test
     <Folder Include="Users\" />
   </ItemGroup>
 

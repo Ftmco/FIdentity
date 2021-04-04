@@ -14,10 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
+
     <ProjectReference Include="..\EntityApplications\EntityApplications.csproj" />
-=======
->>>>>>> Dependency_Test
+
     <ProjectReference Include="..\Entity\EntityNpanel.csproj" />
   </ItemGroup>
 
