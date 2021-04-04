@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FTeam.Entity.Applications;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FTeam.EntityNpanel.ManyToMany
 {
@@ -16,5 +13,15 @@ namespace FTeam.EntityNpanel.ManyToMany
 
         [Key]
         public int UserApplicationsId { get; set; }
+
+        [Required]
+        public Guid UserId { get; set; }
+
+        [Required]
+        public Guid ApplicationId { get; set; }
+
+        public virtual Users.Users Users { get; set; }
+
+        public virtual Applications Applications { get; set; }
     }
 }

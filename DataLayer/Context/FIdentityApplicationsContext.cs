@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FTeam.DataLayer.Context
 {
@@ -11,6 +6,7 @@ namespace FTeam.DataLayer.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseSqlServer("Data Source=45.82.139.103;Initial Catalog=ApplicationsIdentity;user Id=sa;password=1G14ijWA**//");
         }
     }
 }

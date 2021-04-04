@@ -1,4 +1,5 @@
 ﻿using FTeam.Entity.Sessions;
+using FTeam.EntityNpanel.ManyToMany;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -42,5 +43,7 @@ namespace FTeam.Entity.Applications
         //Navigation Properties 
 
         public virtual ICollection<ApplicationSessions> ApplicationSessions { get; set; }
+
+        public virtual ICollection<UserApplications> UserApplications { get; set; }
     }
 }

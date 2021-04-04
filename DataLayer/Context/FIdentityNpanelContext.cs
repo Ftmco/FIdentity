@@ -12,6 +12,7 @@ namespace FTeam.DataLayer.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseSqlServer("Data Source=45.82.139.103;Initial Catalog=NpanelIdentity;user Id=sa;password=1G14ijWA**//");
         }
 
         public DbSet<Users> Users { get; set; }
