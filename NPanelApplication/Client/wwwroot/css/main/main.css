@@ -24,6 +24,13 @@
   .sidebar:hover {
     width: 100px;
   }
+  .sidebar{
+      position:fixed;
+  }
+  .main{
+      width:80%;
+      margin:5px auto;
+  }
 }
 
 @-webkit-keyframes colorAnimate {
