@@ -1,13 +1,28 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager navigationManager
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+@if (false)
+{
+    <div class="page">
+        <div class="sidebar">
+            <NavMenu />
+        </div>
 
-    <div class="main">
-        <div class="content px-4">
-            @Body
+        <div class="main">
+            <div class="content px-4">
+                @Body
+            </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    GetLogin();
+}
+
+@code{
+    protected void GetLogin()
+    {
+        navigationManager.NavigateTo("login");
+    }
+}
