@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientApi", "ClientApi\Clie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityApplications", "EntityApplications\EntityApplications.csproj", "{74AC8C99-1574-4FB5-A0AA-4E4CDD9FD45F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPanelReactApplication", "NPanelReactApplication\NPanelReactApplication.csproj", "{32A092C4-B37A-4633-8B7A-67FC362E3328}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPanelReactApplication", "NPanelReactApplication\NPanelReactApplication.csproj", "{C41C2C03-27E8-4B29-A3AC-1F01AEDB6C6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{74AC8C99-1574-4FB5-A0AA-4E4CDD9FD45F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74AC8C99-1574-4FB5-A0AA-4E4CDD9FD45F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74AC8C99-1574-4FB5-A0AA-4E4CDD9FD45F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{32A092C4-B37A-4633-8B7A-67FC362E3328}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{32A092C4-B37A-4633-8B7A-67FC362E3328}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{32A092C4-B37A-4633-8B7A-67FC362E3328}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{32A092C4-B37A-4633-8B7A-67FC362E3328}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C41C2C03-27E8-4B29-A3AC-1F01AEDB6C6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C41C2C03-27E8-4B29-A3AC-1F01AEDB6C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C41C2C03-27E8-4B29-A3AC-1F01AEDB6C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C41C2C03-27E8-4B29-A3AC-1F01AEDB6C6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
