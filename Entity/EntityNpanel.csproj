@@ -5,7 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Users\" />
+    <Compile Remove="UsersApplications\**" />
+    <EmbeddedResource Remove="UsersApplications\**" />
+    <None Remove="UsersApplications\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ManyToMany\" />
+    <Folder Include="Roles\" />
   </ItemGroup>
 
 </Project>

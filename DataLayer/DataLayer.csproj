@@ -14,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+
     <ProjectReference Include="..\EntityApplications\EntityApplications.csproj" />
+
     <ProjectReference Include="..\Entity\EntityNpanel.csproj" />
   </ItemGroup>
 
