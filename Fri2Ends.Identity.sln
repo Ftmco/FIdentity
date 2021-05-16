@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientApi", "ClientApi\Clie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityApplications", "EntityApplications\EntityApplications.csproj", "{74AC8C99-1574-4FB5-A0AA-4E4CDD9FD45F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPanelReactApplication", "NPanelReactApplication\NPanelReactApplication.csproj", "{C41C2C03-27E8-4B29-A3AC-1F01AEDB6C6A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panel", "Panel\Panel.csproj", "{F1D40B31-5096-4C9E-B558-0EA59AA180D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{74AC8C99-1574-4FB5-A0AA-4E4CDD9FD45F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74AC8C99-1574-4FB5-A0AA-4E4CDD9FD45F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74AC8C99-1574-4FB5-A0AA-4E4CDD9FD45F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C41C2C03-27E8-4B29-A3AC-1F01AEDB6C6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C41C2C03-27E8-4B29-A3AC-1F01AEDB6C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C41C2C03-27E8-4B29-A3AC-1F01AEDB6C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C41C2C03-27E8-4B29-A3AC-1F01AEDB6C6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1D40B31-5096-4C9E-B558-0EA59AA180D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1D40B31-5096-4C9E-B558-0EA59AA180D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1D40B31-5096-4C9E-B558-0EA59AA180D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1D40B31-5096-4C9E-B558-0EA59AA180D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

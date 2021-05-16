@@ -9,20 +9,21 @@ export class ApplicationList extends Component {
     constructor(props) {
         super(props);
         this.state = { applications: [], loading: true };
+        this.addNewApplication = this.addNewApplication.bind(this);
     }
 
     componentDidMount() {
         this.fetchApplications();
     }
 
-    addNewApplication() {
-        alert("New Applciation");
+    addNewApplication = () => {
+        console.log('clicked');
     }
 
     static renderApplications(applications) {
         return (
             <div>
-                <button className="btn btn-primary" onClick={() => { addNewApplication(); }} title="Add New Application"><icons.FaPlus /> Add New Application</button>
+                <button className="btn btn-primary" onClick={this.addNewApplication} title="Add New Application"><icons.FaPlus /> Add New Application</button>
                 <br />
                 <br />
                 <table className="table table-custome">

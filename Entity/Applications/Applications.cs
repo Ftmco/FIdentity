@@ -14,7 +14,7 @@ namespace FTeam.Entity.Applications
         }
 
         [Key]
-        public Guid ApplicationId { get; set; }
+        public Guid Id { get; set; }
 
         [Display(Name = "نام اپلیکیشن")]
         [Required]

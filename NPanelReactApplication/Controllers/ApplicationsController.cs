@@ -18,9 +18,9 @@ namespace NPanelReactApplication.Controllers
             IList<Applications> result = new List<Applications>();
             result.Add(new()
             {
+                Id = Guid.NewGuid(),
                 ApplicationEmail = "a@gmail.com",
                 ApplicationIcon = "test.jpg",
-                ApplicationId = Guid.NewGuid(),
                 ApplicationName = "test Applications",
                 ApplicationPassword = "as;d;kas kkdpasi ",
                 CreateDate = DateTime.Now,
@@ -31,7 +31,7 @@ namespace NPanelReactApplication.Controllers
             {
                 ApplicationEmail = "a@gmail.com2",
                 ApplicationIcon = "test2.jpg",
-                ApplicationId = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 ApplicationName = "test Applications2",
                 ApplicationPassword = "as;d;kas kkdpasi 2",
                 CreateDate = DateTime.Now,
