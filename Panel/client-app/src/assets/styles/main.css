@@ -1,0 +1,17 @@
+﻿.main-layout{
+    width:80%;
+    margin:2px auto;
+}
+
+/* typical phone screen resolution */
+@media only screen and (max-width : 667px) {
+    .main-layout{
+        width:98%;
+    }
+}
+/* landscape orientation */
+@media only screen and (min-width : 375px) and (max-width : 667px) and (orientation : landscape) {
+}
+/* portrait orientation */
+@media only screen and (min-width : 375px) and (max-width : 667px) and (orientation : portrait) {
+}
